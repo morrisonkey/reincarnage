@@ -53,10 +53,6 @@
 
   function update(){
 
-    platforms.each(function(platform){
-      platform.x -=1
-      });
-
     game.physics.arcade.collide(player, platforms);
 
     player.body.velocity.x = 0;
