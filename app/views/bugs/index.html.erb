@@ -29,12 +29,25 @@
 
     ground.body.immovable = true;
 
-    ledge = platforms.create(400, 400, 'ground');
-
+    var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 250, 'ground');
+    ledge = platforms.create(800, 250, 'ground');
+    ledge.body.immovable = true;
 
+    ledge = platforms.create(1200, 450, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(1600, 350, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(2000, 250, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(2400, 350, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(2800, 450, 'ground');
     ledge.body.immovable = true;
 
     player = game.add.sprite(32, game.world.height - 150, 'frog')
@@ -52,6 +65,10 @@
   }
 
   function update(){
+
+    platforms.forEach(function(platform){
+      platform.body.velocity.x = -150
+      });
 
     game.physics.arcade.collide(player, platforms);
 
