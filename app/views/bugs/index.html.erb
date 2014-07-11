@@ -53,8 +53,8 @@
     player = game.add.sprite(32, game.world.height - 150, 'frog')
     game.physics.arcade.enable(player);
 
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
+    player.body.bounce.y = 0.1;
+    player.body.gravity.y = 400;
     player.body.collideWorldBounds = true;
 
     player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -67,7 +67,7 @@
   function update(){
 
     platforms.forEach(function(platform){
-      platform.body.velocity.x = -150
+      platform.body.velocity.x = -100
       });
 
     game.physics.arcade.collide(player, platforms);
@@ -77,16 +77,22 @@
     if (cursors.left.isDown)
     {
       // move player to left
-      player.body.velocity.x = -150
+      player.body.velocity.x = -200
 
       player.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
       // move player right
-      player.body.velocity.x = 150
+      player.body.velocity.x = 200
 
       player.animations.play('right');
+    }
+    else if (cursors.down.isDown)
+    {
+      player.body.velocity.y = 400;
+
+      player.frame = 4;
     }
     else
     {
