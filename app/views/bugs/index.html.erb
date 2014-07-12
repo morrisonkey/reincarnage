@@ -12,6 +12,7 @@
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
     game.load.image('log1', '/images/platform01.png');
     game.load.image('log2', '/images/platform02.png');
+    // main images for world
     // game.load.image('log3', '/images/log3');
     // game.load.image('log4', '/images/log4');
     // game.load.image('log5', '/images/log5');
@@ -30,6 +31,7 @@
     // game.load.image('rock3', '/images/rock3');
     // game.load.image('water1', '/images/water1');
     // game.load.image('water2', '/images/water2');
+    // level 1 images
     // game.load.image('acorn', '/images/acorn');
     // game.load.image('branch1', '/images/branch1');
     // game.load.image('branch2', '/images/branch2');
@@ -37,16 +39,19 @@
     // game.load.image('branch4', '/images/branch4');
     // game.load.image('branch5', '/images/branch5');
     // game.load.image('cobweb', '/images/cobweb');
-    // game.load.image('webstring', '/images/webstring');
-    // game.load.image('crosshair', '/images/crosshair');
     // game.load.spritesheet('bug', '/images/bug');
+    // level 2 images
+    // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
     // game.load.spritesheet('frogmouth', '/images/frogmouth');
-    // game.load.spritesheet('frog', '/images/frog');
+    // level 3 images
+    game.load.spritesheet('frog', '/images/frog.png', 115, 65);
     // game.load.spritesheet('frogtongue', '/images/frogtongue');
     // game.load.spritesheet('fly1', '/images/fly1');
     // game.load.spritesheet('fly2', '/images/fly2');
     // game.load.spritesheet('bird1', '/images/bird1');
+    // level 4 images
+    // game.load.image('crosshair', '/images/crosshair');
     // game.load.spritesheet('bird2', '/images/bird2');
     // game.load.spritesheet('bird3', '/images/bird3');
     // game.load.spritesheet('fallingbird', '/images/fallingbird');
@@ -56,7 +61,7 @@
 
   function create(){
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.NINJA);
 
     game.add.sprite(0, 0, 'paper');
 
@@ -78,28 +83,28 @@
     function logFloat() {
     var ledge = platforms.create(1100, 688, 'log1');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -100;
+    ledge.body.velocity.x = -90;
     var ledge = platforms.create(1500, 690, 'log2');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -100;
+    ledge.body.velocity.x = -90;
     var ledge = platforms.create(1900, 687, 'log2');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -100;
+    ledge.body.velocity.x = -90;
     var ledge = platforms.create(2250, 689, 'log1');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -100;
-    tid = setTimeout(logFloat, 15500); // repeat myself
+    ledge.body.velocity.x = -90;
+    tid = setTimeout(logFloat, 17000); // repeat myself
     }
 
-    player = game.add.sprite(1002, game.world.height - 450, 'dude')
-    game.physics.arcade.enable(player);
+    frog = game.add.sprite(1002, game.world.height - 1000, 'frog')
+    game.physics.arcade.enable(frog);
 
-    player.body.bounce.y = 0.1;
-    player.body.gravity.y = 400;
-    player.body.collideWorldBounds = true;
+    frog.body.bounce.y = 0.1;
+    frog.body.gravity.y = 1000;
+    frog.body.collideWorldBounds = true;
 
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+    frog.animations.add('left', [0, 1, 2], 6, true);
+    frog.animations.add('right', [3, 4, 5], 6, true);
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -107,40 +112,54 @@
 
   function update(){
 
-    game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(frog, platforms);
 
-    player.body.velocity.x = 0;
-
-    if (cursors.left.isDown)
+    if (frog.body.touching.down)
     {
-      // move player to left
-      player.body.velocity.x = -200
-
-      player.animations.play('left');
+    frog.body.velocity.x = 0;
     }
-    else if (cursors.right.isDown)
-    {
-      // move player right
-      player.body.velocity.x = 200
 
-      player.animations.play('right');
+    if (cursors.left.isDown && frog.body.touching.down)
+    {
+      // hop frog to left
+      frog.body.velocity.y = -100
+
+      frog.body.velocity.x = -200
+
+      frog.animations.play('left');
     }
-    else if (cursors.down.isDown)
+    else if (cursors.right.isDown && frog.body.touching.down)
     {
-      player.body.velocity.y = 400;
+      // hop frog right
+      frog.body.velocity.y = -100
 
-      player.frame = 4;
+      frog.body.velocity.x = 200
+
+      frog.animations.play('right');
+
     }
     else
     {
-      player.animations.stop();
+      frog.animations.stop();
 
-      player.frame = 4;
+      frog.frame = 4;
     }
 
-    if (cursors.up.isDown && player.body.touching.down)
+    if (cursors.up.isDown && frog.body.touching.down)
     {
-      player.body.velocity.y = -350;
+      frog.body.velocity.y = -450;
+      if (cursors.left.isDown)
+      {
+        frog.body.velocity.x = -200
+
+        frog.animations.play('left');
+      }
+      else if (cursors.right.isDown)
+      {
+        frog.body.velocity.x = 200
+
+        frog.animations.play('right');
+      }
     }
 
   }
