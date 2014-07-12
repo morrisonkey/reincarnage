@@ -2,16 +2,54 @@
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+  game.camera = Phaser.Camera(200,200)
+
   function preload(){
 
     game.load.image('paper', '/images/paperbackground.jpg');
     game.load.image('treehouse', '/images/reincarnagebackdropidea.png');
-    game.load.image('sky', '/images/sky.png');
+    game.load.image('star', '/images/star.png');
+    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
     game.load.image('log1', '/images/platform01.png');
     game.load.image('log2', '/images/platform02.png');
-    game.load.image('star', '/images/star.png');
-    game.load.spritesheet('frog', '/images/dude.png', 32, 48);
-
+    // game.load.image('log3', '/images/log3');
+    // game.load.image('log4', '/images/log4');
+    // game.load.image('log5', '/images/log5');
+    // game.load.image('sawmill', '/images/sawmill');
+    // game.load.image('cloud1', '/images/cloud1');
+    // game.load.image('cloud2', '/images/cloud2');
+    // game.load.image('cloud3', '/images/cloud3');
+    // game.load.image('cloud4', '/images/cloud4');
+    // game.load.image('treetop', '/images/treetop');
+    // game.load.image('treetrunk', '/images/treetrunk');
+    // game.load.image('grass1', '/images/grass1');
+    // game.load.image('grass2', '/images/grass2');
+    // game.load.image('grass3', '/images/grass3');
+    // game.load.image('rock1', '/images/rock1');
+    // game.load.image('rock2', '/images/rock2');
+    // game.load.image('rock3', '/images/rock3');
+    // game.load.image('water1', '/images/water1');
+    // game.load.image('water2', '/images/water2');
+    // game.load.image('acorn', '/images/acorn');
+    // game.load.image('branch1', '/images/branch1');
+    // game.load.image('branch2', '/images/branch2');
+    // game.load.image('branch3', '/images/branch3');
+    // game.load.image('branch4', '/images/branch4');
+    // game.load.image('branch5', '/images/branch5');
+    // game.load.image('cobweb', '/images/cobweb');
+    // game.load.image('webstring', '/images/webstring');
+    // game.load.image('crosshair', '/images/crosshair');
+    // game.load.spritesheet('bug', '/images/bug');
+    // game.load.spritesheet('hangingspider', '/images/hangingspider');
+    // game.load.spritesheet('frogmouth', '/images/frogmouth');
+    // game.load.spritesheet('frog', '/images/frog');
+    // game.load.spritesheet('frogtongue', '/images/frogtongue');
+    // game.load.spritesheet('fly1', '/images/fly1');
+    // game.load.spritesheet('fly2', '/images/fly2');
+    // game.load.spritesheet('bird1', '/images/bird1');
+    // game.load.spritesheet('bird2', '/images/bird2');
+    // game.load.spritesheet('bird3', '/images/bird3');
+    // game.load.spritesheet('fallingbird', '/images/fallingbird');
   }
 
   var platforms;
@@ -24,6 +62,7 @@
 
     game.add.sprite(0, 0, 'treehouse');
 
+    game.world.setBounds(0, 0, 10, 10);
 
     platforms = game.add.group();
 
@@ -52,7 +91,7 @@
     tid = setTimeout(logFloat, 15500); // repeat myself
     }
 
-    player = game.add.sprite(1002, game.world.height - 450, 'frog')
+    player = game.add.sprite(1002, game.world.height - 450, 'dude')
     game.physics.arcade.enable(player);
 
     player.body.bounce.y = 0.1;
