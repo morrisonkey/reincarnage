@@ -1,11 +1,14 @@
 <script type="text/javascript">
 
-  var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
   function preload(){
 
+    game.load.image('paper', '/images/paperbackground.jpg');
+    game.load.image('treehouse', '/images/reincarnagebackdropidea.png');
     game.load.image('sky', '/images/sky.png');
-    game.load.image('ground', '/images/platform.png');
+    game.load.image('log1', '/images/platform01.png');
+    game.load.image('log2', '/images/platform02.png');
     game.load.image('star', '/images/star.png');
     game.load.spritesheet('frog', '/images/dude.png', 32, 48);
 
@@ -17,40 +20,39 @@
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.add.sprite(0, 0, 'sky');
+    game.add.sprite(0, 0, 'paper');
+
+    game.add.sprite(0, 0, 'treehouse');
+
 
     platforms = game.add.group();
 
     platforms.enableBody = true;
 
-    var ground = platforms.create(0, game.world.height -84, 'ground');
+    var ground = platforms.create(0, game.world.height -5, 'log1');
 
     ground.scale.setTo(50,3);
 
     ground.body.immovable = true;
 
-    var ledge = platforms.create(400, 400, 'ground');
+    var tid = setTimeout(logFloat);
+    function logFloat() {
+    var ledge = platforms.create(1100, 688, 'log1');
     ledge.body.immovable = true;
-
-    ledge = platforms.create(800, 250, 'ground');
+    ledge.body.velocity.x = -100;
+    var ledge = platforms.create(1500, 690, 'log2');
     ledge.body.immovable = true;
-
-    ledge = platforms.create(1200, 450, 'ground');
+    ledge.body.velocity.x = -100;
+    var ledge = platforms.create(1900, 687, 'log2');
     ledge.body.immovable = true;
-
-    ledge = platforms.create(1600, 350, 'ground');
+    ledge.body.velocity.x = -100;
+    var ledge = platforms.create(2250, 689, 'log1');
     ledge.body.immovable = true;
+    ledge.body.velocity.x = -100;
+    tid = setTimeout(logFloat, 15500); // repeat myself
+    }
 
-    ledge = platforms.create(2000, 250, 'ground');
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(2400, 350, 'ground');
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(2800, 450, 'ground');
-    ledge.body.immovable = true;
-
-    player = game.add.sprite(32, game.world.height - 150, 'frog')
+    player = game.add.sprite(1002, game.world.height - 450, 'frog')
     game.physics.arcade.enable(player);
 
     player.body.bounce.y = 0.1;
@@ -65,10 +67,6 @@
   }
 
   function update(){
-
-    platforms.forEach(function(platform){
-      platform.body.velocity.x = -100
-      });
 
     game.physics.arcade.collide(player, platforms);
 
