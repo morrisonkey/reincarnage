@@ -61,7 +61,7 @@
 
   function create(){
 
-    game.physics.startSystem(Phaser.Physics.NINJA);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.add.sprite(0, 0, 'paper');
 
@@ -79,24 +79,43 @@
 
     ground.body.immovable = true;
 
+    cursors = game.input.keyboard.createCursorKeys();
+
+    ledge = platforms.create(0, 50, 'log1');
+    ledge.body.immovable = true;
+    ledge = platforms.create(100, 150, 'log1');
+    ledge.body.immovable = true;
+    ledge = platforms.create(200, 250, 'log1');
+    ledge.body.immovable = true;
+    ledge = platforms.create(300, 350, 'log1');
+    ledge.body.immovable = true;
+
+
     var tid = setTimeout(logFloat);
     function logFloat() {
-    var ledge = platforms.create(1100, 688, 'log1');
+    ledge = platforms.create(1100, 688, 'log1');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -90;
-    var ledge = platforms.create(1500, 690, 'log2');
+    ledge = platforms.create(1500, 690, 'log2');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -90;
-    var ledge = platforms.create(1900, 687, 'log2');
+    ledge.body.velocity.x = -92;
+    ledge = platforms.create(1900, 687, 'log2');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -90;
-    var ledge = platforms.create(2250, 689, 'log1');
+    ledge.body.velocity.x = -88;
+    ledge = platforms.create(2250, 689, 'log1');
     ledge.body.immovable = true;
-    ledge.body.velocity.x = -90;
+    ledge.body.velocity.x = -91;
     tid = setTimeout(logFloat, 17000); // repeat myself
     }
 
-    frog = game.add.sprite(1002, game.world.height - 1000, 'frog')
+    var acorns = setTimeout(acornBounce);
+    function acornBounce() {
+    acorn = platforms.create(-15, 0, 'star');
+    acorn.body.velocity.x = 5;
+    acorns = setTimeout(acornBounce, 17000); // repeat myself
+    }
+
+    frog = game.add.sprite(0, game.world.height - 1000, 'dude')
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
@@ -106,6 +125,10 @@
     frog.animations.add('left', [0, 1, 2], 6, true);
     frog.animations.add('right', [3, 4, 5], 6, true);
 
+    
+    acorn.body.bounce.y = 0.1;
+    acorn.body.gravity.y = 1000;
+
     cursors = game.input.keyboard.createCursorKeys();
 
   }
@@ -113,6 +136,7 @@
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
+    game.physics.arcade.collide(acorn, platforms);
 
     if (frog.body.touching.down)
     {
