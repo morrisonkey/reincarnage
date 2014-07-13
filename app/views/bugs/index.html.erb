@@ -1,51 +1,53 @@
 <script type="text/javascript">
 
-  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-
-  game.camera = Phaser.Camera(200,200)
+  var game = new Phaser.Game(2048, 1536, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
   function preload(){
 
-    game.load.image('paper', '/images/paperbackground.jpg');
-    game.load.image('treehouse', '/images/reincarnagebackdropidea.png');
-    game.load.image('star', '/images/star.png');
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
-    game.load.image('log1', '/images/platform01.png');
-    game.load.image('log2', '/images/platform02.png');
+
     // main images for world
-    // game.load.image('log3', '/images/log3');
-    // game.load.image('log4', '/images/log4');
-    // game.load.image('log5', '/images/log5');
-    // game.load.image('sawmill', '/images/sawmill');
-    // game.load.image('cloud1', '/images/cloud1');
-    // game.load.image('cloud2', '/images/cloud2');
-    // game.load.image('cloud3', '/images/cloud3');
-    // game.load.image('cloud4', '/images/cloud4');
-    // game.load.image('treetop', '/images/treetop');
-    // game.load.image('treetrunk', '/images/treetrunk');
-    // game.load.image('grass1', '/images/grass1');
-    // game.load.image('grass2', '/images/grass2');
-    // game.load.image('grass3', '/images/grass3');
-    // game.load.image('rock1', '/images/rock1');
-    // game.load.image('rock2', '/images/rock2');
-    // game.load.image('rock3', '/images/rock3');
-    // game.load.image('water1', '/images/water1');
-    // game.load.image('water2', '/images/water2');
+    game.load.image('background', '/images/background.png');
+    game.load.image('backgroundKey', '/images/background_key.png');
+    game.load.image('log1', '/images/log_1.png');
+    game.load.image('log2', '/images/log_2.png');
+    game.load.image('log3', '/images/log_3.png');
+    game.load.image('log4', '/images/log_4.png');
+    game.load.image('sawmill', '/images/sawmill.png');
+    game.load.image('wheel', '/images/wheel.png');
+    game.load.image('cloud1', '/images/cloud_1.png');
+    game.load.image('cloud2', '/images/cloud_2.png');
+    game.load.image('cloud3', '/images/cloud_3.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
+    game.load.image('cloud5', '/images/cloud_5.png');
+    game.load.image('cloud6', '/images/cloud_6.png');
+    game.load.image('tree', '/images/tree.png');
+    game.load.image('grass1', '/images/grass_1.png');
+    game.load.image('grass2', '/images/grass_2.png');
+    game.load.image('grass3', '/images/grass_3.png');
+    game.load.image('grass4', '/images/grass_4.png');
+    game.load.image('rock1', '/images/rock_1.png');
+    game.load.image('rock2', '/images/rock_2.png');
     // level 1 images
-    // game.load.image('acorn', '/images/acorn');
-    // game.load.image('branch1', '/images/branch1');
-    // game.load.image('branch2', '/images/branch2');
-    // game.load.image('branch3', '/images/branch3');
-    // game.load.image('branch4', '/images/branch4');
-    // game.load.image('branch5', '/images/branch5');
-    // game.load.image('cobweb', '/images/cobweb');
-    // game.load.spritesheet('bug', '/images/bug');
+    game.load.image('levelOneBackground', '/images/level_1_background.png');
+    game.load.image('acorn1', '/images/acorn_1.png');
+    game.load.image('acorn2', '/images/acorn_2.png');
+    game.load.image('acorn3', '/images/acorn_3.png');
+    game.load.image('acorn4', '/images/acorn_4.png');
+    game.load.image('acorn5', '/images/acorn_5.png');
+    game.load.image('branch1', '/images/branch_1.png');
+    game.load.image('branch2', '/images/branch_2.png');
+    game.load.image('branch3', '/images/branch_3.png');
+    game.load.image('branch4', '/images/branch_4.png');
+    game.load.image('cobweb', '/images/cobweb.png');
+    game.load.image('spider', '/images/spider.png');
     // level 2 images
     // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
     // game.load.spritesheet('frogmouth', '/images/frogmouth');
     // level 3 images
-    game.load.spritesheet('frog', '/images/frog.png', 115, 65);
+    game.load.image('smilingfrog', '/images/frog_mouth_open.png');
+    game.load.image('frog', '/images/frog_mouth_closed.png');
     // game.load.spritesheet('frogtongue', '/images/frogtongue');
     // game.load.spritesheet('fly1', '/images/fly1');
     // game.load.spritesheet('fly2', '/images/fly2');
@@ -63,11 +65,7 @@
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.add.sprite(0, 0, 'paper');
-
-    game.add.sprite(0, 0, 'treehouse');
-
-    game.world.setBounds(0, 0, 10, 10);
+    game.add.sprite(0, 0, 'backgroundKey');
 
     platforms = game.add.group();
 
@@ -194,6 +192,12 @@
         frog.animations.play('right');
       }
     }
+
+  }
+
+  function render(){
+
+    game.debug.cameraInfo(game.camera, 32, 32);
 
   }
 
