@@ -73,6 +73,10 @@
 
     platforms.enableBody = true;
 
+    acorns = game.add.group();
+
+    acorns.enableBody = true;
+
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
     ground.scale.setTo(50,3);
@@ -108,14 +112,18 @@
     tid = setTimeout(logFloat, 17000); // repeat myself
     }
 
-    var acorns = setTimeout(acornBounce);
+    acorn = ''
+
+    var nuts = setTimeout(acornBounce);
     function acornBounce() {
-    acorn = platforms.create(-15, 0, 'star');
-    acorn.body.velocity.x = 5;
-    acorns = setTimeout(acornBounce, 17000); // repeat myself
+    acorn = acorns.create(0, 0, 'star');
+    acorn.body.velocity.x = 500;
+    acorn.body.bounce.y = 0.1;
+    acorn.body.gravity.y = 1000;
+    nuts = setTimeout(acornBounce, 2000000); // repeat myself
     }
 
-    frog = game.add.sprite(0, game.world.height - 1000, 'dude')
+    frog = game.add.sprite(250, game.world.height - 1000, 'dude')
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
@@ -125,9 +133,9 @@
     frog.animations.add('left', [0, 1, 2], 6, true);
     frog.animations.add('right', [3, 4, 5], 6, true);
 
-    
-    acorn.body.bounce.y = 0.1;
-    acorn.body.gravity.y = 1000;
+    game.physics.arcade.enable(acorn);
+
+    frog.body.collideWorldBounds = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -137,6 +145,7 @@
 
     game.physics.arcade.collide(frog, platforms);
     game.physics.arcade.collide(acorn, platforms);
+    game.physics.arcade.collide(acorn, frog);
 
     if (frog.body.touching.down)
     {
