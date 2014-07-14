@@ -98,9 +98,6 @@
 
     game.add.image(655, 560, 'grass4');
 
-    var logo = game.add.image(390, 40, 'logo');
-    logo.scale.x = game.rnd.realInRange(.26, .26);
-    logo.scale.y = game.rnd.realInRange(.26, .26);
 
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
@@ -112,6 +109,11 @@
     acorns = game.add.group();
 
     acorns.enableBody = true;
+
+    var logo = platforms.create(390, 40, 'logo');
+    logo.scale.x = game.rnd.realInRange(.26, .26);
+    logo.scale.y = game.rnd.realInRange(.26, .26);
+    logo.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -157,7 +159,7 @@
     // nuts = setTimeout(acornBounce, 2000000); // repeat myself
     // }
 
-    frog = game.add.sprite(180, game.world.height - 1000, 'smilingfrog')
+    frog = game.add.sprite(780, game.world.height - 1000, 'smilingfrog')
     frog.scale.x = game.rnd.realInRange(0.1, .1);
     frog.scale.y = game.rnd.realInRange(0.1, .1);
     game.physics.arcade.enable(frog);
