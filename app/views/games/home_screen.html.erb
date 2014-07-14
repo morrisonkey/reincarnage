@@ -133,8 +133,9 @@
 
 
 // set interval
+
+    game.time.events.loop(Phaser.Timer.SECOND * 17, logFloat, this);
     logFloat();
-    var tid = setInterval(logFloat, 17000);
     function logFloat() {
     ledge = platforms.create(1100, 685, 'log1');
     ledge.body.immovable = true;
@@ -175,8 +176,6 @@
 
     game.physics.arcade.enable(acorn);
 
-    frog.body.collideWorldBounds = true;
-
     cursors = game.input.keyboard.createCursorKeys();
 
   }
@@ -185,6 +184,9 @@
 
     spinningWheel.angle += 1;
 
+
+    game.time.events.loop(Phaser.Timer.SECOND * 6, cloudMovement, this);
+    cloudMovement();
     var breeze = setTimeout(cloudMovement1);
     function cloudMovement1(){
     cloud1.angle -= .03;
