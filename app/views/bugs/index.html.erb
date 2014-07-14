@@ -131,7 +131,10 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    var tid = setTimeout(logFloat);
+
+// set interval
+    logFloat();
+    var tid = setInterval(logFloat, 17000);
     function logFloat() {
     ledge = platforms.create(1100, 685, 'log1');
     ledge.body.immovable = true;
@@ -145,7 +148,6 @@
     ledge = platforms.create(2250, 689, 'log2');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -91;
-    tid = setTimeout(logFloat, 17000); // repeat myself
     }
 
     acorn = ''
