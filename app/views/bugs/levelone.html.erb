@@ -1,0 +1,209 @@
+<script type="text/javascript">
+
+  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+
+
+  function preload(){
+
+    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
+
+    // main images for world
+    game.load.image('background', '/images/background.png');
+    game.load.image('backgroundKey', '/images/background_key.png');
+    game.load.image('log1', '/images/log_1.png');
+    game.load.image('log2', '/images/log_2.png');
+    game.load.image('log3', '/images/log_3.png');
+    game.load.image('log4', '/images/log_4.png');
+    game.load.image('sawmill', '/images/sawmill.png');
+    game.load.image('wheel', '/images/wheel.png');
+    game.load.image('cloud1', '/images/cloud_1.png');
+    game.load.image('cloud2', '/images/cloud_2.png');
+    game.load.image('cloud3', '/images/cloud_3.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
+    game.load.image('cloud5', '/images/cloud_5.png');
+    game.load.image('cloud6', '/images/cloud_6.png');
+    game.load.image('tree', '/images/tree.png');
+    game.load.image('grass1', '/images/grass_1.png');
+    game.load.image('grass2', '/images/grass_2.png');
+    game.load.image('grass3', '/images/grass_3.png');
+    game.load.image('grass4', '/images/grass_4.png');
+    game.load.image('rock1', '/images/rock_1.png');
+    game.load.image('rock2', '/images/rock_2.png');
+    // level 1 images
+    game.load.image('levelOneBackground', '/images/level_1_background.png');
+    game.load.image('greenBackdrop', '/images/green_backdrop.png');
+    game.load.image('whiteBackdrop', '/images/whiteBackground.png');
+    game.load.image('acorn1', '/images/acorn_1.png');
+    game.load.image('acorn2', '/images/acorn_2.png');
+    game.load.image('acorn3', '/images/acorn_3.png');
+    game.load.image('acorn4', '/images/acorn_4.png');
+    game.load.image('acorn5', '/images/acorn_5.png');
+    game.load.image('branch1', '/images/branch_1.png');
+    game.load.image('branch2', '/images/branch_2.png');
+    game.load.image('branch3', '/images/branch_3.png');
+    game.load.image('branch4', '/images/branch_4.png');
+    game.load.image('cobweb', '/images/cobweb.png');
+    game.load.image('spider', '/images/spider.png');
+    // level 2 images
+    // game.load.image('webstring', '/images/webstring');
+    // game.load.spritesheet('hangingspider', '/images/hangingspider');
+    // game.load.spritesheet('frogmouth', '/images/frogmouth');
+    // level 3 images
+    game.load.image('smilingfrog', '/images/frog_mouth_open.png');
+    game.load.image('frog', '/images/frog_mouth_closed.png');
+    // game.load.spritesheet('frogtongue', '/images/frogtongue');
+    // game.load.spritesheet('fly1', '/images/fly1');
+    // game.load.spritesheet('fly2', '/images/fly2');
+    // game.load.spritesheet('bird1', '/images/bird1');
+    // level 4 images
+    // game.load.image('crosshair', '/images/crosshair');
+    // game.load.spritesheet('bird2', '/images/bird2');
+    // game.load.spritesheet('bird3', '/images/bird3');
+    // game.load.spritesheet('fallingbird', '/images/fallingbird');
+  }
+
+  var platforms;
+
+  function create(){
+
+    game.physics.startSystem(Phaser.Physics.NINJA);
+
+    game.add.image(0, 0, 'whiteBackdrop').scale.setTo(50,50);
+
+    game.add.image(0, 0, 'levelOneBackground').scale.setTo(1.6,1.8);
+
+    // game.add.image(0, 0, 1024, 768, 'greenBackdrop');
+
+
+    // background = game.add.image(0, 0, 1024, 768, 'levelOneBackground');
+
+
+    platforms = game.add.group();
+
+    platforms.enableBody = true;
+
+    acorns = game.add.group();
+
+    acorns.enableBody = true;
+
+    var ground = platforms.create(0, game.world.height -5, 'log1');
+
+    ground.scale.setTo(50,3);
+
+    ground.body.immovable = true;
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+    acorn = ''
+
+    var nuts = setTimeout(acornBounce);
+    function acornBounce() {
+    acorn = acorns.create(0, 0, 'acorn1');
+    acorn.body.velocity.x = 500;
+    acorn.body.bounce.y = 0.1;
+    acorn.body.gravity.y = 1000;
+    nuts = setTimeout(acornBounce, 2000000); // repeat myself
+    }
+
+    frog = game.add.sprite(180, game.world.height - 1000, 'dude')
+    game.physics.ninja.enable(frog);
+
+    frog.body.bounce.y = 0.1;
+    frog.body.gravity.y = 1000;
+    frog.body.collideWorldBounds = true;
+
+    frog.animations.add('left', [0, 1, 2], 6, true);
+    frog.animations.add('right', [3, 4, 5], 6, true);
+
+    game.physics.ninja.enable(acorn);
+
+    frog.body.collideWorldBounds = true;
+    acorn.body.collideWorldBounds = true;
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+  }
+
+  function update(){
+
+    if (cursors.left.isDown)
+    {
+        frog.body.moveLeft(20);
+        frog.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        frog.body.moveRight(20);
+    }
+
+    if (cursors.up.isDown)
+    {
+        frog.body.moveUp(20);
+    }
+
+    // spinningWheel.angle += 1;
+
+    // game.physics.arcade.collide(frog, platforms);
+    // game.physics.arcade.collide(acorn, platforms);
+    // game.physics.arcade.collide(acorn, frog);
+    // game.physics.arcade.collide(frog, spinningWheel)
+
+    // if (frog.body.touching.down)
+    // {
+    // frog.body.velocity.x = 0;
+    // }
+
+    // if (cursors.left.isDown)
+    // {
+    //   // hop frog to left
+    //   frog.body.moveLeft(20);
+
+    //   // frog.animations.play('left');
+    // }
+    // else if (cursors.right.isDown)
+    // {
+    //   // hop frog right
+    //   frog.body.moveRight(20);
+
+    //   // frog.animations.play('right');
+
+    // }
+    // else
+    // {
+    //   frog.animations.stop();
+
+    //   frog.frame = 4;
+    // }
+
+    // if (cursors.up.isDown && frog.body.touching.down)
+    // {
+    //   frog.body.velocity.y = -450;
+    //   if (cursors.left.isDown)
+    //   {
+    //     frog.body.velocity.x = -200
+
+    //     frog.animations.play('left');
+    //   }
+    //   else if (cursors.right.isDown)
+    //   {
+    //     frog.body.velocity.x = 200
+
+    //     frog.animations.play('right');
+    //   }
+    // }
+
+  }
+
+  function render(){
+
+    game.debug.cameraInfo(game.camera, 32, 32);
+
+  }
+
+
+  </script>
+
+
+
+
