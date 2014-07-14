@@ -67,26 +67,26 @@
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.add.image(0, 0, 'background');
+    game.add.image(0, 0, 'levelOneBackground');
 
-    game.add.image(0, 15, 'cloud1');
+    // game.add.image(0, 15, 'cloud1');
 
-    game.add.image(0, 380, 'cloud2');
+    // game.add.image(0, 380, 'cloud2');
 
-    game.add.image(335, 85, 'cloud3');
+    // game.add.image(335, 85, 'cloud3');
 
-    game.add.image(595, 270, 'cloud4');
+    // game.add.image(595, 270, 'cloud4');
 
-    game.add.image(650, 30, 'cloud5');
+    // game.add.image(650, 30, 'cloud5');
 
-    game.add.image(854, 258, 'cloud6');
+    // game.add.image(854, 258, 'cloud6');
 
-    game.add.image(25, 40, 'tree');
+    // game.add.image(25, 40, 'tree');
 
-    game.add.image(760, 415, 'sawmill');
+    // game.add.image(760, 415, 'sawmill');
 
-    spinningWheel = game.add.image(1000, 620, 'wheel');
-    spinningWheel.anchor.setTo(0.5, 0.5);
+    // spinningWheel = game.add.image(1000, 620, 'wheel');
+    // spinningWheel.anchor.setTo(0.5, 0.5);
 
     platforms = game.add.group();
 
@@ -112,22 +112,22 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    var tid = setTimeout(logFloat);
-    function logFloat() {
-    ledge = platforms.create(1100, 685, 'log1');
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -90;
-    ledge = platforms.create(1500, 680, 'log3');
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -92;
-    ledge = platforms.create(1900, 680, 'log4');
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -88;
-    ledge = platforms.create(2250, 689, 'log2');
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -91;
-    tid = setTimeout(logFloat, 17000); // repeat myself
-    }
+    // var tid = setTimeout(logFloat);
+    // function logFloat() {
+    // ledge = platforms.create(1100, 685, 'log1');
+    // ledge.body.immovable = true;
+    // ledge.body.velocity.x = -90;
+    // ledge = platforms.create(1500, 680, 'log3');
+    // ledge.body.immovable = true;
+    // ledge.body.velocity.x = -92;
+    // ledge = platforms.create(1900, 680, 'log4');
+    // ledge.body.immovable = true;
+    // ledge.body.velocity.x = -88;
+    // ledge = platforms.create(2250, 689, 'log2');
+    // ledge.body.immovable = true;
+    // ledge.body.velocity.x = -91;
+    // tid = setTimeout(logFloat, 17000); // repeat myself
+    // }
 
     acorn = ''
 
