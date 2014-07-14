@@ -19,9 +19,9 @@
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
     game.load.image('branch1', '/images/branch_1.png');
-    // game.load.image('branch2', '/images/branch_2.png');
-    // game.load.image('branch3', '/images/branch_3.png');
-    // game.load.image('branch4', '/images/branch_4.png');
+    game.load.image('branch2', '/images/branch_2.png');
+    game.load.image('branch3', '/images/branch_3.png');
+    game.load.image('branch4', '/images/branch_4.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider.png');
     // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
@@ -38,8 +38,6 @@
     game.add.image(0, 0, 'whiteBackdrop').scale.setTo(50,50);
 
     game.add.image(0, 0, 'levelOneBackground');
-
-    game.add.image(100, -100, 'branch1');
 
     // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
     // game.physics.ninja.enableTile(tile, tile.frame);
@@ -67,6 +65,30 @@
     cursors = game.input.keyboard.createCursorKeys();
 
     acorn = ''
+
+    // left side
+    ledge = platforms.create(0, 80, 'branch4');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // right side
+    ledge = platforms.create(410, 240, 'branch3');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // left side
+    ledge = platforms.create(0, 420, 'branch2');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // right side
+    ledge = platforms.create(410, 600, 'branch3');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
 
     var nuts = setTimeout(acornBounce);
     function acornBounce() {
@@ -98,12 +120,9 @@
 
   function update(){
 
-    game.physics.ninja.collide(frog, branch1);
-
     if (cursors.left.isDown)
     {
         frog.body.moveLeft(20);
-        frog.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
