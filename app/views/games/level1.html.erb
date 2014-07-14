@@ -19,11 +19,14 @@
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
     game.load.image('branch1', '/images/branch_1.png');
-    game.load.image('branch2', '/images/branch_2.png');
-    game.load.image('branch3', '/images/branch_3.png');
-    game.load.image('branch4', '/images/branch_4.png');
+    // game.load.image('branch2', '/images/branch_2.png');
+    // game.load.image('branch3', '/images/branch_3.png');
+    // game.load.image('branch4', '/images/branch_4.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider.png');
+    // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
+    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
+    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
   }
 
   var platforms;
@@ -34,7 +37,12 @@
 
     game.add.image(0, 0, 'whiteBackdrop').scale.setTo(50,50);
 
-    game.add.image(0, 0, 'levelOneBackground')
+    game.add.image(0, 0, 'levelOneBackground');
+
+    game.add.image(100, -100, 'branch1');
+
+    // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
+    // game.physics.ninja.enableTile(tile, tile.frame);
 
     // game.add.image(0, 0, 1024, 768, 'greenBackdrop');
 
@@ -89,6 +97,8 @@
   }
 
   function update(){
+
+    game.physics.ninja.collide(frog, branch1);
 
     if (cursors.left.isDown)
     {
