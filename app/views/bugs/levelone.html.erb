@@ -32,6 +32,7 @@
     game.load.image('rock2', '/images/rock_2.png');
     // level 1 images
     game.load.image('levelOneBackground', '/images/level_1_background.png');
+    game.load.image('greenBackdrop', '/images/green_backdrop.png');
     game.load.image('acorn1', '/images/acorn_1.png');
     game.load.image('acorn2', '/images/acorn_2.png');
     game.load.image('acorn3', '/images/acorn_3.png');
@@ -67,7 +68,16 @@
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.add.image(0, 0, 'levelOneBackground');
+    game.add.image(0, 0, 'greenBackdrop').scale.setTo(50,50);
+
+    game.add.image(0, 0, 'levelOneBackground')
+
+    // .scale.setTo(0,0);
+
+    // game.add.image(0, 0, 1024, 768, 'greenBackdrop');
+
+
+    // background = game.add.image(0, 0, 1024, 768, 'levelOneBackground');
 
     // game.add.image(0, 15, 'cloud1');
 
@@ -98,13 +108,13 @@
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
-    var rock1 = platforms.create(500, 640, 'rock1');
+    // var rock1 = platforms.create(500, 640, 'rock1');
 
-    rock1.body.immovable = true;
+    // rock1.body.immovable = true;
 
-    var rock2 = platforms.create(100, 640, 'rock2');
+    // var rock2 = platforms.create(100, 640, 'rock2');
 
-    rock2.body.immovable = true;
+    // rock2.body.immovable = true;
 
     ground.scale.setTo(50,3);
 
@@ -160,12 +170,12 @@
 
   function update(){
 
-    spinningWheel.angle += 1;
+    // spinningWheel.angle += 1;
 
     game.physics.arcade.collide(frog, platforms);
     game.physics.arcade.collide(acorn, platforms);
     game.physics.arcade.collide(acorn, frog);
-    game.physics.arcade.collide(frog, spinningWheel)
+    // game.physics.arcade.collide(frog, spinningWheel)
 
     if (frog.body.touching.down)
     {
