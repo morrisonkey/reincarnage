@@ -7,6 +7,7 @@
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
 
     // main images for world
+    game.load.image('logo', '/images/reincarnage.png');
     game.load.image('background', '/images/background.png');
     game.load.image('backgroundKey', '/images/background_key.png');
     game.load.image('log1', '/images/log_1.png');
@@ -67,21 +68,39 @@
 
     game.add.image(0, 0, 'background');
 
-    game.add.image(0, 15, 'cloud1');
+    cloud1 = game.add.image(0, 15, 'cloud1');
+    cloud1.anchor.setTo(-.1, -.1);
 
-    game.add.image(0, 380, 'cloud2');
+    cloud2 = game.add.image(0, 380, 'cloud2');
+    cloud2.anchor.setTo(-.1, -.1);
 
-    game.add.image(335, 85, 'cloud3');
+    cloud3 = game.add.image(335, 85, 'cloud3');
+    cloud3.anchor.setTo(-.1, -.1);
 
-    game.add.image(595, 270, 'cloud4');
+    cloud4 = game.add.image(595, 270, 'cloud4');
+    cloud4.anchor.setTo(-.1, -.1);
 
-    game.add.image(650, 30, 'cloud5');
+    cloud5 = game.add.image(650, 30, 'cloud5');
+    cloud5.anchor.setTo(-.1, -.1);
 
-    game.add.image(854, 258, 'cloud6');
+    cloud6 = game.add.image(854, 258, 'cloud6');
+    cloud6.anchor.setTo(-.1, -.1);
+
+    // game.add.image(235, 535, 'grass3');
 
     game.add.image(25, 40, 'tree');
 
     game.add.image(760, 415, 'sawmill');
+
+    game.add.image(50, 540, 'grass1');
+
+    game.add.image(455, 540, 'grass2');
+
+    game.add.image(655, 560, 'grass4');
+
+    var logo = game.add.image(390, 40, 'logo');
+    logo.scale.x = game.rnd.realInRange(.26, .26);
+    logo.scale.y = game.rnd.realInRange(.26, .26);
 
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
@@ -96,11 +115,11 @@
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
-    var rock1 = platforms.create(500, 640, 'rock1');
+    var rock1 = platforms.create(105, 610, 'rock1');
 
     rock1.body.immovable = true;
 
-    var rock2 = platforms.create(100, 640, 'rock2');
+    var rock2 = platforms.create(480, 640, 'rock2');
 
     rock2.body.immovable = true;
 
@@ -138,7 +157,9 @@
     // nuts = setTimeout(acornBounce, 2000000); // repeat myself
     // }
 
-    frog = game.add.sprite(180, game.world.height - 1000, 'dude')
+    frog = game.add.sprite(180, game.world.height - 1000, 'smilingfrog')
+    frog.scale.x = game.rnd.realInRange(0.1, .1);
+    frog.scale.y = game.rnd.realInRange(0.1, .1);
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
@@ -159,6 +180,36 @@
   function update(){
 
     spinningWheel.angle += 1;
+
+    var breeze = setTimeout(cloudMovement1);
+    function cloudMovement1(){
+    cloud1.angle -= .03;
+    cloud2.angle += .03;
+    cloud3.angle += .03;
+    cloud4.angle += .03;
+    cloud5.angle -= .03;
+    cloud6.angle += .03;
+    var breeze = setTimeout(cloudMovement2, 3000)
+    }
+    function cloudMovement2(){
+    cloud1.angle += .06;
+    cloud2.angle -= .06;
+    cloud3.angle -= .06;
+    cloud4.angle -= .06;
+    cloud5.angle += .06;
+    cloud6.angle -= .06;
+    var breeze = setTimeout(cloudMovement3, 3000)
+    }
+    function cloudMovement3(){
+    cloud1.angle -= .06;
+    cloud2.angle += .06;
+    cloud3.angle += .06;
+    cloud4.angle += .06;
+    cloud5.angle -= .06;
+    cloud6.angle += .06;
+    var breeze = setTimeout(cloudMovement2, 3000)
+    }
+
 
     game.physics.arcade.collide(frog, platforms);
     game.physics.arcade.collide(acorn, platforms);
@@ -217,7 +268,6 @@
 
   function render(){
 
-    game.debug.cameraInfo(game.camera, 32, 32);
 
   }
 
