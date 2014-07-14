@@ -2,8 +2,6 @@
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
-
-
   function preload(){
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
@@ -215,6 +213,7 @@
     cloud6.angle += .06;
     var breeze = setTimeout(cloudMovement2, 3000)
     }
+    
 
 
     game.physics.arcade.collide(frog, platforms);
@@ -277,9 +276,4 @@
 
   }
 
-
   </script>
-
-
-
-

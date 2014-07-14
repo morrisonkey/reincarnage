@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  get 'bugs/index'
-  get 'bugs/levelone'
+  get 'games/home_screen'
+
+  get 'games/level1'
+
+  get 'games/level2'
+
+  get 'games/level3'
+
+  get 'games/level4'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
