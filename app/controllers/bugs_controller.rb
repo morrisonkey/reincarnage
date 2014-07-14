@@ -1,5 +1,8 @@
 class BugsController < ApplicationController
   def index
-    render :levelone
   end
+
+  def levelone
+  end
+
 end
