@@ -44,9 +44,8 @@
 
     game.add.image(0, 0, 'levelOneBackground');
 
-    spider = game.add.image(6, 3, 'spider');
-    spider.scale.x = game.rnd.realInRange(.6, .6);
-    spider.scale.y = game.rnd.realInRange(.6, .6);
+    // spider = game.add.image(6, 3, 'spider');
+
 
 
 
@@ -77,6 +76,8 @@
     spider.enableBody = true;
 
     var spiderGoal = spider.create(6, 3, 'spider');
+    spiderGoal.scale.x = game.rnd.realInRange(.8, .8);
+    spiderGoal.scale.y = game.rnd.realInRange(.8, .8);
     // spiderGoal.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
@@ -154,6 +155,8 @@
     acorn.body.velocity.x = 500;
     acorn.body.bounce.y = 0.1;
     acorn.scale.setTo(1.2,1.2);
+
+
     // acorn.body.gravity.y = 1000;
 
     acorn1 = platforms.create(1000, 235, 'acorn3');
