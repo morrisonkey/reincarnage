@@ -100,14 +100,6 @@
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
-    var nuts = setInterval(acornBounce);
-    function acornBounce() {
-    acorn = acorns.create(0, 0, 'acorn1');
-    acorn.body.velocity.x = 500;
-    acorn.body.bounce.y = 0.1;
-    acorn.body.gravity.y = 1000;
-    nuts = setTimeout(acornBounce, 20000); // repeat myself
-    }
 
     frog = game.add.sprite(700, 700, 'dude')
     game.physics.arcade.enable(frog);
@@ -126,6 +118,16 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
+    // var nuts = setInterval(acornBounce, 3000);
+    function acornBounce() {
+    acorn = acorns.create(0, 0, 'acorn1');
+    acorn.body.velocity.x = 500;
+    acorn.body.bounce.y = 0.1;
+    acorn.body.gravity.y = 1000;
+    // nuts = setTimeout(acornBounce, 20000); // repeat myself
+    }
+    acornBounce();
+    
 
 
   }
@@ -166,54 +168,43 @@
         frog.body.velocity.y = -350;
     }
 
-    // spinningWheel.angle += 1;
+    // game.time.events.loop(Phaser.Timer.SECOND * 12, acornBarrage, this);
+    // acornLaunch
 
+    // function acornBarrage(){
+    //     setTimeout(function(){
+    //         acornLaunch2();
+    //     }, Phaser.Timer.SECOND * 9)
+    //     setTimeout(function(){ 
+    //         acornLaunch1();
+    //     }, Phaser.Timer.SECOND * 3);
+    // };
 
-    // game.physics.arcade.collide(frog, spinningWheel)
+    // game.time.events.loop(Phaser.Timer.SECOND * 5, 
 
-    // if (frog.body.touching.down)
-    // {
-    // frog.body.velocity.x = 0;
+    //     function acornLaunch(){
+    //     acorn = acorns.create(0, 0, 'acorn1');
+    //     acorn.body.velocity.x = 500;
+    //     acorn.body.bounce.y = 0.1;
+    //     acorn.body.gravity.y = 1000;
     // }
 
-    // if (cursors.left.isDown)
-    // {
-    //   // hop frog to left
-    //   frog.body.moveLeft(20);
+    // , this);
 
-    //   // frog.animations.play('left');
-    // }
-    // else if (cursors.right.isDown)
-    // {
-    //   // hop frog right
-    //   frog.body.moveRight(20);
+    // acornLaunch();
 
-    //   // frog.animations.play('right');
 
-    // }
-    // else
-    // {
-    //   frog.animations.stop();
 
-    //   frog.frame = 4;
-    // }
 
-    // if (cursors.up.isDown && frog.body.touching.down)
-    // {
-    //   frog.body.velocity.y = -450;
-    //   if (cursors.left.isDown)
-    //   {
-    //     frog.body.velocity.x = -200
+    // function acornMaker(){
+    //     acorn = acorns.create(0, 0, 'acorn1');
+    //     acorn = acorns.create(0, 0, 'acorn1');
 
-    //     frog.animations.play('left');
-    //   }
-    //   else if (cursors.right.isDown)
-    //   {
-    //     frog.body.velocity.x = 200
+    //     }
 
-    //     frog.animations.play('right');
-    //   }
-    // }
+
+
+
 
   }
 
