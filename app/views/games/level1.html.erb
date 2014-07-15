@@ -39,6 +39,10 @@
 
     game.add.image(0, 0, 'levelOneBackground');
 
+    game.add.image(6, 3, 'spider');
+
+
+
     // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
     // game.physics.ninja.enableTile(tile, tile.frame);
 
@@ -67,49 +71,49 @@
     acorn = ''
 
     // left side
-    ledge = platforms.create(0, 80, 'branch1');
+    ledge = platforms.create(0, 120, 'branch1');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // right side
-    ledge = platforms.create(410, 240, 'branch2');
+    ledge = platforms.create(410, 275, 'branch2');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // left side
-    ledge = platforms.create(0, 420, 'branch3');
+    ledge = platforms.create(-50, 440, 'branch3');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // right side
-    ledge = platforms.create(410, 600, 'branch4');
+    ledge = platforms.create(410, 593, 'branch4');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // left side
-    ledge = platforms.create(-400, 700, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge = platforms.create(-260, 750, 'branch1');
+    ledge.scale.x = game.rnd.realInRange(4, 4);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
-    var nuts = setTimeout(acornBounce);
+    var nuts = setInterval(acornBounce);
     function acornBounce() {
     acorn = acorns.create(0, 0, 'acorn1');
     acorn.body.velocity.x = 500;
     acorn.body.bounce.y = 0.1;
     acorn.body.gravity.y = 1000;
-    nuts = setTimeout(acornBounce, 2000000); // repeat myself
+    nuts = setTimeout(acornBounce, 20000); // repeat myself
     }
 
-    frog = game.add.sprite(180, game.world.height - 1000, 'dude')
+    frog = game.add.sprite(700, 700, 'dude')
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
-    frog.body.gravity.y = 1000;
+    frog.body.gravity.y = 350;
     frog.body.collideWorldBounds = true;
 
     frog.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -121,6 +125,8 @@
     acorn.body.collideWorldBounds = true;
 
     cursors = game.input.keyboard.createCursorKeys();
+
+
 
   }
 
@@ -135,14 +141,14 @@
     if (cursors.left.isDown)
     {
         //  Move to the left
-        frog.body.velocity.x = -150;
+        frog.body.velocity.x = -180;
 
         frog.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        frog.body.velocity.x = 150;
+        frog.body.velocity.x = 180;
 
         frog.animations.play('right');
     }
@@ -157,7 +163,7 @@
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && frog.body.touching.down)
     {
-        frog.body.velocity.y = -450;
+        frog.body.velocity.y = -350;
     }
 
     // spinningWheel.angle += 1;
@@ -213,7 +219,7 @@
 
   function render(){
 
-    game.debug.cameraInfo(game.camera, 32, 32);
+    // game.debug.cameraInfo(game.camera, 32, 32);
 
   }
 
