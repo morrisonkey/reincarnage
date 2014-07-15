@@ -48,8 +48,11 @@
 
   var platforms;
   var logs;
+  var flyCount;
 
   function create(){
+
+    flyCount = 0
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -115,6 +118,16 @@
     ground.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
+
+    log = logs.create(500, 600, 'log1');
+    log.scale.x = game.rnd.realInRange(1.87, 1.87);
+    log.scale.y = game.rnd.realInRange(1.87, 1.87);
+    log.body.immovable = true;
+    log.body.velocity.x = -90;
+    ledge = platforms.create(520, 620, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
+    ledge.body.immovable = true;
+    ledge.body.velocity.x = -90;
 
     game.time.events.loop(Phaser.Timer.SECOND * 25, logFloat, this);
     logFloat();
