@@ -30,6 +30,8 @@
   }
 
   var platforms;
+    var acorns;
+    var acorn2;
 
   function create(){
 
@@ -57,8 +59,17 @@
     platforms.enableBody = true;
 
     acorns = game.add.group();
-
     acorns.enableBody = true;
+
+    // game.physics.arcade.enable(acorns);
+
+    acorn2 = game.add.group();
+    acorn2.enableBody = true;
+
+    // game.physics.arcade.enable(acorns2);
+
+
+
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -68,7 +79,7 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    acorn = ''
+    
 
     // left side
     ledge = platforms.create(0, 120, 'branch1');
@@ -100,15 +111,74 @@
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
-    // var nuts = setInterval(acornBounce, 3000);
-    function acornBounce() {
-    acorn = acorns.create(0, 0, 'acorn1');
+    // // var nuts = setInterval(acornBounce, 3000);
+    // function acornBounce() {
+    // acorn = acorns.create(0, 0, 'acorn1');
+    // acorn.enableBody = true;
+    // game.physics.arcade.enable(acorn);
+    // acorn.exist = true;
+    // acorn.body.velocity.x = 500;
+    // acorn.body.bounce.y = 0.1;
+    // acorn.body.gravity.y = 1000;
+    // // nuts = setTimeout(acornBounce, 20000); // repeat myself
+    // }
+    // acornBounce();
+
+    // function acornBounce2() {
+    // acorn = acorn2.create(0, 300, 'acorn2');
+    // // acorn.enableBody = true;
+    // acorn.body.velocity.x = 500;
+    // acorn.body.bounce.y = 0.1;
+    // acorn.body.gravity.y = 1000;
+    // }
+    // acornBounce2();
+
+
+
+    game.time.events.loop(Phaser.Timer.SECOND * 5, acornLaunch, this);
+    acornLaunch();
+    function acornLaunch() {
+    acorn = platforms.create(0, 70, 'acorn1');
+    acorn.body.immovable = true;
+    acorn.enableBody = true;
+    game.physics.arcade.enable(acorn);
+    acorn.exist = true;
+
     acorn.body.velocity.x = 500;
     acorn.body.bounce.y = 0.1;
-    acorn.body.gravity.y = 1000;
-    // nuts = setTimeout(acornBounce, 20000); // repeat myself
+    // acorn.body.gravity.y = 1000;
+
+    acorn1 = platforms.create(410, 235, 'acorn3');
+    acorn1.body.immovable = true;
+    acorn.enableBody = true;
+    game.physics.arcade.enable(acorn);
+    acorn.exist = true;
+
+    acorn1.body.velocity.x = -500;
+    acorn1.body.bounce.y = 0.1;
+    // acorn1.body.gravity.y = 1000;
+
+    acorn2 = platforms.create(0, 400, 'acorn4');
+    acorn2.body.immovable = true;
+    acorn.enableBody = true;
+    game.physics.arcade.enable(acorn);
+    acorn.exist = true;
+    acorn2.body.velocity.x = 500;
+    acorn2.body.bounce.y = 0.1;
+    // acorn2.body.gravity.y = 1000;
+
+
+    acorn3 = platforms.create(700, 553, 'acorn2');
+    acorn3.body.immovable = true;
+    acorn.enableBody = true;
+    game.physics.arcade.enable(acorn);
+    acorn.exist = true;
+
+    acorn3.body.velocity.x = -500;
+    acorn3.body.bounce.y = 0.1;
+    // acorn3.body.gravity.y = 1000;
     }
-    acornBounce();
+
 
 
     frog = game.add.sprite(700, 700, 'dude')
@@ -124,19 +194,21 @@
     game.physics.arcade.enable(acorn);
 
     frog.body.collideWorldBounds = true;
-    acorn.body.collideWorldBounds = true;
+    acorn.body.collideWorldBounds = false;
 
     cursors = game.input.keyboard.createCursorKeys();
 
-
-
   }
+
+
 
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
     game.physics.arcade.collide(acorn, platforms);
     game.physics.arcade.collide(acorn, frog);
+    game.physics.arcade.collide(platforms, platforms);
+
 
     frog.body.velocity.x = 0;
 
@@ -168,54 +240,6 @@
         frog.body.velocity.y = -350;
     }
 
-    // spinningWheel.angle += 1;
-
-
-    // game.physics.arcade.collide(frog, spinningWheel)
-
-    // if (frog.body.touching.down)
-    // {
-    // frog.body.velocity.x = 0;
-    // }
-
-    // if (cursors.left.isDown)
-    // {
-    //   // hop frog to left
-    //   frog.body.moveLeft(20);
-
-    //   // frog.animations.play('left');
-    // }
-    // else if (cursors.right.isDown)
-    // {
-    //   // hop frog right
-    //   frog.body.moveRight(20);
-
-    //   // frog.animations.play('right');
-
-    // }
-    // else
-    // {
-    //   frog.animations.stop();
-
-    //   frog.frame = 4;
-    // }
-
-    // if (cursors.up.isDown && frog.body.touching.down)
-    // {
-    //   frog.body.velocity.y = -450;
-    //   if (cursors.left.isDown)
-    //   {
-    //     frog.body.velocity.x = -200
-
-    //     frog.animations.play('left');
-    //   }
-    //   else if (cursors.right.isDown)
-    //   {
-    //     frog.body.velocity.x = 200
-
-    //     frog.animations.play('right');
-    //   }
-    // }
 
   }
 
