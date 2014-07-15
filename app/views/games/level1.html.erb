@@ -34,6 +34,7 @@
   var platforms;
     var acorns;
     var acorn2;
+    var spider;
 
   function create(){
 
@@ -72,8 +73,11 @@
 
     // game.physics.arcade.enable(acorns2);
 
+    spider = game.add.group();
+    spider.enableBody = true;
 
-
+    var spiderGoal = spider.create(6, 3, 'spider');
+    // spiderGoal.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -139,10 +143,10 @@
 
 
 
-    game.time.events.loop(Phaser.Timer.SECOND * 5, acornLaunch, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 3, acornLaunch, this);
     acornLaunch();
     function acornLaunch() {
-    acorn = platforms.create(0, 70, 'acorn1');
+    acorn = platforms.create(0, 68, 'acorn1');
     acorn.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -150,9 +154,10 @@
 
     acorn.body.velocity.x = 500;
     acorn.body.bounce.y = 0.1;
+    acorn.scale.setTo(1.2,1.2);
     // acorn.body.gravity.y = 1000;
 
-    acorn1 = platforms.create(410, 235, 'acorn3');
+    acorn1 = platforms.create(1000, 235, 'acorn3');
     acorn1.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -160,6 +165,7 @@
 
     acorn1.body.velocity.x = -500;
     acorn1.body.bounce.y = 0.1;
+    acorn1.scale.setTo(1.5,1.5);
     // acorn1.body.gravity.y = 1000;
 
     acorn2 = platforms.create(0, 400, 'acorn4');
@@ -169,10 +175,11 @@
     acorn.exist = true;
     acorn2.body.velocity.x = 500;
     acorn2.body.bounce.y = 0.1;
+    acorn2.scale.setTo(1.5,1.5);
     // acorn2.body.gravity.y = 1000;
 
 
-    acorn3 = platforms.create(700, 553, 'acorn2');
+    acorn3 = platforms.create(1000, 547, 'acorn2');
     acorn3.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -181,13 +188,13 @@
     acorn3.body.velocity.x = -500;
     acorn3.body.bounce.y = 0.1;
     // acorn3.body.gravity.y = 1000;
+    acorn3.scale.setTo(1.5,1.5);
     }
-
-
 
     frog = game.add.sprite(700, 600, 'dude')
     frog.scale.x = game.rnd.realInRange(.5, .5);
     frog.scale.y = game.rnd.realInRange(.5, .5);
+
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
@@ -214,7 +221,14 @@
     game.physics.arcade.collide(acorn, platforms);
     game.physics.arcade.collide(acorn, frog);
     game.physics.arcade.collide(platforms, platforms);
+    game.physics.arcade.collide(spider, frog);
 
+    game.physics.arcade.overlap(frog, spider, winFunc, null, this);
+
+    function winFunc(frog, spider){
+        frog.kill();
+        console.log('WINNER!');
+    }
 
     frog.body.velocity.x = 0;
 
