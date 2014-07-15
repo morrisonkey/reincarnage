@@ -185,35 +185,72 @@
     spinningWheel.angle += 1;
 
 
-    game.time.events.loop(Phaser.Timer.SECOND * 6, cloudMovement, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 12, cloudMovement, this);
+    cloudMovement1();
     cloudMovement();
-    var breeze = setTimeout(cloudMovement1);
+    function cloudMovement(){
+        setTimeout(function(){
+            cloudMovement3();
+        }, Phaser.Timer.SECOND * 9)
+        setTimeout(function(){ 
+            cloudMovement2();
+        }, Phaser.Timer.SECOND * 3);
+    };
+    function cloudReset(){
+        cloud1.angle = 0;
+        cloud2.angle = 0;
+        cloud3.angle = 0;
+        cloud4.angle = 0;
+        cloud5.angle = 0;
+        cloud6.angle = 0;
+        // cloud1.body.velocity.x = 0;
+        // cloud2.body.velocity.x = 0;
+        // cloud3.body.velocity.x = 0;
+        // cloud4.body.velocity.x = 0;
+        // cloud5.body.velocity.x = 0;
+        // cloud6.body.velocity.x = 0;
+    }
     function cloudMovement1(){
-    cloud1.angle -= .03;
-    cloud2.angle += .03;
-    cloud3.angle += .03;
-    cloud4.angle += .03;
-    cloud5.angle -= .03;
-    cloud6.angle += .03;
-    var breeze = setTimeout(cloudMovement2, 3000)
+        cloud1.angle -= .03;
+        cloud2.angle += .03;
+        cloud3.angle += .03;
+        cloud4.angle += .03;
+        cloud5.angle -= .03;
+        cloud6.angle += .03;
+        // cloud1.body.velocity.x -= .03;
+        // cloud2.body.velocity.x += .03;
+        // cloud3.body.velocity.x += .03;
+        // cloud4.body.velocity.x += .03;
+        // cloud5.body.velocity.x -= .03;
+        // cloud6.body.velocity.x += .03;
     }
     function cloudMovement2(){
-    cloud1.angle += .06;
-    cloud2.angle -= .06;
-    cloud3.angle -= .06;
-    cloud4.angle -= .06;
-    cloud5.angle += .06;
-    cloud6.angle -= .06;
-    var breeze = setTimeout(cloudMovement3, 3000)
+        cloud1.angle += .06;
+        cloud2.angle -= .06;
+        cloud3.angle -= .06;
+        cloud4.angle -= .06;
+        cloud5.angle += .06;
+        cloud6.angle -= .06;
+        // cloud1.body.velocity.x += .03;
+        // cloud2.body.velocity.x -= .03;
+        // cloud3.body.velocity.x -= .03;
+        // cloud4.body.velocity.x -= .03;
+        // cloud5.body.velocity.x += .03;
+        // cloud6.body.velocity.x -= .03;
     }
     function cloudMovement3(){
-    cloud1.angle -= .06;
-    cloud2.angle += .06;
-    cloud3.angle += .06;
-    cloud4.angle += .06;
-    cloud5.angle -= .06;
-    cloud6.angle += .06;
-    var breeze = setTimeout(cloudMovement2, 3000)
+        cloud1.angle -= .06;
+        cloud2.angle += .06;
+        cloud3.angle += .06;
+        cloud4.angle += .06;
+        cloud5.angle -= .06;
+        cloud6.angle += .06;
+        // cloud1.body.velocity.x -= .06;
+        // cloud2.body.velocity.x += .06;
+        // cloud3.body.velocity.x += .06;
+        // cloud4.body.velocity.x += .06;
+        // cloud5.body.velocity.x -= .06;
+        // cloud6.body.velocity.x += .06;
     }
     
 
