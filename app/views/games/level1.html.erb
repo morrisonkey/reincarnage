@@ -100,6 +100,15 @@
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
+    // var nuts = setInterval(acornBounce, 3000);
+    function acornBounce() {
+    acorn = acorns.create(0, 0, 'acorn1');
+    acorn.body.velocity.x = 500;
+    acorn.body.bounce.y = 0.1;
+    acorn.body.gravity.y = 1000;
+    // nuts = setTimeout(acornBounce, 20000); // repeat myself
+    }
+    acornBounce();
 
     frog = game.add.sprite(700, 700, 'dude')
     game.physics.arcade.enable(frog);
@@ -117,18 +126,6 @@
     acorn.body.collideWorldBounds = true;
 
     cursors = game.input.keyboard.createCursorKeys();
-
-    // var nuts = setInterval(acornBounce, 3000);
-    function acornBounce() {
-    acorn = acorns.create(0, 0, 'acorn1');
-    acorn.body.velocity.x = 500;
-    acorn.body.bounce.y = 0.1;
-    acorn.body.gravity.y = 1000;
-    // nuts = setTimeout(acornBounce, 20000); // repeat myself
-    }
-    acornBounce();
-    
-
 
   }
 
