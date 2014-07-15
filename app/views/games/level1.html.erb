@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+  var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', { preload: preload, create: create, update: update, render: render });
 
 
 
@@ -24,17 +24,23 @@
     game.load.image('branch4', '/images/branch_4.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider.png');
+    // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
+    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
+    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
   }
 
   var platforms;
 
   function create(){
 
-    game.physics.startSystem(Phaser.Physics.NINJA);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.add.image(0, 0, 'whiteBackdrop').scale.setTo(50,50);
 
-    game.add.image(0, 0, 'levelOneBackground')
+    game.add.image(0, 0, 'levelOneBackground');
+
+    // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
+    // game.physics.ninja.enableTile(tile, tile.frame);
 
     // game.add.image(0, 0, 1024, 768, 'greenBackdrop');
 
@@ -60,6 +66,30 @@
 
     acorn = ''
 
+    // left side
+    ledge = platforms.create(0, 80, 'branch4');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // right side
+    ledge = platforms.create(410, 240, 'branch3');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // left side
+    ledge = platforms.create(0, 420, 'branch2');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // right side
+    ledge = platforms.create(410, 600, 'branch3');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
     var nuts = setTimeout(acornBounce);
     function acornBounce() {
     acorn = acorns.create(0, 0, 'acorn1');
@@ -70,16 +100,16 @@
     }
 
     frog = game.add.sprite(180, game.world.height - 1000, 'dude')
-    game.physics.ninja.enable(frog);
+    game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
     frog.body.gravity.y = 1000;
     frog.body.collideWorldBounds = true;
 
-    frog.animations.add('left', [0, 1, 2], 6, true);
-    frog.animations.add('right', [3, 4, 5], 6, true);
+    frog.animations.add('left', [0, 1, 2, 3], 10, true);
+    frog.animations.add('right', [5, 6, 7, 8], 10, true);
 
-    game.physics.ninja.enable(acorn);
+    game.physics.arcade.enable(acorn);
 
     frog.body.collideWorldBounds = true;
     acorn.body.collideWorldBounds = true;
@@ -90,26 +120,43 @@
 
   function update(){
 
+    game.physics.arcade.collide(frog, platforms);
+    game.physics.arcade.collide(acorn, platforms);
+    game.physics.arcade.collide(acorn, frog);
+
+    frog.body.velocity.x = 0;
+
     if (cursors.left.isDown)
     {
-        frog.body.moveLeft(20);
+        //  Move to the left
+        frog.body.velocity.x = -150;
+
         frog.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
-        frog.body.moveRight(20);
-    }
+        //  Move to the right
+        frog.body.velocity.x = 150;
 
-    if (cursors.up.isDown)
+        frog.animations.play('right');
+    }
+    else
     {
-        frog.body.moveUp(20);
+        //  Stand still
+        frog.animations.stop();
+
+        frog.frame = 4;
+    }
+    
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && frog.body.touching.down)
+    {
+        frog.body.velocity.y = -450;
     }
 
     // spinningWheel.angle += 1;
 
-    // game.physics.arcade.collide(frog, platforms);
-    // game.physics.arcade.collide(acorn, platforms);
-    // game.physics.arcade.collide(acorn, frog);
+
     // game.physics.arcade.collide(frog, spinningWheel)
 
     // if (frog.body.touching.down)
