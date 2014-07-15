@@ -88,36 +88,35 @@
     cursors = game.input.keyboard.createCursorKeys();
 
     
+    function createBranch(x, y, image, size) {
+        branch = platforms.create(x, y, image);
+        branch.scale.x = game.rnd.realInRange(size, size);
+        branch.scale.y = game.rnd.realInRange(size, size);
+        branch.body.immovable = true;       
+    }
+
+    function createLedge(x, y, image, size) {
+        ledge = platforms.create(x, y, image);
+        ledge.scale.x = game.rnd.realInRange(size, size);
+        ledge.scale.y = game.rnd.realInRange(size, size);
+        ledge.body.immovable = true;       
+    }
+
 
     // left side
-    ledge = platforms.create(0, 120, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
+    createBranch(0, 120, 'branch1', 2);
 
     // right side
-    ledge = platforms.create(410, 275, 'branch2');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
+    createBranch(410, 275, 'branch2', 2);
 
     // left side
-    ledge = platforms.create(-50, 440, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
+    createBranch(-50, 440, 'branch3', 2);
 
     // right side
-    ledge = platforms.create(410, 593, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
+    createBranch(410, 593, 'branch4', 2);
 
     // left side
-    ledge = platforms.create(-260, 750, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(4, 4);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
+    createBranch(-260, 750, 'branch3', 4);
 
     // // var nuts = setInterval(acornBounce, 3000);
     // function acornBounce() {
@@ -191,22 +190,22 @@
     acorn3.scale.setTo(1.5,1.5);
     }
 
-    frog = game.add.sprite(700, 600, 'dude')
-    frog.scale.x = game.rnd.realInRange(.5, .5);
-    frog.scale.y = game.rnd.realInRange(.5, .5);
+    beetle = game.add.sprite(700, 600, 'dude')
+    beetle.scale.x = game.rnd.realInRange(.4, .4);
+    beetle.scale.y = game.rnd.realInRange(.4, .4);
 
-    game.physics.arcade.enable(frog);
+    game.physics.arcade.enable(beetle);
 
-    frog.body.bounce.y = 0.1;
-    frog.body.gravity.y = 350;
-    frog.body.collideWorldBounds = true;
+    beetle.body.bounce.y = 0.1;
+    beetle.body.gravity.y = 350;
+    beetle.body.collideWorldBounds = true;
 
-    frog.animations.add('left', [0, 1], 5, true);
-    frog.animations.add('right', [3, 4], 5, true);
+    beetle.animations.add('left', [0, 1], 5, true);
+    beetle.animations.add('right', [3, 4], 5, true);
 
     game.physics.arcade.enable(acorn);
 
-    frog.body.collideWorldBounds = true;
+    beetle.body.collideWorldBounds = true;
     acorn.body.collideWorldBounds = false;
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -217,47 +216,47 @@
 
   function update(){
 
-    game.physics.arcade.collide(frog, platforms);
+    game.physics.arcade.collide(beetle, platforms);
     game.physics.arcade.collide(acorn, platforms);
-    game.physics.arcade.collide(acorn, frog);
+    game.physics.arcade.collide(acorn, beetle);
     game.physics.arcade.collide(platforms, platforms);
-    game.physics.arcade.collide(spider, frog);
+    game.physics.arcade.collide(spider, beetle);
 
-    game.physics.arcade.overlap(frog, spider, winFunc, null, this);
+    game.physics.arcade.overlap(beetle, spider, winFunc, null, this);
 
-    function winFunc(frog, spider){
-        frog.kill();
+    function winFunc(beetle, spider){
+        beetle.kill();
         console.log('WINNER!');
     }
 
-    frog.body.velocity.x = 0;
+    beetle.body.velocity.x = 0;
 
     if (cursors.left.isDown)
     {
         //  Move to the left
-        frog.body.velocity.x = -180;
+        beetle.body.velocity.x = -180;
 
-        frog.animations.play('left');
+        beetle.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        frog.body.velocity.x = 180;
+        beetle.body.velocity.x = 180;
 
-        frog.animations.play('right');
+        beetle.animations.play('right');
     }
     else
     {
         //  Stand still
-        frog.animations.stop();
+        beetle.animations.stop();
 
-        frog.frame = 2;
+        beetle.frame = 2;
     }
     
     //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && frog.body.touching.down)
+    if (cursors.up.isDown && beetle.body.touching.down)
     {
-        frog.body.velocity.y = -350;
+        beetle.body.velocity.y = -350;
     }
 
 
