@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root :to => 'games#home_screen'
+
   get 'games/home_screen'
 
   get 'games/level1'

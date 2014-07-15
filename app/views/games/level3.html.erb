@@ -4,6 +4,14 @@
 
   function preload(){
 
+// ******************* MAX CHANGES *******************
+    // minLogSize = 1000;
+
+    // var levelLogs = [
+    //     createLog(minLogSize + 500, 600, 'log1', 1.87, -90),
+    //     createLog(minLogSize + 450, 600, 'log1', 1.87, -90)
+    // ]
+
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
     game.load.image('invisible_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
@@ -130,44 +138,60 @@
     ledge.body.velocity.x = -90;
 
     game.time.events.loop(Phaser.Timer.SECOND * 25, logFloat, this);
+    
     logFloat();
+    
+    // ***************** ADDED BY MAX ********************
+    
+    function createLog(x, y, image, size, xVelocity) {
+        log = logs.create(x, y, image);
+        log.scale.x = game.rnd.realInRange(size, size);
+        log.scale.y = game.rnd.realInRange(size, size);
+        log.body.immovable = true;
+        log.body.velocity.x = xVelocity;        
+    }
+
     function logFloat() {
-    log = logs.create(1100, 600, 'log1');
-    log.scale.x = game.rnd.realInRange(1.87, 1.87);
-    log.scale.y = game.rnd.realInRange(1.87, 1.87);
-    log.body.immovable = true;
-    log.body.velocity.x = -90;
-    log = logs.create(1700, 570, 'log3');
-    log.scale.x = game.rnd.realInRange(1.87, 1.87);
-    log.scale.y = game.rnd.realInRange(1.87, 1.87);
-    log.body.immovable = true;
-    log.body.velocity.x = -92;
-    log = logs.create(2300, 585, 'log4');
-    log.scale.x = game.rnd.realInRange(1.87, 1.87);
-    log.scale.y = game.rnd.realInRange(1.87, 1.87);
-    log.body.immovable = true;
-    log.body.velocity.x = -88;
-    log = logs.create(2900, 600, 'log2');
-    log.scale.x = game.rnd.realInRange(1.87, 1.87);
-    log.scale.y = game.rnd.realInRange(1.87, 1.87);
-    log.body.immovable = true;
-    log.body.velocity.x = -91;
-    ledge = platforms.create(1120, 620, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -90;
-    ledge = platforms.create(1720, 620, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(2.75, 2.75);
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -92;
-    ledge = platforms.create(2320, 620, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -88;
-    ledge = platforms.create(2910, 620, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
-    ledge.body.immovable = true;
-    ledge.body.velocity.x = -91;
+        createLog(1100, 600, 'log1', 1.87, -90);
+
+        log = logs.create(1100, 600, 'log1');
+        log.scale.x = game.rnd.realInRange(1.87, 1.87);
+        log.scale.y = game.rnd.realInRange(1.87, 1.87);
+        log.body.immovable = true;
+        log.body.velocity.x = -90;
+
+        log = logs.create(1700, 570, 'log3');
+        log.scale.x = game.rnd.realInRange(1.87, 1.87);
+        log.scale.y = game.rnd.realInRange(1.87, 1.87);
+        log.body.immovable = true;
+        log.body.velocity.x = -92;
+
+        log = logs.create(2300, 585, 'log4');
+        log.scale.x = game.rnd.realInRange(1.87, 1.87);
+        log.scale.y = game.rnd.realInRange(1.87, 1.87);
+        log.body.immovable = true;
+        log.body.velocity.x = -88;
+        log = logs.create(2900, 600, 'log2');
+        log.scale.x = game.rnd.realInRange(1.87, 1.87);
+        log.scale.y = game.rnd.realInRange(1.87, 1.87);
+        log.body.immovable = true;
+        log.body.velocity.x = -91;
+        ledge = platforms.create(1120, 620, 'purp_line');
+        ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
+        ledge.body.immovable = true;
+        ledge.body.velocity.x = -90;
+        ledge = platforms.create(1720, 620, 'purp_line');
+        ledge.scale.x = game.rnd.realInRange(2.75, 2.75);
+        ledge.body.immovable = true;
+        ledge.body.velocity.x = -92;
+        ledge = platforms.create(2320, 620, 'purp_line');
+        ledge.scale.x = game.rnd.realInRange(2, 2);
+        ledge.body.immovable = true;
+        ledge.body.velocity.x = -88;
+        ledge = platforms.create(2910, 620, 'purp_line');
+        ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
+        ledge.body.immovable = true;
+        ledge.body.velocity.x = -91;
     }
 
 

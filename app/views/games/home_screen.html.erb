@@ -5,6 +5,8 @@
   function preload(){
 
     game.load.spritesheet('dude', '/images/bug_sprite_sheet.png', 32, 48);
+    game.load.image('invisible_line', '/images/blank_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
 
     // main images for world
     game.load.image('logo', '/images/reincarnage.png');
@@ -90,7 +92,9 @@
 
     game.add.image(25, 40, 'tree');
 
-    game.add.image(760, 415, 'sawmill');
+    sawmill = game.add.image(760, 415, 'sawmill');
+    sawmill.scale.x = game.rnd.realInRange(1.04, 1.04);
+    sawmill.scale.y = game.rnd.realInRange(1.04, 1.04);
 
     game.add.image(50, 540, 'grass1');
 
@@ -110,10 +114,16 @@
 
     acorns.enableBody = true;
 
-    var logo = platforms.create(390, 40, 'logo');
+    var logo = game.add.image(390, 40, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
-    logo.body.immovable = true;
+
+    ledge = platforms.create(555, 90, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
+    ledge.body.immovable = true;
+    ledge = platforms.create(500, 80, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(.5, .5);
+    ledge.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -163,8 +173,8 @@
     // }
 
     frog = game.add.sprite(780, game.world.height - 1000, 'smilingfrog')
-    frog.scale.x = game.rnd.realInRange(0.1, .1);
-    frog.scale.y = game.rnd.realInRange(0.1, .1);
+    frog.scale.x = game.rnd.realInRange(.12,.12);
+    frog.scale.y = game.rnd.realInRange(.12,.12);
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
