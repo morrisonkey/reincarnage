@@ -47,6 +47,7 @@
   }
 
   var platforms;
+  var logs;
 
   function create(){
 
@@ -86,31 +87,28 @@
 
     // game.add.image(655, 560, 'grass4');
 
+    game.add.image(105, 570, 'rock1');
 
-    // spinningWheel = game.add.image(1000, 620, 'wheel');
-    // spinningWheel.anchor.setTo(0.5, 0.5);
+    game.add.image(480, 590, 'rock2');
 
     platforms = game.add.group();
 
     platforms.enableBody = true;
 
+    logs = game.add.group();
+
+    logs.enableBody = true;
+
     var ground = platforms.create(0, game.world.height -5, 'whatever');
 
-    var rock1 = platforms.create(105, 610, 'rock1');
+    var ledge = platforms.create(140, 605, 'purp_line');
 
-    rock1.body.immovable = true;
+    ledge.body.immovable = true;
 
-    var rock2 = platforms.create(480, 640, 'rock2');
+    var ledge = platforms.create(505, 625, 'purp_line');
 
-    rock2.body.immovable = true;
-
-    var standing_zone = platforms.create(120, 610, 'purp_line');
-
-    standing_zone.body.immovable = true;
-
-    var standing_zone = platforms.create(500, 640, 'purp_line');
-
-    standing_zone.body.immovable = true;
+    ledge.body.immovable = true;
+    ledge.scale.x = game.rnd.realInRange(1.3, 1.3);
 
     ground.scale.setTo(50,3);
 
@@ -118,24 +116,47 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
+    game.time.events.loop(Phaser.Timer.SECOND * 25, logFloat, this);
+    logFloat();
+    function logFloat() {
+    log = logs.create(1100, 600, 'log1');
+    log.scale.x = game.rnd.realInRange(1.87, 1.87);
+    log.scale.y = game.rnd.realInRange(1.87, 1.87);
+    log.body.immovable = true;
+    log.body.velocity.x = -90;
+    log = logs.create(1700, 600, 'log3');
+    log.scale.x = game.rnd.realInRange(1.87, 1.87);
+    log.scale.y = game.rnd.realInRange(1.87, 1.87);
+    log.body.immovable = true;
+    log.body.velocity.x = -92;
+    log = logs.create(1900, 600, 'log4');
+    log.scale.x = game.rnd.realInRange(1.87, 1.87);
+    log.scale.y = game.rnd.realInRange(1.87, 1.87);
+    log.body.immovable = true;
+    log.body.velocity.x = -88;
+    log = logs.create(2250, 600, 'log2');
+    log.scale.x = game.rnd.realInRange(1.87, 1.87);
+    log.scale.y = game.rnd.realInRange(1.87, 1.87);
+    log.body.immovable = true;
+    log.body.velocity.x = -91;
+    ledge = platforms.create(1100, 650, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge.body.immovable = true;
+    ledge.body.velocity.x = -90;
+    ledge = platforms.create(1500, 650, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge.body.immovable = true;
+    ledge.body.velocity.x = -92;
+    ledge = platforms.create(1900, 650, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge.body.immovable = true;
+    ledge.body.velocity.x = -88;
+    ledge = platforms.create(2250, 650, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge.body.immovable = true;
+    ledge.body.velocity.x = -91;
+    }
 
-// set interval
-    // logFloat();
-    // var tid = setInterval(logFloat, 17000);
-    // function logFloat() {
-    // ledge = platforms.create(1100, 685, 'log1');
-    // ledge.body.immovable = true;
-    // ledge.body.velocity.x = -90;
-    // ledge = platforms.create(1500, 680, 'log3');
-    // ledge.body.immovable = true;
-    // ledge.body.velocity.x = -92;
-    // ledge = platforms.create(1900, 680, 'log4');
-    // ledge.body.immovable = true;
-    // ledge.body.velocity.x = -88;
-    // ledge = platforms.create(2250, 689, 'log2');
-    // ledge.body.immovable = true;
-    // ledge.body.velocity.x = -91;
-    // }
 
     frog = game.add.sprite(580, game.world.height - 1000, 'smilingfrog')
     frog.scale.x = game.rnd.realInRange(.2, .2);
@@ -158,39 +179,6 @@
   }
 
   function update(){
-
-    // spinningWheel.angle += 1;
-
-    // var breeze = setTimeout(cloudMovement1);
-    // function cloudMovement1(){
-    // cloud1.angle -= .03;
-    // cloud2.angle += .03;
-    // cloud3.angle += .03;
-    // cloud4.angle += .03;
-    // cloud5.angle -= .03;
-    // cloud6.angle += .03;
-    // var breeze = setTimeout(cloudMovement2, 3000)
-    // }
-    // function cloudMovement2(){
-    // cloud1.angle += .06;
-    // cloud2.angle -= .06;
-    // cloud3.angle -= .06;
-    // cloud4.angle -= .06;
-    // cloud5.angle += .06;
-    // cloud6.angle -= .06;
-    // var breeze = setTimeout(cloudMovement3, 3000)
-    // }
-    // function cloudMovement3(){
-    // cloud1.angle -= .06;
-    // cloud2.angle += .06;
-    // cloud3.angle += .06;
-    // cloud4.angle += .06;
-    // cloud5.angle -= .06;
-    // cloud6.angle += .06;
-    // var breeze = setTimeout(cloudMovement2, 3000)
-    // }
-    
-
 
     game.physics.arcade.collide(frog, platforms);
 
