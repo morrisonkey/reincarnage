@@ -3,6 +3,10 @@
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
   function preload(){
+    var images = {
+        'tree': '/images/tree.png',
+        
+    }
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
 
@@ -18,7 +22,7 @@
     game.load.image('branch2', '/images/h_branch_2.png');
     game.load.image('branch3', '/images/h_branch_3.png');
     game.load.image('branch4', '/images/h_branch_4.png');
-    game.load.image('spider', '/images/spider.png');
+    game.load.image('spider', '/images/spider_bigger_face.png');
     // level 2 images
     // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
@@ -53,6 +57,8 @@
 
 
     spider = game.add.sprite(780, game.world.height - 1000, 'spider')
+    spider.scale.x = game.rnd.realInRange(.6, .6);
+    spider.scale.y = game.rnd.realInRange(.6, .6);
     game.physics.arcade.enable(spider);
 
     spider.body.gravity.y = 10;

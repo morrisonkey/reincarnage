@@ -1,0 +1,31 @@
+SWEET JESUS DEFINITELY DO FIRST:
+- FUNCTIONS.
+
+DEFINITELY DO:
+- First Big Goal: Trim down to only the code you're actually using now
+  - "To add code is human, to remove code is divine"
+  - Git add & commit everything
+  - Make sure merge is fine
+  - Get everything into master
+  - Delete all OLD CODE comments
+    - You have them in git anyway
+    - The interface might change
+  - Delete empty/useless/scaffolded files (games.js.coffe, etc.)
+  - Delete old tutorial files
+
+PROBABLY DO:
+- Cleanup JS stuff
+  - Move all of the level-defining js into files in app/assets/javascripts
+  - Use template-specific (.html.erb) script tags to run that code
+    - <script type="text/javascript" src="/assets/level2.js"></script>
+
+- Get even javascriptier    
+  - Maybe experiment with document.pushState() to simulate users making new web requests
+    without actually hitting Rails again. That way you can do it without any templates
+    at all
+
+- Maybe store images as JSON object at the top of each file or something
+
+
+MAYBE BONUS NICE-TO-HAVE:
+- Google around for "rails json bootstrap" (putting JSON inline)

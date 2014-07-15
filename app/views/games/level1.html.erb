@@ -6,7 +6,9 @@
 
   function preload(){
 
-    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
+    // todo: maybe load with offset *******************
+
+    game.load.spritesheet('dude', '/images/bug_sprite_sheet.png', 95, 165);
 
     game.load.image('tree', '/images/tree.png');
     // level 1 images
@@ -42,7 +44,9 @@
 
     game.add.image(0, 0, 'levelOneBackground');
 
-    // game.add.image(6, 3, 'spider');
+    spider = game.add.image(6, 3, 'spider');
+    spider.scale.x = game.rnd.realInRange(.6, .6);
+    spider.scale.y = game.rnd.realInRange(.6, .6);
 
 
 
@@ -187,16 +191,18 @@
     acorn3.scale.setTo(1.5,1.5);
     }
 
+    frog = game.add.sprite(700, 600, 'dude')
+    frog.scale.x = game.rnd.realInRange(.5, .5);
+    frog.scale.y = game.rnd.realInRange(.5, .5);
 
-    frog = game.add.sprite(100, 30, 'dude')
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
     frog.body.gravity.y = 350;
     frog.body.collideWorldBounds = true;
 
-    frog.animations.add('left', [0, 1, 2, 3], 10, true);
-    frog.animations.add('right', [5, 6, 7, 8], 10, true);
+    frog.animations.add('left', [0, 1], 5, true);
+    frog.animations.add('right', [3, 4], 5, true);
 
     game.physics.arcade.enable(acorn);
 
@@ -245,7 +251,7 @@
         //  Stand still
         frog.animations.stop();
 
-        frog.frame = 4;
+        frog.frame = 2;
     }
     
     //  Allow the player to jump if they are touching the ground.
