@@ -18,10 +18,10 @@
     game.load.image('acorn3', '/images/acorn_3.png');
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
-    game.load.image('branch1', '/images/branch_1.png');
-    game.load.image('branch2', '/images/branch_2.png');
-    game.load.image('branch3', '/images/branch_3.png');
-    game.load.image('branch4', '/images/branch_4.png');
+    game.load.image('branch1', '/images/h_branch_2.png');
+    game.load.image('branch2', '/images/h_branch_3.png');
+    game.load.image('branch3', '/images/h_branch_4.png');
+    game.load.image('branch4', '/images/h_branch_1.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider.png');
     // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
@@ -67,25 +67,31 @@
     acorn = ''
 
     // left side
-    ledge = platforms.create(0, 80, 'branch4');
+    ledge = platforms.create(0, 80, 'branch1');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // right side
-    ledge = platforms.create(410, 240, 'branch3');
+    ledge = platforms.create(410, 240, 'branch2');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // left side
-    ledge = platforms.create(0, 420, 'branch2');
+    ledge = platforms.create(0, 420, 'branch3');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
 
     // right side
-    ledge = platforms.create(410, 600, 'branch3');
+    ledge = platforms.create(410, 600, 'branch4');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
+    ledge.scale.y = game.rnd.realInRange(2, 2);
+    ledge.body.immovable = true;
+
+    // left side
+    ledge = platforms.create(-400, 700, 'branch1');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
