@@ -135,10 +135,10 @@
 
 
 
-    game.time.events.loop(Phaser.Timer.SECOND * 5, acornLaunch, this);
+    game.time.events.loop(Phaser.Timer.SECOND * 3, acornLaunch, this);
     acornLaunch();
     function acornLaunch() {
-    acorn = platforms.create(0, 70, 'acorn1');
+    acorn = platforms.create(0, 58, 'acorn1');
     acorn.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -146,9 +146,10 @@
 
     acorn.body.velocity.x = 500;
     acorn.body.bounce.y = 0.1;
+    acorn.scale.setTo(1.5,1.5);
     // acorn.body.gravity.y = 1000;
 
-    acorn1 = platforms.create(410, 235, 'acorn3');
+    acorn1 = platforms.create(1000, 225, 'acorn3');
     acorn1.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -156,19 +157,21 @@
 
     acorn1.body.velocity.x = -500;
     acorn1.body.bounce.y = 0.1;
+    acorn1.scale.setTo(1.5,1.5);
     // acorn1.body.gravity.y = 1000;
 
-    acorn2 = platforms.create(0, 400, 'acorn4');
+    acorn2 = platforms.create(0, 390, 'acorn4');
     acorn2.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
     acorn.exist = true;
     acorn2.body.velocity.x = 500;
     acorn2.body.bounce.y = 0.1;
+    acorn2.scale.setTo(1.5,1.5);
     // acorn2.body.gravity.y = 1000;
 
 
-    acorn3 = platforms.create(700, 553, 'acorn2');
+    acorn3 = platforms.create(1000, 537, 'acorn2');
     acorn3.body.immovable = true;
     acorn.enableBody = true;
     game.physics.arcade.enable(acorn);
@@ -177,8 +180,8 @@
     acorn3.body.velocity.x = -500;
     acorn3.body.bounce.y = 0.1;
     // acorn3.body.gravity.y = 1000;
+    acorn3.scale.setTo(1.5,1.5);
     }
-
 
 
     frog = game.add.sprite(700, 700, 'dude')
