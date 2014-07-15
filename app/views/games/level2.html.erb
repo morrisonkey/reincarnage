@@ -3,10 +3,6 @@
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
   function preload(){
-    var images = {
-        'tree': '/images/tree.png',
-        
-    }
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
 
@@ -18,11 +14,11 @@
     game.load.image('acorn3', '/images/acorn_3.png');
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
-    game.load.image('branch1', '/images/h_branch_1.png');
-    game.load.image('branch2', '/images/h_branch_2.png');
-    game.load.image('branch3', '/images/h_branch_3.png');
-    game.load.image('branch4', '/images/h_branch_4.png');
-    game.load.image('spider', '/images/spider_bigger_face.png');
+    game.load.image('branch1', '/images/branch_1.png');
+    game.load.image('branch2', '/images/branch_2.png');
+    game.load.image('branch3', '/images/branch_3.png');
+    game.load.image('branch4', '/images/branch_4.png');
+    game.load.image('spider', '/images/spider.png');
     // level 2 images
     // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
@@ -53,12 +49,16 @@
 
     platforms.enableBody = true;
 
+    var ground = platforms.create(0, game.world.height -5, 'log1');
+
+    ground.scale.setTo(50,3);
+
+    ground.body.immovable = true;
+
     cursors = game.input.keyboard.createCursorKeys();
 
 
     spider = game.add.sprite(780, game.world.height - 1000, 'spider')
-    spider.scale.x = game.rnd.realInRange(.6, .6);
-    spider.scale.y = game.rnd.realInRange(.6, .6);
     game.physics.arcade.enable(spider);
 
     spider.body.gravity.y = 10;
@@ -71,153 +71,32 @@
 
     // set interval
     branches();
+    var tid = setInterval(branches, 18000);
     function branches() {
-    // left side
-    ledge = platforms.create(0, 800, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
-    // right side
-    ledge = platforms.create(410, 1200, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
-    // left side
-    ledge = platforms.create(0, 1600, 'branch2');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
     // right side
     ledge = platforms.create(410, 2000, 'branch1');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
+    ledge.body.velocity.y = -90;
     // left side
-    ledge = platforms.create(0, 2400, 'branch4');
+    ledge = platforms.create(0, 1600, 'branch2');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
+    ledge.body.velocity.y = -92;
     // right side
-    ledge = platforms.create(410, 2800, 'branch3');
+    ledge = platforms.create(410, 1200, 'branch3');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
+    ledge.body.velocity.y = -88;
     // left side
-    ledge = platforms.create(0, 3200, 'branch2');
+    ledge = platforms.create(0, 800, 'branch4');
     ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.scale.y = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
-    // left side
-    ledge = platforms.create(0, 3600, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -250;
-    // end of wave one
-    // left side
-    ledge = platforms.create(-40, 5800, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // right side
-    ledge = platforms.create(450, 6300, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // left side
-    ledge = platforms.create(-40, 6800, 'branch2');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // right side
-    ledge = platforms.create(450, 7300, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // left side
-    ledge = platforms.create(-40, 7800, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // right side
-    ledge = platforms.create(450, 8300, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // right side
-    ledge = platforms.create(450, 8800, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // left side
-    ledge = platforms.create(-40, 9300, 'branch2');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // right side
-    ledge = platforms.create(450, 9800, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -350;
-    // end of wave 2
-    // left side
-    ledge = platforms.create(-75, 13700, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // right side
-    ledge = platforms.create(485, 14300, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // left side
-    ledge = platforms.create(-75, 14900, 'branch2');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // right side
-    ledge = platforms.create(485, 15500, 'branch1');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // right side*
-    ledge = platforms.create(485, 16100, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // left side
-    ledge = platforms.create(-75, 16700, 'branch4');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
-    // right side
-    ledge = platforms.create(485, 17300, 'branch3');
-    ledge.scale.x = game.rnd.realInRange(2, 2);
-    ledge.scale.y = game.rnd.realInRange(2, 2);
-    ledge.body.immovable = true;
-    ledge.body.velocity.y = -450;
+    ledge.body.velocity.y = -91;
     }
 
   }
@@ -237,26 +116,19 @@
     if (cursors.left.isDown)
     {
       //  spider to left
-      if (spider.body.touching.down)
-      {
-      spider.body.velocity.x = -150
-      }
-      else
-      {
+
       spider.body.velocity.x = -400
-      }
+
+      // spider.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
       //  spider right
-      if (spider.body.touching.down)
-      {
-      spider.body.velocity.x = 150
-      }
-      else
-      {
+
       spider.body.velocity.x = 400
-      }
+
+      // spider.animations.play('right');
+
     }
     else
     {
@@ -265,7 +137,7 @@
       spider.frame = 4;
     }
 
-    if (cursors.up.isDown && !spider.body.touching.down)
+    if (cursors.up.isDown)
     {
       spider.body.velocity.y = -200;
     }
