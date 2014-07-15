@@ -87,9 +87,9 @@
 
     // game.add.image(655, 560, 'grass4');
 
-    game.add.image(105, 570, 'rock1');
+    game.add.image(105, 560, 'rock1');
 
-    game.add.image(480, 590, 'rock2');
+    game.add.image(480, 570, 'rock2');
 
     platforms = game.add.group();
 
@@ -101,11 +101,11 @@
 
     var ground = platforms.create(0, game.world.height -5, 'whatever');
 
-    var ledge = platforms.create(140, 605, 'purp_line');
+    var ledge = platforms.create(140, 595, 'purp_line');
 
     ledge.body.immovable = true;
 
-    var ledge = platforms.create(505, 625, 'purp_line');
+    var ledge = platforms.create(505, 605, 'purp_line');
 
     ledge.body.immovable = true;
     ledge.scale.x = game.rnd.realInRange(1.3, 1.3);
@@ -124,43 +124,43 @@
     log.scale.y = game.rnd.realInRange(1.87, 1.87);
     log.body.immovable = true;
     log.body.velocity.x = -90;
-    log = logs.create(1700, 600, 'log3');
+    log = logs.create(1700, 570, 'log3');
     log.scale.x = game.rnd.realInRange(1.87, 1.87);
     log.scale.y = game.rnd.realInRange(1.87, 1.87);
     log.body.immovable = true;
     log.body.velocity.x = -92;
-    log = logs.create(1900, 600, 'log4');
+    log = logs.create(2300, 585, 'log4');
     log.scale.x = game.rnd.realInRange(1.87, 1.87);
     log.scale.y = game.rnd.realInRange(1.87, 1.87);
     log.body.immovable = true;
     log.body.velocity.x = -88;
-    log = logs.create(2250, 600, 'log2');
+    log = logs.create(2900, 600, 'log2');
     log.scale.x = game.rnd.realInRange(1.87, 1.87);
     log.scale.y = game.rnd.realInRange(1.87, 1.87);
     log.body.immovable = true;
     log.body.velocity.x = -91;
-    ledge = platforms.create(1100, 650, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge = platforms.create(1120, 620, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
     ledge.body.immovable = true;
     ledge.body.velocity.x = -90;
-    ledge = platforms.create(1500, 650, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge = platforms.create(1720, 620, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(2.75, 2.75);
     ledge.body.immovable = true;
     ledge.body.velocity.x = -92;
-    ledge = platforms.create(1900, 650, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge = platforms.create(2320, 620, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(2, 2);
     ledge.body.immovable = true;
     ledge.body.velocity.x = -88;
-    ledge = platforms.create(2250, 650, 'purp_line');
-    ledge.scale.x = game.rnd.realInRange(1.87, 1.87);
+    ledge = platforms.create(2910, 620, 'purp_line');
+    ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
     ledge.body.immovable = true;
     ledge.body.velocity.x = -91;
     }
 
 
-    frog = game.add.sprite(580, game.world.height - 1000, 'smilingfrog')
-    frog.scale.x = game.rnd.realInRange(.2, .2);
-    frog.scale.y = game.rnd.realInRange(.2, .2);
+    frog = game.add.sprite(150, game.world.height - 300, 'smilingfrog')
+    frog.scale.x = game.rnd.realInRange(.25, .25);
+    frog.scale.y = game.rnd.realInRange(.25, .25);
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
@@ -187,31 +187,45 @@
     frog.body.velocity.x = 0;
     }
 
-    if (cursors.left.isDown && frog.body.touching.down)
+    if (cursors.left.isDown)
     {
       // hop frog to left
-      frog.body.velocity.y = -100
-
-      frog.body.velocity.x = -200
 
       frog.animations.play('left');
+      
+      frog.body.velocity.x = -200
+
+      if (frog.body.touching.down)
+      {
+
+      frog.body.velocity.y = -50
+
+      }
+
+
     }
-    else if (cursors.right.isDown && frog.body.touching.down)
+    else if (cursors.right.isDown)
     {
       // hop frog right
-      frog.body.velocity.y = -100
-
-      frog.body.velocity.x = 200
 
       frog.animations.play('right');
+    
+      frog.body.velocity.x = 200
+
+      if (frog.body.touching.down)
+      {
+
+        frog.body.velocity.y = -50
+
+      }
 
     }
-    else
-    {
-      frog.animations.stop();
+    // else
+    // {
+    //   frog.animations.stop();
 
-      frog.frame = 4;
-    }
+    //   frog.frame = 4;
+    // }
 
     if (cursors.up.isDown && frog.body.touching.down)
     {
