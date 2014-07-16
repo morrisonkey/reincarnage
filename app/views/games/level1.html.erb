@@ -29,6 +29,7 @@
     game.load.image('branch4', '/images/h_branch_1.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider_bigger_face.png');
+    game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
     // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
     // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
     // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
@@ -82,12 +83,12 @@
     spider.scale.y = game.rnd.realInRange(.55, .55);
     spider.body.immovable = true;
 
-    goal = game.add.sprite(90, 10, 'purp_line');
-    game.physics.arcade.enable(goal);
-    goal.enableBody = true;
-    goal.scale.x = game.rnd.realInRange(.55, .55);
-    goal.scale.y = game.rnd.realInRange(.55, .55);
-    goal.body.immovable = true;
+    // goal = game.add.sprite(90, 10, 'purp_line');
+    // game.physics.arcade.enable(goal);
+    // goal.enableBody = true;
+    // goal.scale.x = game.rnd.realInRange(.55, .55);
+    // goal.scale.y = game.rnd.realInRange(.55, .55);
+    // goal.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -157,7 +158,15 @@
     createAcorn(1000, 547, random_acorn, 1.5, -500);
     }
 
-    beetle = game.add.sprite(300, 0, 'dude')
+    fly = game.add.sprite(10, 25, 'fly')
+    fly.scale.x = game.rnd.realInRange(.8, .8);
+    fly.scale.y = game.rnd.realInRange(.8, .8);
+    game.physics.arcade.enable(fly);
+    fly.animations.add('right', [0, 1], .5, true);
+    fly.animations.add('left', [2, 3], .5, true);
+    fly.animations.play('right');
+
+    beetle = game.add.sprite(800, 700, 'dude')
     beetle.scale.x = game.rnd.realInRange(.4, .4);
     beetle.scale.y = game.rnd.realInRange(.4, .4);
     game.physics.arcade.enable(beetle);
@@ -187,7 +196,7 @@
     game.physics.arcade.collide(platforms, platforms);
     // game.physics.arcade.collide(beetle, spider);
 
-    game.physics.arcade.overlap(beetle, goal, winFunc, null, this);
+    game.physics.arcade.overlap(beetle, spider, winFunc, null, this);
 
     function winFunc(beetle, spider){
         // add functionality for bug to seem to go behind spider and hit hidden div
