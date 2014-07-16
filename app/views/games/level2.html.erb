@@ -64,6 +64,11 @@
     spider.body.gravity.y = 10;
     spider.body.collideWorldBounds = true;
 
+    frog = game.add.group();
+    frog.enableBody = true;
+
+    
+
     // spider.animations.add('left', [0, 1, 2], 6, true);
     // spider.animations.add('right', [3, 4, 5], 6, true);
 
@@ -79,64 +84,83 @@
     }
 
 
-    branches();
+
     function branches() {
-    // left side
-    createBranches(0, 800, 'branch4', 2, -250);
-    // right side
-    createBranches(410, 1200, 'branch3', 2, -250);
-    // left side
-    createBranches(0, 1600, 'branch2', 2, -250);
-    // right side
-    createBranches(410, 2000, 'branch1', 2, -250);
-    // left side
-    createBranches(0, 2400, 'branch4', 2, -250);
-    // right side
-    createBranches(410, 2800, 'branch3', 2, -250);
-    // left side
-    createBranches(0, 3200, 'branch2', 2, -250);
-    // left side
-    createBranches(0, 3600, 'branch4', 2, -250);
-    // end of wave one
 
-    // left side
-    createBranches(-40, 5800, 'branch4', 2, -350);
-    // right side
-    createBranches(450, 6300, 'branch3', 2, -350);
-    // left side
-    createBranches(-40, 6800, 'branch2', 2, -350);
-    // right side
-    createBranches(450, 7300, 'branch1', 2, -350);
-    // left side
-    createBranches(-40, 7800, 'branch4', 2, -350);
-    // right side
-    createBranches(450, 8300, 'branch1', 2, -350);
-    // right side
-    createBranches(450, 8800, 'branch3', 2, -350);
-    // left side
-    createBranches(-40, 9300, 'branch2', 2, -350);
-    // right side
-    createBranches(450, 9800, 'branch1', 2, -350);
-    // end of wave 2
+        function waveOne() { 
+            // left side
+            createBranches(0, 800, 'branch4', 2, -250);
+            // right side
+            createBranches(410, 1200, 'branch3', 2, -250);
+            // left side
+            createBranches(0, 1600, 'branch2', 2, -250);
+            // right side
+            createBranches(410, 2000, 'branch1', 2, -250);
+            // left side
+            createBranches(0, 2400, 'branch4', 2, -250);
+            // right side
+            createBranches(410, 2800, 'branch3', 2, -250);
+            // left side
+            createBranches(0, 3200, 'branch2', 2, -250);
+            // left side
+            createBranches(0, 3600, 'branch4', 2, -250);
+            // end of wave one
+        };
+        waveOne();
 
-    // left side
-    createBranches(-75, 13700, 'branch4', 2, -450);
-    // right side
-    createBranches(485, 14300, 'branch3', 2, -450);
-    // left side
-    createBranches(-75, 14900, 'branch2', 2, -450);
-    // right side
-    createBranches(485, 15500, 'branch1', 2, -450);
-    // right side
-    createBranches(485, 16100, 'branch3', 2, -450);
-    // left side
-    createBranches(-75, 16700, 'branch4', 2, -450);
-    // right side
-    createBranches(485, 17300, 'branch3', 2, -450);
-    //frog
+        window.setTimeout(
+        function() {
+            // left side
+            createBranches(-40, 800, 'branch4', 2, -350);
+            // right side
+            createBranches(450, 1300, 'branch3', 2, -350);
+            // left side
+            createBranches(-40, 1800, 'branch2', 2, -350);
+            // right side
+            createBranches(450, 2300, 'branch1', 2, -350);
+            // left side
+            createBranches(-40, 2800, 'branch4', 2, -350);
+            // right side
+            createBranches(450, 3300, 'branch1', 2, -350);
+            // right side
+            createBranches(450, 3800, 'branch3', 2, -350);
+            // left side
+            createBranches(-40, 4300, 'branch2', 2, -350);
+            // right side
+            createBranches(450, 4800, 'branch1', 2, -350);
+            // end of wave 2
+            console.log('WORKS');
+        }, 15000);
 
+        window.setTimeout(
+        function waveThree() {
+            // left side
+            createBranches(-75, 800, 'branch4', 2, -450);
+            // right side
+            createBranches(485, 1400, 'branch3', 2, -450);
+            // left side
+            createBranches(-75, 2000, 'branch2', 2, -450);
+            // right side
+            createBranches(485, 2600, 'branch1', 2, -450);
+            // right side
+            createBranches(485, 3200, 'branch3', 2, -450);
+            // left side
+            createBranches(-75, 3800, 'branch4', 2, -450);
+            // right side
+            createBranches(485, 4200, 'branch3', 2, -450);
+        }, 30000);
+
+        //frog
+        window.setTimeout(
+            // create frog function with increasing y velocity
+            function(){
+            var frogGoal = frog.create(400, 800, 'smilingFrog');
+                frogGoal.scale.x = game.rnd.realInRange(2.5, 2.5);
+                frogGoal.scale.y = game.rnd.realInRange(2.5, 2.5);
+                frogGoal.body.velocity.y = -100;
+            }, 40000);
     }
-
+    branches();
   }
 
   function update(){
@@ -145,6 +169,14 @@
     game.physics.arcade.collide(spider, platforms);
     // game.physics.arcade.collide(acorn, platforms);
     // game.physics.arcade.collide(acorn, spider);
+    game.physics.arcade.collide(spider, frog);
+
+    game.physics.arcade.overlap(spider, frog, winFunc, null, this);
+
+    function winFunc(spider, frog){
+        spider.kill();
+        console.log('WINNER!');
+    }
 
     if (spider.body.touching.down)
     {
