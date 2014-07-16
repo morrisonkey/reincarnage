@@ -228,28 +228,25 @@
     // birdie.animations.add('shot', [24], 0, true);
     // birdie.animations.add('fall', [25], 0, true);
     
-    function createFly(x, y, xVelocity, animation){
-    fly = game.add.sprite(x, y, 'fly')
-    fly.scale.x = game.rnd.realInRange(.8, .8);
-    fly.scale.y = game.rnd.realInRange(.8, .8);
-    game.physics.arcade.enable(fly);
-    fly.body.velocity.x = xVelocity;
-    fly.animations.add('right', [0, 1], 15, true);
-    fly.animations.add('left', [2, 3], 15, true);
-    fly.animations.play(animation);
-    }
+    fly1 = game.add.sprite(900, 580, 'fly')
+    game.physics.arcade.enable(fly1);
+    fly1.scale.x = game.rnd.realInRange(.8, .8);
+    fly1.scale.y = game.rnd.realInRange(.8, .8);
+    fly1.body.velocity.x = -80;
+    fly1.animations.add('right', [0, 1], 15, true);
+    fly1.animations.add('left', [2, 3], 15, true);
 
-    createFly(175, 490, 0, 'right');
+    // createFly(175, 490, 0, 'right');
 
-    createFly(900, 500, 0, 'left');
+    // createFly(900, 500, 0, 'left');
 
-    createFly(1900, 580, -80, 'left');
+    // createFly(1900, 580, -80, 'left');
 
-    createFly(-40, 620, 80, 'right');
+    // createFly(-40, 620, 80, 'right');
 
-    createFly(2400, 600, -90, 'left');
+    // createFly(2400, 600, -90, 'left');
 
-    createFly(-600, 470, 90, 'right');
+    // createFly(-600, 470, 90, 'right');
     
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -260,43 +257,45 @@
 
     game.physics.arcade.collide(frog, platforms);
 
-    // initiateAnimations = function(fowl)
-    // {
-    //     if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == 180)
-    //     {
-    //         fowl.animations.play('right_down')
-    //     }
-    //     else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == 180)
-    //     {
-    //         fowl.animations.play('left_down')
-    //     }
-    //     else if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == -180)
-    //     {
-    //         fowl.animations.play('right_up')
-    //     }
-    //     else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == -180)
-    //     {
-    //         fowl.animations.play('left_up')
-    //     }
-    //     else if (fowl.body.velocity.x >= 180)
-    //     {
-    //         fowl.animations.play('right')
-    //     }
-    //     else if (fowl.body.velocity.x <= -180)
-    //     {
-    //         fowl.animations.play('left')
-    //     }
-    //     else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
-    //     {
-    //         fowl.animations.play('down')
-    //     }
-    //     else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
-    //     {
-    //         fowl.animations.play('up')
-    //     }
-    // }
+    initiateAnimations = function(fowl)
+    {
+        if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == 180)
+        {
+            fowl.animations.play('right_down')
+        }
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == 180)
+        {
+            fowl.animations.play('left_down')
+        }
+        else if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == -180)
+        {
+            fowl.animations.play('right_up')
+        }
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == -180)
+        {
+            fowl.animations.play('left_up')
+        }
+        else if (fowl.body.velocity.x > 0)
+        {
+            fowl.animations.play('right')
+        }
+        else if (fowl.body.velocity.x < 0)
+        {
+            fowl.animations.play('left')
+        }
+        else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            fowl.animations.play('down')
+        }
+        else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            fowl.animations.play('up')
+        }
+    }
 
     // initiateAnimations(birdie);
+    initiateAnimations(fly1);
+
 
 
     if (frog.body.touching.down)
