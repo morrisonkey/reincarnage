@@ -31,6 +31,7 @@
     game.load.image('grass4', '/images/grass_4.png');
     game.load.image('rock1', '/images/rock_1.png');
     game.load.image('rock2', '/images/rock_2.png');
+    game.load.image('water', '/images/water.png');
     // level 1 images
     game.load.image('levelOneBackground', '/images/level_1_background.png');
     game.load.image('acorn1', '/images/acorn_1.png');
@@ -110,6 +111,7 @@
 
     game.add.image(655, 560, 'grass4');
 
+
     // spider = game.add.image(790, 50, 'spider_with_web')
     // spider.scale.x = game.rnd.realInRange(.4, .4);
     // spider.scale.y = game.rnd.realInRange(.4, .4);
@@ -118,6 +120,7 @@
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
 
+    
     platforms = game.add.group();
 
     platforms.enableBody = true;
@@ -146,6 +149,10 @@
     var rock2 = platforms.create(480, 640, 'rock2');
 
     rock2.body.immovable = true;
+
+    game.add.image(0, 400, 'water');
+    // water.scale.x = game.rnd.realInRange(1, 1);
+    // water.scale.y = game.rnd.realInRange(1, 1);
 
     ground.scale.setTo(50,3);
 
