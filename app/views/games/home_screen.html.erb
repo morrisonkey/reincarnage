@@ -9,7 +9,7 @@
     game.load.image('purp_line', '/images/purp_line.png');
 
     // main images for world
-    game.load.image('logo', '/images/reincarnage.png');
+    game.load.image('logo', '/images/logo2.png');
     game.load.image('background', '/images/background.png');
     game.load.image('backgroundKey', '/images/background_key.png');
     game.load.image('log1', '/images/log_1.png');
@@ -43,7 +43,7 @@
     game.load.image('branch3', '/images/branch_3.png');
     game.load.image('branch4', '/images/branch_4.png');
     game.load.image('cobweb', '/images/cobweb.png');
-    game.load.image('spider', '/images/spider.png');
+    game.load.image('spider_with_web', '/images/spider_with_web.png');
     // level 2 images
     // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
@@ -102,6 +102,10 @@
 
     game.add.image(655, 560, 'grass4');
 
+    // spider = game.add.image(790, 50, 'spider_with_web')
+    // spider.scale.x = game.rnd.realInRange(.4, .4);
+    // spider.scale.y = game.rnd.realInRange(.4, .4);
+
 
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
@@ -114,7 +118,7 @@
 
     acorns.enableBody = true;
 
-    var logo = game.add.image(390, 40, 'logo');
+    var logo = game.add.image(415, 41, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
 

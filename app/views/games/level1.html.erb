@@ -9,10 +9,12 @@
     // todo: maybe load with offset *******************
 
     game.load.spritesheet('dude', '/images/bug_sprite_sheet1.png', 95.2, 124);
+    game.load.image('invisible_line', '/images/blank_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
 
     game.load.image('tree', '/images/tree.png');
     // level 1 images
-    game.load.image('levelOneBackground', '/images/level_one_background-01.png');
+    game.load.image('levelOneBackground', '/images/level1background-01.png');
     game.load.image('greenBackdrop', '/images/green_backdrop.png');
     game.load.image('whiteBackdrop', '/images/whiteBackground.png');
     game.load.image('acorn1', '/images/acorn_1.png');
@@ -20,6 +22,7 @@
     game.load.image('acorn3', '/images/acorn_3.png');
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
+    game.load.image('acorn6', '/images/acorn_6.png');
     game.load.image('branch1', '/images/h_branch_2.png');
     game.load.image('branch2', '/images/h_branch_3.png');
     game.load.image('branch3', '/images/h_branch_4.png');
@@ -72,13 +75,19 @@
 
     // game.physics.arcade.enable(acorns2);
 
-    spider = game.add.group();
+    spider = game.add.sprite(90, -30, 'spider');
+    game.physics.arcade.enable(spider);
     spider.enableBody = true;
+    spider.scale.x = game.rnd.realInRange(.55, .55);
+    spider.scale.y = game.rnd.realInRange(.55, .55);
+    spider.body.immovable = true;
 
-    var spiderGoal = spider.create(6, 3, 'spider');
-    spiderGoal.scale.x = game.rnd.realInRange(.8, .8);
-    spiderGoal.scale.y = game.rnd.realInRange(.8, .8);
-    // spiderGoal.body.immovable = true;
+    goal = game.add.sprite(90, 10, 'purp_line');
+    game.physics.arcade.enable(goal);
+    goal.enableBody = true;
+    goal.scale.x = game.rnd.realInRange(.55, .55);
+    goal.scale.y = game.rnd.realInRange(.55, .55);
+    goal.body.immovable = true;
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
@@ -90,113 +99,67 @@
 
     
     function createBranch(x, y, image, size) {
-        branch = platforms.create(x, y, image);
+        branch = game.add.image(x, y, image);
         branch.scale.x = game.rnd.realInRange(size, size);
         branch.scale.y = game.rnd.realInRange(size, size);
-        branch.body.immovable = true;       
     }
 
-    function createLedge(x, y, image, size) {
-        ledge = platforms.create(x, y, image);
-        ledge.scale.x = game.rnd.realInRange(size, size);
-        ledge.scale.y = game.rnd.realInRange(size, size);
-        ledge.body.immovable = true;       
+    function createObject(x, y, image, size) {
+        object = platforms.create(x, y, image);
+        object.scale.x = game.rnd.realInRange(size, size);
+        object.body.immovable = true;       
     }
 
 
     // left side
     createBranch(0, 120, 'branch1', 2);
+    createObject(0, 120, 'purp_line', 6.5);
 
     // right side
     createBranch(410, 275, 'branch2', 2);
+    createObject(415, 275, 'purp_line', 6.2);
 
     // left side
     createBranch(-50, 440, 'branch3', 2);
+    createObject(-50, 440, 'purp_line', 7.30);
 
     // right side
     createBranch(410, 593, 'branch4', 2);
+    createObject(455, 593, 'purp_line', 5.8);
 
-    // left side
-    createBranch(-260, 750, 'branch3', 4);
+    // ground
+    createBranch(0, 750, 'branch3', 3);
+    createObject(0, 750, 'purp_line', 11);
 
-    // // var nuts = setInterval(acornBounce, 3000);
-    // function acornBounce() {
-    // acorn = acorns.create(0, 0, 'acorn1');
-    // acorn.enableBody = true;
-    // game.physics.arcade.enable(acorn);
-    // acorn.exist = true;
-    // acorn.body.velocity.x = 500;
-    // acorn.body.bounce.y = 0.1;
-    // acorn.body.gravity.y = 1000;
-    // // nuts = setTimeout(acornBounce, 20000); // repeat myself
-    // }
-    // acornBounce();
-
-    // function acornBounce2() {
-    // acorn = acorn2.create(0, 300, 'acorn2');
-    // // acorn.enableBody = true;
-    // acorn.body.velocity.x = 500;
-    // acorn.body.bounce.y = 0.1;
-    // acorn.body.gravity.y = 1000;
-    // }
-    // acornBounce2();
-
-
+    function createAcorn(x, y, image, size, xVelocity){
+    acorn = platforms.create(x, y, image);
+    game.physics.arcade.enable(acorn);
+    acorn.body.immovable = true;
+    acorn.enableBody = true;
+    acorn.exist = true;
+    acorn.scale.setTo(size, size);
+    acorn.body.velocity.x = xVelocity;
+    acorn.body.bounce.y = 0.1;
+    }
 
     game.time.events.loop(Phaser.Timer.SECOND * 3, acornLaunch, this);
     acornLaunch();
     function acornLaunch() {
-    acorn = platforms.create(0, 68, 'acorn1');
-    acorn.body.immovable = true;
-    acorn.enableBody = true;
-    game.physics.arcade.enable(acorn);
-    acorn.exist = true;
-
-    acorn.body.velocity.x = 500;
-    acorn.body.bounce.y = 0.1;
-    acorn.scale.setTo(1.2,1.2);
-
-
-    // acorn.body.gravity.y = 1000;
-
-    acorn1 = platforms.create(1000, 235, 'acorn3');
-    acorn1.body.immovable = true;
-    acorn.enableBody = true;
-    game.physics.arcade.enable(acorn);
-    acorn.exist = true;
-
-    acorn1.body.velocity.x = -500;
-    acorn1.body.bounce.y = 0.1;
-    acorn1.scale.setTo(1.5,1.5);
-    // acorn1.body.gravity.y = 1000;
-
-    acorn2 = platforms.create(0, 400, 'acorn4');
-    acorn2.body.immovable = true;
-    acorn.enableBody = true;
-    game.physics.arcade.enable(acorn);
-    acorn.exist = true;
-    acorn2.body.velocity.x = 500;
-    acorn2.body.bounce.y = 0.1;
-    acorn2.scale.setTo(1.5,1.5);
-    // acorn2.body.gravity.y = 1000;
-
-
-    acorn3 = platforms.create(1000, 547, 'acorn2');
-    acorn3.body.immovable = true;
-    acorn.enableBody = true;
-    game.physics.arcade.enable(acorn);
-    acorn.exist = true;
-
-    acorn3.body.velocity.x = -500;
-    acorn3.body.bounce.y = 0.1;
-    // acorn3.body.gravity.y = 1000;
-    acorn3.scale.setTo(1.5,1.5);
+    var acorn_array = ["acorn1", "acorn2", "acorn3", "acorn4", "acorn5", "acorn6"]
+    random_acorn = acorn_array[Math.floor(acorn_array.length * Math.random())];
+        // shoot right
+    createAcorn(-1500, 70, random_acorn, 1.2, 500);
+        // shoot left
+    createAcorn(2000, 220, random_acorn, 1.5, -500);
+        // shoot right
+    createAcorn(-500, 400, random_acorn, 1.5, 500);
+        // shoot left
+    createAcorn(1000, 547, random_acorn, 1.5, -500);
     }
 
-    beetle = game.add.sprite(700, 600, 'dude')
+    beetle = game.add.sprite(300, 0, 'dude')
     beetle.scale.x = game.rnd.realInRange(.4, .4);
     beetle.scale.y = game.rnd.realInRange(.4, .4);
-
     game.physics.arcade.enable(beetle);
 
     beetle.body.bounce.y = 0.1;
@@ -206,7 +169,6 @@
     beetle.animations.add('left', [0, 1], 5, true);
     beetle.animations.add('right', [3, 4], 5, true);
 
-    game.physics.arcade.enable(acorn);
 
     beetle.body.collideWorldBounds = true;
     acorn.body.collideWorldBounds = false;
@@ -223,12 +185,16 @@
     game.physics.arcade.collide(acorn, platforms);
     game.physics.arcade.collide(acorn, beetle);
     game.physics.arcade.collide(platforms, platforms);
-    game.physics.arcade.collide(spider, beetle);
+    // game.physics.arcade.collide(beetle, spider);
 
-    game.physics.arcade.overlap(beetle, spider, winFunc, null, this);
+    game.physics.arcade.overlap(beetle, goal, winFunc, null, this);
 
     function winFunc(beetle, spider){
+        // add functionality for bug to seem to go behind spider and hit hidden div
         beetle.kill();
+        // insert timeout function
+        spider.body.velocity.x = 0
+        spider.body.velocity.y += 500
         console.log('WINNER!');
     }
 
