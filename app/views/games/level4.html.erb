@@ -18,21 +18,18 @@
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
     game.load.image('crosshair', '/images/crosshair.png');
-    game.load.spritesheet('bird', '/images/birds.png', 84, 80)
-
-    game.load.image('birds', '/images/birds.png')
-
-    game.load.spritesheet('bird1', '/images/bird_sprite.png', 84, 80)
-    game.load.spritesheet('bird2', '/images/bird sprite2.png', 142, 136.5)
-    game.load.spritesheet('bird3', '/images/bird sprite3.png', 142, 136.5)
-    game.load.spritesheet('bird4', '/images/bird sprite4.png', 142, 136.5)
-    game.load.spritesheet('bird5', '/images/bird sprite5.png', 142, 136.5)
-    game.load.spritesheet('bird6', '/images/bird sprite6.png', 142, 136.5)
-    game.load.spritesheet('bird7', '/images/bird sprite7.png', 142, 136.5)
-    game.load.spritesheet('bird8', '/images/bird sprite8.png', 142, 136.5)
-    game.load.spritesheet('bird9', '/images/bird sprite9.png', 142, 136.5)
-    game.load.spritesheet('bird10', '/images/bird sprite10.png', 142, 136.5)
-    game.load.spritesheet('bird11', '/images/bird sprite11.png', 142, 136.5)
+    game.load.spritesheet('player_bird', '/images/bird sprite-1.png', 84, 80)
+    game.load.spritesheet('bird1', '/images/bird sprite1-1.png', 84, 80)
+    game.load.spritesheet('bird2', '/images/bird sprite2-1.png', 84, 80)
+    game.load.spritesheet('bird3', '/images/bird sprite3-1.png', 84, 80)
+    game.load.spritesheet('bird4', '/images/bird sprite4-1.png', 84, 80)
+    game.load.spritesheet('bird5', '/images/bird sprite5-1.png', 84, 80)
+    game.load.spritesheet('bird6', '/images/bird sprite6-1.png', 84, 80)
+    game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80)
+    game.load.spritesheet('bird8', '/images/bird sprite8-1.png', 84, 80)
+    game.load.spritesheet('bird9', '/images/bird sprite9-1.png', 84, 80)
+    game.load.spritesheet('bird10', '/images/bird sprite10-1.png', 84, 80)
+    game.load.spritesheet('bird11', '/images/bird sprite11-1.png', 84, 80)
   }
 
   var platforms;
@@ -44,10 +41,6 @@
     background = game.add.image(0, 0, 'background');
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
-
-    crosshair = game.add.image(0, 0, 'crosshair');
-    crosshair.scale.x = game.rnd.realInRange(.15, .15);
-    crosshair.scale.y = game.rnd.realInRange(.15, .15);
 
     // cloud1 = game.add.image(0, 15, 'cloud1');
     // cloud1.anchor.setTo(-.1, -.1);
@@ -72,7 +65,14 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    bird = game.add.sprite(0, 400, 'bird1');
+    var bird_array = ["player_bird", "bird1", "bird2", "bird3", "bird4", "bird5", "bird6", "bird7", "bird8", "bird9", "bird10"]
+    random_bird = bird_array[Math.floor(bird_array.length * Math.random())];
+
+    bird = game.add.sprite(0, 400, random_bird);
+    crosshair = game.add.image(450, 300, 'crosshair');
+    crosshair.scale.x = game.rnd.realInRange(.15, .15);
+    crosshair.scale.y = game.rnd.realInRange(.15, .15);
+
     game.physics.arcade.enable(bird);
     // bird.anchor.set(0.5);
 
@@ -166,7 +166,18 @@
     }
     else
     {
-        bird.animations.play('up');
+        if (bird.body.velocity.x > 0)
+        {
+            bird.animations.play('right');
+        }
+        else if (bird.body.velocity.x < 0)
+        {
+            bird.animations.play('left');
+        }
+        else
+        {
+            bird.animations.play('up');
+        }
     }
     // if (cursors.up.isDown)
     // {
