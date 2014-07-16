@@ -1,8 +1,26 @@
 <script type="text/javascript">
 
-  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
-  function preload(){
+// // creating our bird friends (not really enemies)
+//       Enemy = function(){
+//         this.x = game.world.randomX;
+//         this.y = game.world.randomY;
+//         this.minSpeed = -75;
+//         this.maxSpeed = 75;
+//         this.vx = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+//         this.vy = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+
+//         this.enemySprite = game.add.sprite(this.x,this.y,random_bird);
+//         this.enemySprite.anchor.setTo(0.5, 0.5);
+//         this.enemySprite.body.collideWorldBounds = true;
+//         this.enemySprite.body.bounce.setTo(1, 1);
+//         this.enemySprite.body.velocity.x = this.vx;
+//         this.enemySprite.body.velocity.y = this.vy;
+//         this.enemySprite.body.immovable = true;
+//     }
+
+function preload(){
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
 
@@ -30,205 +48,327 @@
     game.load.spritesheet('bird9', '/images/bird sprite9-1.png', 84, 80)
     game.load.spritesheet('bird10', '/images/bird sprite10-1.png', 84, 80)
     game.load.spritesheet('bird11', '/images/bird sprite11-1.png', 84, 80)
-  }
+}
 
-  var platforms;
+var flightedAnimal;
+var birdie;
+var birds;
+var crosshair;
+var cursors;
+var background;
+var player_bird;
+var friendly_bird;
 
-  function create(){
+function create(){
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    cursors = game.input.keyboard.createCursorKeys();
 
+    // background image and scaled
     background = game.add.image(0, 0, 'background');
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
 
-    // cloud1 = game.add.image(0, 15, 'cloud1');
-    // cloud1.anchor.setTo(-.1, -.1);
 
-    // cloud2 = game.add.image(0, 380, 'cloud2');
-    // cloud2.anchor.setTo(-.1, -.1);
-
-    // cloud3 = game.add.image(335, 85, 'cloud3');
-    // cloud3.anchor.setTo(-.1, -.1);
-
-    // cloud4 = game.add.image(595, 270, 'cloud4');
-    // cloud4.anchor.setTo(-.1, -.1);
-
-    // cloud5 = game.add.image(650, 30, 'cloud5');
-    // cloud5.anchor.setTo(-.1, -.1);
-
-    // cloud6 = game.add.image(854, 258, 'cloud6');
-    // cloud6.anchor.setTo(-.1, -.1);
-
-    // birds = game.add.image(200,400,'birds');
+    // randomized bird sprites
+    randomBird = function()
+    {
+        var bird_array = ["player_bird", "bird1", "bird2", "bird3", "bird4", "bird5", "bird6", "bird7", "bird8", "bird9"]
+        color = bird_array[Math.floor(bird_array.length * Math.random())];
+        return color
+    }
 
 
-    cursors = game.input.keyboard.createCursorKeys();
+    // bird = bird.create(0, 400, random_bird);
 
-    var bird_array = ["player_bird", "bird1", "bird2", "bird3", "bird4", "bird5", "bird6", "bird7", "bird8", "bird9", "bird10"]
-    random_bird = bird_array[Math.floor(bird_array.length * Math.random())];
 
-    bird = game.add.sprite(0, 400, random_bird);
+    birdFriend1 = game.add.sprite(game.world.randomX, game.world.randomY, randomBird())
+    birdFriend1.enableBody = true;
+    game.physics.arcade.enable(birdFriend1);
+    birdFriend1.body.collideWorldBounds = true;
+    birdFriend1.minSpeed = -180;
+    birdFriend1.maxSpeed = 180;
+    birdFriend1.body.velocity.x = 180
+    birdFriend1.body.velocity.y = 180
+    birdFriend1.body.bounce.setTo(1, 1);
+    birdFriend1.body.immovable = true;
+
+    birdFriend2 = game.add.sprite(game.world.randomX, game.world.randomY, randomBird())
+    birdFriend2.enableBody = true;
+    game.physics.arcade.enable(birdFriend2);
+    birdFriend2.body.collideWorldBounds = true;
+    birdFriend2.minSpeed = -180;
+    birdFriend2.maxSpeed = 180;
+    birdFriend2.body.velocity.x = -180
+    birdFriend2.body.velocity.y = -180
+    birdFriend2.body.bounce.setTo(1, 1);
+    birdFriend2.body.immovable = true;
+
+    birdFriend3 = game.add.sprite(game.world.randomX, game.world.randomY, randomBird())
+    birdFriend3.enableBody = true;
+    game.physics.arcade.enable(birdFriend3);
+    birdFriend3.body.collideWorldBounds = true;
+    birdFriend3.minSpeed = -180;
+    birdFriend3.maxSpeed = 180;
+    birdFriend3.body.velocity.x = 180
+    birdFriend3.body.velocity.y = -180
+    birdFriend3.body.bounce.setTo(1, 1);
+    birdFriend3.body.immovable = true;
+
+
+    birdFriend4 = game.add.sprite(game.world.randomX, game.world.randomY, randomBird())
+    birdFriend4.enableBody = true;
+    game.physics.arcade.enable(birdFriend4);
+    birdFriend4.body.collideWorldBounds = true;
+    birdFriend4.minSpeed = -180;
+    birdFriend4.maxSpeed = 180;
+    birdFriend4.body.velocity.x = -180
+    birdFriend4.body.velocity.y = 180
+    birdFriend4.body.bounce.setTo(1, 1);
+    birdFriend4.body.immovable = true;
+
+    birdFriend5 = game.add.sprite(game.world.randomX, 400, randomBird())
+    birdFriend5.enableBody = true;
+    game.physics.arcade.enable(birdFriend5);
+    birdFriend5.body.collideWorldBounds = true;
+    birdFriend5.minSpeed = -180;
+    birdFriend5.maxSpeed = 180;
+    birdFriend5.body.velocity.x = 180
+    birdFriend5.body.velocity.y = 0
+    birdFriend5.body.bounce.setTo(1, 1);
+    birdFriend5.body.immovable = true;
+
+    birdFriend6 = game.add.sprite(game.world.randomX, 300, randomBird())
+    birdFriend6.enableBody = true;
+    game.physics.arcade.enable(birdFriend6);
+    birdFriend6.body.collideWorldBounds = true;
+    birdFriend6.minSpeed = -180;
+    birdFriend6.maxSpeed = 180;
+    birdFriend6.body.velocity.x = -180
+    birdFriend6.body.velocity.y = 0
+    birdFriend6.body.bounce.setTo(1, 1);
+    birdFriend6.body.immovable = true;
+
+    birdie = game.add.sprite(game.world.randomX, game.world.randomY, 'bird10')
+    birdie.enableBody = true;
+    game.physics.arcade.enable(birdie);
+    birdie.body.collideWorldBounds = true;
+
     crosshair = game.add.image(450, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.15, .15);
     crosshair.scale.y = game.rnd.realInRange(.15, .15);
 
-    game.physics.arcade.enable(bird);
-    // bird.anchor.set(0.5);
 
-    // bird.body.drag.set(100);
-    // bird.body.maxVelocity.set(200);
+    birdie.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend1.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend2.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend3.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend4.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend5.animations.add('left', [0, 1, 2], 6, true);
+    birdFriend6.animations.add('left', [0, 1, 2], 6, true);
 
-    bird.body.collideWorldBounds = true;
+    birdie.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend1.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend2.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend3.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend4.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend5.animations.add('right', [9, 10, 11], 6, true);
+    birdFriend6.animations.add('right', [9, 10, 11], 6, true);
 
-    bird.animations.add('left', [0, 1, 2], 6, true);
-    bird.animations.add('right', [9, 10, 11], 6, true);
-    bird.animations.add('up', [21, 22, 23], 6, true);
-    bird.animations.add('down', [18, 19, 20], 6, true);
-    bird.animations.add('left_up', [3, 4, 5], 6, true);
-    bird.animations.add('right_up', [12, 13, 14], 6, true);
-    bird.animations.add('left_down', [6, 7, 8], 6, true);
-    bird.animations.add('right_down', [15, 16, 17], 6, true);
-    bird.animations.add('shot', [24], 0, true);
-    bird.animations.add('fall', [25], 0, true)
+    birdie.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend1.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend2.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend3.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend4.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend5.animations.add('up', [21, 22, 23], 6, true);
+    birdFriend6.animations.add('up', [21, 22, 23], 6, true);
 
-    bird.body.collideWorldBounds = true;
+    birdie.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend1.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend2.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend3.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend4.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend5.animations.add('down', [18, 19, 20], 6, true);
+    birdFriend6.animations.add('down', [18, 19, 20], 6, true);
 
-    cursors = game.input.keyboard.createCursorKeys();
+    birdie.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend1.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend2.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend3.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend4.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend5.animations.add('left_up', [3, 4, 5], 6, true);
+    birdFriend6.animations.add('left_up', [3, 4, 5], 6, true);
 
-  }
+    birdie.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend1.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend2.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend3.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend4.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend5.animations.add('right_up', [12, 13, 14], 6, true);
+    birdFriend6.animations.add('right_up', [12, 13, 14], 6, true);
 
-  function update(){
+    birdie.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend1.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend2.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend3.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend4.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend5.animations.add('left_down', [6, 7, 8], 6, true);
+    birdFriend6.animations.add('left_down', [6, 7, 8], 6, true);
 
-    game.physics.arcade.collide(bird, platforms);
+    birdie.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend1.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend2.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend3.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend4.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend5.animations.add('right_down', [15, 16, 17], 6, true);
+    birdFriend6.animations.add('right_down', [15, 16, 17], 6, true);
 
-    if (cursors.up.isDown)
+    birdie.animations.add('shot', [24], 0, true);
+    birdFriend1.animations.add('shot', [24], 0, true);
+    birdFriend2.animations.add('shot', [24], 0, true);
+    birdFriend3.animations.add('shot', [24], 0, true);
+    birdFriend4.animations.add('shot', [24], 0, true);
+    birdFriend5.animations.add('shot', [24], 0, true);
+    birdFriend6.animations.add('shot', [24], 0, true);
+
+    birdie.animations.add('fall', [25], 0, true);
+    birdFriend1.animations.add('fall', [25], 0, true);
+    birdFriend2.animations.add('fall', [25], 0, true);
+    birdFriend3.animations.add('fall', [25], 0, true);
+    birdFriend4.animations.add('fall', [25], 0, true);
+    birdFriend5.animations.add('fall', [25], 0, true);
+    birdFriend6.animations.add('fall', [25], 0, true);
+
+
+    }
+
+    var fowl;
+
+    function update(){
+
+    // game.physics.arcade.collide(bird, crosshair);
+
+    initiateControls = function(fowl)
     {
-        if (cursors.left.isDown)
+
+        if (cursors.up.isDown)
         {
-            bird.body.velocity.y = -180;
+            if (cursors.left.isDown)
+            {
+                fowl.body.velocity.y = -180;
 
-            bird.body.velocity.x = -180
+                fowl.body.velocity.x = -180;
 
-            bird.animations.play('left_up');
+            }
+            else if (cursors.right.isDown)
+            {
+                fowl.body.velocity.y = -180;
+
+                fowl.body.velocity.x = 180;
+
+            }
+            else
+            {
+                fowl.body.velocity.y = -180;
+
+                fowl.body.velocity.x *= .99;
+
+            }
+        }
+        else if (cursors.down.isDown)
+        {
+            if (cursors.left.isDown)
+            {
+                fowl.body.velocity.y = 180;
+
+                fowl.body.velocity.x = -180;
+
+            }
+            else if (cursors.right.isDown)
+            {
+                fowl.body.velocity.y = 180;
+
+                fowl.body.velocity.x = 180;
+
+            }
+            else
+            {
+                fowl.body.velocity.y = 180;
+
+                fowl.body.velocity.x *= .99;
+
+            }
+        }
+        else if (cursors.left.isDown)
+        {
+            fowl.body.velocity.x = -180;
+
+            fowl.body.velocity.y *= .5;
+
         }
         else if (cursors.right.isDown)
         {
-            bird.body.velocity.y = -180;
+            fowl.body.velocity.x = 180;
 
-            bird.body.velocity.x = 180
+            fowl.body.velocity.y *= .5;
 
-            bird.animations.play('right_up');
-        }
-        else
-        {
-            bird.body.velocity.y = -180;
-
-            bird.animations.play('up');
         }
     }
-    else if (cursors.down.isDown)
+
+    initiateAnimations = function(fowl)
     {
-        if (cursors.left.isDown)
+        if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == 180)
         {
-            bird.body.velocity.y = 180;
-
-            bird.body.velocity.x = -180
-
-            bird.animations.play('left_down');
+            fowl.animations.play('right_down')
         }
-        else if (cursors.right.isDown)
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == 180)
         {
-            bird.body.velocity.y = 180;
-
-            bird.body.velocity.x = 180
-
-            bird.animations.play('right_down');
+            fowl.animations.play('left_down')
         }
-        else
+        else if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == -180)
         {
-            bird.body.velocity.y = 180;
-
-            bird.animations.play('down');
+            fowl.animations.play('right_up')
         }
-    }
-    else if (cursors.left.isDown)
-    {
-        bird.body.velocity.x = -180;
-
-        bird.animations.play('left');
-    }
-    else if (cursors.right.isDown)
-    {
-        bird.body.velocity.x = 180;
-
-        bird.animations.play('right');
-    }
-    else
-    {
-        if (bird.body.velocity.x > 0)
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == -180)
         {
-            bird.animations.play('right');
+            fowl.animations.play('left_up')
         }
-        else if (bird.body.velocity.x < 0)
+        else if (fowl.body.velocity.x >= 180)
         {
-            bird.animations.play('left');
+            fowl.animations.play('right')
         }
-        else
+        else if (fowl.body.velocity.x <= -180)
         {
-            bird.animations.play('up');
+            fowl.animations.play('left')
+        }
+        else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            fowl.animations.play('down')
+        }
+        else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            fowl.animations.play('up')
         }
     }
-    // if (cursors.up.isDown)
-    // {
-    //     game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
-    // }
-    // else
-    // {
-    //     bird.body.acceleration.set(0);
-    // }
-
-    // if (cursors.left.isDown)
-    // {
-    //     bird.body.angularVelocity = -300;
-    // }
-    // else if (cursors.right.isDown)
-    // {
-    //     bird.body.angularVelocity = 300;
-    // }
-    // else
-    // {
-    //     bird.body.angularVelocity = 0;
-    // }
-
-    // if (cursors.up.isDown)
-    // {
-    //     game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
-    // }
-    // else
-    // {
-    //     bird.body.acceleration.set(0);
-    // }
-
-    // if (cursors.left.isDown)
-    // {
-    //     bird.body.angularVelocity = -300;
-    // }
-    // else if (cursors.right.isDown)
-    // {
-    //     bird.body.angularVelocity = 300;
-    // }
-    // else
-    // {
-    //     bird.body.angularVelocity = 0;
-    // }
 
 
-  }
+    initiateAnimations(birdie);
+    initiateAnimations(birdFriend1);
+    initiateAnimations(birdFriend2);
+    initiateAnimations(birdFriend3);
+    initiateAnimations(birdFriend4);
+    initiateAnimations(birdFriend5);
+    initiateAnimations(birdFriend6);
 
-  function render(){
+    initiateControls(birdie);
+
+}
 
 
-  }
 
-  </script>
+function render(){
+
+
+}
+
+</script>

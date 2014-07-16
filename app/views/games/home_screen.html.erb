@@ -73,6 +73,14 @@
     cloud1 = game.add.image(0, 15, 'cloud1');
     cloud1.anchor.setTo(-.1, -.1);
 
+    cloud7 = game.add.sprite(400, 315, 'cloud5');
+    game.physics.arcade.enable(cloud7);
+    cloud7.enableBody = true;
+    cloud7.body.immovable = true;
+    cloud7.body.collideWorldBounds = true;
+    cloud7.body.velocity.x = -40;
+    cloud7.body.bounce.setTo(1, 1);
+
     cloud2 = game.add.image(0, 380, 'cloud2');
     cloud2.anchor.setTo(-.1, -.1);
 

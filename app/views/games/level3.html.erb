@@ -14,7 +14,7 @@
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
     game.load.image('invisible_line', '/images/blank_line.png');
-    game.load.image('purp_line', '/images/purp_line.png');
+    game.load.image('invisible_line', '/images/invisible_line.png');
 
 
     // main images for world
@@ -45,6 +45,7 @@
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
     game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
+    game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80)
     // game.load.spritesheet('frogtongue', '/images/frogtongue');
     // game.load.spritesheet('fly1', '/images/fly1');
     // game.load.spritesheet('fly2', '/images/fly2');
@@ -113,11 +114,11 @@
 
     var ground = platforms.create(0, game.world.height -5, 'whatever');
 
-    var ledge = platforms.create(140, 595, 'purp_line');
+    var ledge = platforms.create(140, 595, 'invisible_line');
 
     ledge.body.immovable = true;
 
-    var ledge = platforms.create(505, 605, 'purp_line');
+    var ledge = platforms.create(505, 605, 'invisible_line');
 
     ledge.body.immovable = true;
     ledge.scale.x = game.rnd.realInRange(1.3, 1.3);
@@ -133,7 +134,7 @@
     log.scale.y = game.rnd.realInRange(1.87, 1.87);
     log.body.immovable = true;
     log.body.velocity.x = -90;
-    ledge = platforms.create(520, 620, 'purp_line');
+    ledge = platforms.create(520, 620, 'invisible_line');
     ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
     ledge.body.immovable = true;
     ledge.body.velocity.x = -90;
@@ -177,19 +178,19 @@
         log.scale.y = game.rnd.realInRange(1.87, 1.87);
         log.body.immovable = true;
         log.body.velocity.x = -91;
-        ledge = platforms.create(1120, 620, 'purp_line');
+        ledge = platforms.create(1120, 620, 'invisible_line');
         ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
         ledge.body.immovable = true;
         ledge.body.velocity.x = -90;
-        ledge = platforms.create(1720, 620, 'purp_line');
+        ledge = platforms.create(1720, 620, 'invisible_line');
         ledge.scale.x = game.rnd.realInRange(2.75, 2.75);
         ledge.body.immovable = true;
         ledge.body.velocity.x = -92;
-        ledge = platforms.create(2320, 620, 'purp_line');
+        ledge = platforms.create(2320, 620, 'invisible_line');
         ledge.scale.x = game.rnd.realInRange(2, 2);
         ledge.body.immovable = true;
         ledge.body.velocity.x = -88;
-        ledge = platforms.create(2910, 620, 'purp_line');
+        ledge = platforms.create(2910, 620, 'invisible_line');
         ledge.scale.x = game.rnd.realInRange(1.6, 1.6);
         ledge.body.immovable = true;
         ledge.body.velocity.x = -91;
@@ -205,6 +206,28 @@
     frog.body.collideWorldBounds = true;
     // frog.animations.add('left', [0, 1, 2], 6, true);
     // frog.animations.add('right', [3, 4, 5], 6, true);
+
+    // //adding bird of prey
+    // birdie = game.add.sprite(400, 0, 'player_bird');
+    // birdie.scale.x = game.rnd.realInRange(2, 2);
+    // birdie.scale.y = game.rnd.realInRange(2, 2);
+    // game.physics.arcade.enable(birdie);
+    // birdie.enableBody = true;
+    // birdie.body.immovable = true;
+    // birdie.body.collideWorldBounds = true;
+    // birdie.body.velocity.x = -180;
+    // birdie.body.bounce.setTo(1, 1);
+    // birdie.animations.add('left', [0, 1, 2], 6, true);
+    // birdie.animations.add('right', [9, 10, 11], 6, true);
+    // birdie.animations.add('up', [21, 22, 23], 6, true);
+    // birdie.animations.add('down', [18, 19, 20], 6, true);
+    // birdie.animations.add('left_up', [3, 4, 5], 6, true);
+    // birdie.animations.add('right_up', [12, 13, 14], 6, true);
+    // birdie.animations.add('left_down', [6, 7, 8], 6, true);
+    // birdie.animations.add('right_down', [15, 16, 17], 6, true);
+    // birdie.animations.add('shot', [24], 0, true);
+    // birdie.animations.add('fall', [25], 0, true);
+    
     function createFly(x, y, xVelocity, animation){
     fly = game.add.sprite(x, y, 'fly')
     fly.scale.x = game.rnd.realInRange(.8, .8);
@@ -236,6 +259,45 @@
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
+
+    // initiateAnimations = function(fowl)
+    // {
+    //     if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == 180)
+    //     {
+    //         fowl.animations.play('right_down')
+    //     }
+    //     else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == 180)
+    //     {
+    //         fowl.animations.play('left_down')
+    //     }
+    //     else if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == -180)
+    //     {
+    //         fowl.animations.play('right_up')
+    //     }
+    //     else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == -180)
+    //     {
+    //         fowl.animations.play('left_up')
+    //     }
+    //     else if (fowl.body.velocity.x >= 180)
+    //     {
+    //         fowl.animations.play('right')
+    //     }
+    //     else if (fowl.body.velocity.x <= -180)
+    //     {
+    //         fowl.animations.play('left')
+    //     }
+    //     else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+    //     {
+    //         fowl.animations.play('down')
+    //     }
+    //     else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+    //     {
+    //         fowl.animations.play('up')
+    //     }
+    // }
+
+    // initiateAnimations(birdie);
+
 
     if (frog.body.touching.down)
     {
