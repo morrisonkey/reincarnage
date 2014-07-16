@@ -176,6 +176,11 @@
     function winFunc(spider, frog){
         spider.kill();
         console.log('WINNER!');
+            var levelChange = function() {
+            window.location.replace("http://localhost:3000/games/level3")
+       };
+
+       $('body').fadeOut(3000, function(){levelChange();});
     }
 
     if (spider.body.touching.down)
