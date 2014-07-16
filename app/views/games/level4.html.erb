@@ -17,11 +17,22 @@
     game.load.image('grass1', '/images/grass_1.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
-    game.load.image('bird1', '/images/bird1.png');
     game.load.image('crosshair', '/images/crosshair.png');
-    // game.load.spritesheet('bird2', '/images/bird2');
-    // game.load.spritesheet('bird3', '/images/bird3');
-    // game.load.spritesheet('fallingbird', '/images/fallingbird');
+    game.load.spritesheet('bird', '/images/birds.png', 84, 80)
+
+    game.load.image('birds', '/images/birds.png')
+
+    game.load.spritesheet('bird1', '/images/bird_sprite.png', 84, 80)
+    game.load.spritesheet('bird2', '/images/bird sprite2.png', 142, 136.5)
+    game.load.spritesheet('bird3', '/images/bird sprite3.png', 142, 136.5)
+    game.load.spritesheet('bird4', '/images/bird sprite4.png', 142, 136.5)
+    game.load.spritesheet('bird5', '/images/bird sprite5.png', 142, 136.5)
+    game.load.spritesheet('bird6', '/images/bird sprite6.png', 142, 136.5)
+    game.load.spritesheet('bird7', '/images/bird sprite7.png', 142, 136.5)
+    game.load.spritesheet('bird8', '/images/bird sprite8.png', 142, 136.5)
+    game.load.spritesheet('bird9', '/images/bird sprite9.png', 142, 136.5)
+    game.load.spritesheet('bird10', '/images/bird sprite10.png', 142, 136.5)
+    game.load.spritesheet('bird11', '/images/bird sprite11.png', 142, 136.5)
   }
 
   var platforms;
@@ -56,23 +67,30 @@
     // cloud6 = game.add.image(854, 258, 'cloud6');
     // cloud6.anchor.setTo(-.1, -.1);
 
-    // game.add.image(25, 40, 'tree');
+    // birds = game.add.image(200,400,'birds');
+
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    bird = game.add.sprite(780, game.world.height - 1000, 'bird1')
+    bird = game.add.sprite(0, 400, 'bird1');
     game.physics.arcade.enable(bird);
-    bird.anchor.set(0.5);
+    // bird.anchor.set(0.5);
 
-    bird.body.drag.set(100);
-    bird.body.maxVelocity.set(200);
+    // bird.body.drag.set(100);
+    // bird.body.maxVelocity.set(200);
 
     bird.body.collideWorldBounds = true;
 
     bird.animations.add('left', [0, 1, 2], 6, true);
-    bird.animations.add('right', [3, 4, 5], 6, true);
-
-    game.physics.arcade.enable(acorn);
+    bird.animations.add('right', [9, 10, 11], 6, true);
+    bird.animations.add('up', [21, 22, 23], 6, true);
+    bird.animations.add('down', [18, 19, 20], 6, true);
+    bird.animations.add('left_up', [3, 4, 5], 6, true);
+    bird.animations.add('right_up', [12, 13, 14], 6, true);
+    bird.animations.add('left_down', [6, 7, 8], 6, true);
+    bird.animations.add('right_down', [15, 16, 17], 6, true);
+    bird.animations.add('shot', [24], 0, true);
+    bird.animations.add('fall', [25], 0, true)
 
     bird.body.collideWorldBounds = true;
 
@@ -82,82 +100,117 @@
 
   function update(){
 
-    // var breeze = setTimeout(cloudMovement1);
-    // function cloudMovement1(){
-    // cloud1.angle -= .03;
-    // cloud2.angle += .03;
-    // cloud3.angle += .03;
-    // cloud4.angle += .03;
-    // cloud5.angle -= .03;
-    // cloud6.angle += .03;
-    // var breeze = setTimeout(cloudMovement2, 3000)
-    // }
-    // function cloudMovement2(){
-    // cloud1.angle += .06;
-    // cloud2.angle -= .06;
-    // cloud3.angle -= .06;
-    // cloud4.angle -= .06;
-    // cloud5.angle += .06;
-    // cloud6.angle -= .06;
-    // var breeze = setTimeout(cloudMovement3, 3000)
-    // }
-    // function cloudMovement3(){
-    // cloud1.angle -= .06;
-    // cloud2.angle += .06;
-    // cloud3.angle += .06;
-    // cloud4.angle += .06;
-    // cloud5.angle -= .06;
-    // cloud6.angle += .06;
-    // var breeze = setTimeout(cloudMovement2, 3000)
-    // }
-    
-
-
-    // game.physics.arcade.collide(bird, platforms);
+    game.physics.arcade.collide(bird, platforms);
 
     if (cursors.up.isDown)
     {
-        game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
-    }
-    else
-    {
-        bird.body.acceleration.set(0);
-    }
+        if (cursors.left.isDown)
+        {
+            bird.body.velocity.y = -180;
 
-    if (cursors.left.isDown)
+            bird.body.velocity.x = -180
+
+            bird.animations.play('left_up');
+        }
+        else if (cursors.right.isDown)
+        {
+            bird.body.velocity.y = -180;
+
+            bird.body.velocity.x = 180
+
+            bird.animations.play('right_up');
+        }
+        else
+        {
+            bird.body.velocity.y = -180;
+
+            bird.animations.play('up');
+        }
+    }
+    else if (cursors.down.isDown)
     {
-        bird.body.angularVelocity = -300;
+        if (cursors.left.isDown)
+        {
+            bird.body.velocity.y = 180;
+
+            bird.body.velocity.x = -180
+
+            bird.animations.play('left_down');
+        }
+        else if (cursors.right.isDown)
+        {
+            bird.body.velocity.y = 180;
+
+            bird.body.velocity.x = 180
+
+            bird.animations.play('right_down');
+        }
+        else
+        {
+            bird.body.velocity.y = 180;
+
+            bird.animations.play('down');
+        }
+    }
+    else if (cursors.left.isDown)
+    {
+        bird.body.velocity.x = -180;
+
+        bird.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
-        bird.body.angularVelocity = 300;
-    }
-    else
-    {
-        bird.body.angularVelocity = 0;
-    }
+        bird.body.velocity.x = 180;
 
-    if (cursors.up.isDown)
-    {
-        game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
+        bird.animations.play('right');
     }
     else
     {
-        bird.body.acceleration.set(0);
+        bird.animations.play('up');
     }
+    // if (cursors.up.isDown)
+    // {
+    //     game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
+    // }
+    // else
+    // {
+    //     bird.body.acceleration.set(0);
+    // }
 
-    if (cursors.left.isDown)
-    {
-        bird.body.angularVelocity = -300;
-    }
-    else if (cursors.right.isDown)
-    {
-        bird.body.angularVelocity = 300;
-    }
-    else
-    {
-        bird.body.angularVelocity = 0;
-    }
+    // if (cursors.left.isDown)
+    // {
+    //     bird.body.angularVelocity = -300;
+    // }
+    // else if (cursors.right.isDown)
+    // {
+    //     bird.body.angularVelocity = 300;
+    // }
+    // else
+    // {
+    //     bird.body.angularVelocity = 0;
+    // }
+
+    // if (cursors.up.isDown)
+    // {
+    //     game.physics.arcade.accelerationFromRotation(bird.rotation, 200, bird.body.acceleration);
+    // }
+    // else
+    // {
+    //     bird.body.acceleration.set(0);
+    // }
+
+    // if (cursors.left.isDown)
+    // {
+    //     bird.body.angularVelocity = -300;
+    // }
+    // else if (cursors.right.isDown)
+    // {
+    //     bird.body.angularVelocity = 300;
+    // }
+    // else
+    // {
+    //     bird.body.angularVelocity = 0;
+    // }
 
 
   }
