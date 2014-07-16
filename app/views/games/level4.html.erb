@@ -69,6 +69,17 @@ function create(){
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
 
+<<<<<<< HEAD
+=======
+
+    // crosshair = game.add.image(0, 0, 'crosshair');
+    // crosshair.scale.x = game.rnd.realInRange(.15, .15);
+    // crosshair.scale.y = game.rnd.realInRange(.15, .15);
+    // crosshair.enableBody = true;
+
+    // cloud1 = game.add.image(0, 15, 'cloud1');
+    // cloud1.anchor.setTo(-.1, -.1);
+>>>>>>> 6729cf403e3653eb3f0671435e6ccb46f1274660
 
     // randomized bird sprites
     randomBird = function()
@@ -265,7 +276,6 @@ function create(){
                 fowl.body.velocity.y = -180;
 
                 fowl.body.velocity.x = 180;
-
             }
             else
             {
@@ -351,7 +361,6 @@ function create(){
         }
     }
 
-
     initiateAnimations(birdie);
     initiateAnimations(birdFriend1);
     initiateAnimations(birdFriend2);
@@ -366,9 +375,15 @@ function create(){
 
 
 
-function render(){
+  function render(){
 
 
-}
+  }
+
+    $(function(){
+    $('body').hide();
+    $('body').fadeIn(2000);
+
+  })
 
 </script>
