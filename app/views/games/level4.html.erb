@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-$(function(){
+
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 // // creating our bird friends (not really enemies)
@@ -266,6 +266,7 @@ function create(){
                 fowl.body.velocity.y = -180;
 
                 fowl.body.velocity.x = 180;
+
             }
             else
             {
@@ -351,6 +352,7 @@ function create(){
         }
     }
 
+
     initiateAnimations(birdie);
     initiateAnimations(birdFriend1);
     initiateAnimations(birdFriend2);
@@ -365,15 +367,12 @@ function create(){
 
 
 
-  function render(){
-
+function render(){
 
   }
 
-
+$(function(){
     $('body').hide();
-    $('body').fadeIn(2000);
-
-  
-});
+    $('body').fadeIn(2000); 
+})
 </script>
