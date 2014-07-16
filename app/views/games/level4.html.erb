@@ -42,6 +42,12 @@
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
 
+
+    // crosshair = game.add.image(0, 0, 'crosshair');
+    // crosshair.scale.x = game.rnd.realInRange(.15, .15);
+    // crosshair.scale.y = game.rnd.realInRange(.15, .15);
+    // crosshair.enableBody = true;
+
     // cloud1 = game.add.image(0, 15, 'cloud1');
     // cloud1.anchor.setTo(-.1, -.1);
 
@@ -95,6 +101,20 @@
     bird.body.collideWorldBounds = true;
 
     cursors = game.input.keyboard.createCursorKeys();
+
+            crosshair = game.add.sprite(0, 0, 'crosshair')
+        crosshair.scale.x = game.rnd.realInRange(.15, .15);
+        crosshair.scale.y = game.rnd.realInRange(.15, .15);
+        game.physics.arcade.enable(crosshair);
+        crosshair.body.collideWorldBounds = true;
+        // crosshair.body.velocity.x = Math.random()*100;
+        // crosshair.body.velocity.y = Math.random()*100;
+
+        //        this.minSpeed = -75;
+        // this.maxSpeed = 75;
+        // this.vx = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+        // this.vy = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+
 
   }
 
@@ -223,6 +243,8 @@
     //     bird.body.angularVelocity = 0;
     // }
 
+    // function for cross hair movement
+        // crosshair.body.velocity.y = Math.random()*100;
 
   }
 
@@ -230,5 +252,11 @@
 
 
   }
+
+    $(function(){
+    $('body').hide();
+    $('body').fadeIn(2000);
+
+  })
 
   </script>

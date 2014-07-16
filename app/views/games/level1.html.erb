@@ -166,7 +166,7 @@
     fly.animations.add('left', [2, 3], .5, true);
     fly.animations.play('right');
 
-    beetle = game.add.sprite(800, 700, 'dude')
+    beetle = game.add.sprite(800, 100, 'dude')
     beetle.scale.x = game.rnd.realInRange(.4, .4);
     beetle.scale.y = game.rnd.realInRange(.4, .4);
     game.physics.arcade.enable(beetle);
@@ -205,6 +205,20 @@
         spider.body.velocity.x = 0
         spider.body.velocity.y += 500
         console.log('WINNER!');
+
+        var levelChange = function() {
+           window.location.replace("http://localhost:3000/games/level2")
+       };
+
+       $('body').fadeOut(3000, function(){levelChange();});
+
+       // window.setTimeout(levelChange(), 4600);
+
+       // $('body').fadeOut(4000, levelChange());
+    
+
+        // setTimeout(function(){$('body').fadeOut(4000; levelChange();}, 2000);
+
     }
 
     beetle.body.velocity.x = 0;
