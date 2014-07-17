@@ -228,7 +228,7 @@
     // birdie.animations.add('shot', [24], 0, true);
     // birdie.animations.add('fall', [25], 0, true);
     
-    fly1 = game.add.sprite(900, 580, 'fly')
+    fly1 = game.add.sprite(900, 480, 'fly')
     game.physics.arcade.enable(fly1);
     fly1.scale.x = game.rnd.realInRange(.8, .8);
     fly1.scale.y = game.rnd.realInRange(.8, .8);
@@ -256,6 +256,15 @@
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
+    game.physics.arcade.collide(frog, fly1);
+
+    game.physics.arcade.overlap(frog, fly1, winFunc, null, this);
+
+    function winFunc(){
+        
+        flyCount++;
+        console.log(flyCount);
+    }
 
     initiateAnimations = function(fowl)
     {

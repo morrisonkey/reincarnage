@@ -172,7 +172,7 @@
     fly.animations.add('left', [2, 3], .5, true);
     fly.animations.play('right');
 
-    beetle = game.add.sprite(800, 100, 'dude')
+    beetle = game.add.sprite(800, 700, 'dude')
     beetle.scale.x = game.rnd.realInRange(.4, .4);
     beetle.scale.y = game.rnd.realInRange(.4, .4);
     game.physics.arcade.enable(beetle);
@@ -301,7 +301,7 @@ function updateCounter2() {
   function render(){
 
     // game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.text('TIME: ' + total + ':' + total2, 900, 20);
+    game.debug.text('TIME: ' + total + ':' + total2, 850, 20);
   }
 
 
