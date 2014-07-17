@@ -10,6 +10,9 @@
 
     // main images for world
     game.load.image('logo', '/images/logo2.png');
+    game.load.spritesheet('arrow', '/images/arrow.png', 413, 437);
+    game.load.spritesheet('start', '/images/start courier.png', 708.5, 236);
+    game.load.spritesheet('highScore', '/images/high score courier.png', 1063, 236);
     game.load.image('background', '/images/background.png');
     game.load.image('backgroundKey', '/images/background_key.png');
     game.load.image('log1', '/images/log_1.png');
@@ -34,11 +37,6 @@
     game.load.image('water', '/images/water.png');
     // level 1 images
     game.load.image('levelOneBackground', '/images/level_1_background.png');
-    game.load.image('acorn1', '/images/acorn_1.png');
-    game.load.image('acorn2', '/images/acorn_2.png');
-    game.load.image('acorn3', '/images/acorn_3.png');
-    game.load.image('acorn4', '/images/acorn_4.png');
-    game.load.image('acorn5', '/images/acorn_5.png');
     game.load.image('branch1', '/images/branch_1.png');
     game.load.image('branch2', '/images/branch_2.png');
     game.load.image('branch3', '/images/branch_3.png');
@@ -71,31 +69,23 @@
 
     game.add.image(0, 0, 'background');
 
-    cloud1 = game.add.image(0, 15, 'cloud1');
-    cloud1.anchor.setTo(-.1, -.1);
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
 
-    cloud7 = game.add.sprite(400, 315, 'cloud5');
-    game.physics.arcade.enable(cloud7);
-    cloud7.enableBody = true;
-    cloud7.body.immovable = true;
-    cloud7.body.collideWorldBounds = true;
-    cloud7.body.velocity.x = -40;
-    cloud7.body.bounce.setTo(1, 1);
-
-    cloud2 = game.add.image(0, 380, 'cloud2');
-    cloud2.anchor.setTo(-.1, -.1);
-
-    cloud3 = game.add.image(335, 85, 'cloud3');
-    cloud3.anchor.setTo(-.1, -.1);
-
-    cloud4 = game.add.image(595, 270, 'cloud4');
-    cloud4.anchor.setTo(-.1, -.1);
-
-    cloud5 = game.add.image(650, 30, 'cloud5');
-    cloud5.anchor.setTo(-.1, -.1);
-
-    cloud6 = game.add.image(854, 258, 'cloud6');
-    cloud6.anchor.setTo(-.1, -.1);
+    createCloud(0, 15, 5, 'cloud1')
+    createCloud(0, 380, 2, 'cloud2');
+    createCloud(335, 85, -3, 'cloud3');
+    createCloud(595, 270, -5, 'cloud4');
+    createCloud(650, 30, -4, 'cloud5');
+    createCloud(854, 258, 1, 'cloud6');
 
     // game.add.image(235, 535, 'grass3');
 
@@ -111,12 +101,6 @@
 
     game.add.image(655, 560, 'grass4');
 
-
-    // spider = game.add.image(790, 50, 'spider_with_web')
-    // spider.scale.x = game.rnd.realInRange(.4, .4);
-    // spider.scale.y = game.rnd.realInRange(.4, .4);
-
-
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
 
@@ -125,13 +109,21 @@
 
     platforms.enableBody = true;
 
-    acorns = game.add.group();
-
-    acorns.enableBody = true;
-
     var logo = game.add.image(415, 41, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
+
+    var arrow = game.add.sprite(493, 190, 'arrow');
+    arrow.scale.x = game.rnd.realInRange(.1, .1);
+    arrow.scale.y = game.rnd.realInRange(.1, .1);
+    var start = game.add.sprite(555, 155, 'start');
+    start.scale.x = game.rnd.realInRange(.4, .4);
+    start.scale.y = game.rnd.realInRange(.4, .4);
+    var highScore = game.add.sprite(555, 235, 'highScore');
+    highScore.scale.x = game.rnd.realInRange(.4, .4);
+    highScore.scale.y = game.rnd.realInRange(.4, .4);
+
+
 
     ledge = platforms.create(555, 90, 'purp_line');
     ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
@@ -142,17 +134,19 @@
 
     var ground = platforms.create(0, game.world.height -5, 'log1');
 
-    var rock1 = platforms.create(105, 610, 'rock1');
+    var rock1 = platforms.create(300, 650, 'rock1');
+    rock1.scale.x = game.rnd.realInRange(.55, .55);
+    rock1.scale.y = game.rnd.realInRange(.55, .55);
 
     rock1.body.immovable = true;
 
-    var rock2 = platforms.create(480, 640, 'rock2');
+    var rock2 = platforms.create(485, 655, 'rock2');
+    rock2.scale.x = game.rnd.realInRange(.55, .55);
+    rock2.scale.y = game.rnd.realInRange(.55, .55);
 
     rock2.body.immovable = true;
 
-    game.add.image(0, 400, 'water');
-    // water.scale.x = game.rnd.realInRange(1, 1);
-    // water.scale.y = game.rnd.realInRange(1, 1);
+    game.add.image(-5, 685, 'water');
 
     ground.scale.setTo(50,3);
 
@@ -166,30 +160,19 @@
     game.time.events.loop(Phaser.Timer.SECOND * 17, logFloat, this);
     logFloat();
     function logFloat() {
-    ledge = platforms.create(1100, 685, 'log1');
+    ledge = platforms.create(1100, 675, 'log1');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -90;
-    ledge = platforms.create(1500, 680, 'log3');
+    ledge = platforms.create(1500, 655, 'log3');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -92;
-    ledge = platforms.create(1900, 680, 'log4');
+    ledge = platforms.create(1900, 670, 'log4');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -88;
-    ledge = platforms.create(2250, 689, 'log2');
+    ledge = platforms.create(2250, 670, 'log2');
     ledge.body.immovable = true;
     ledge.body.velocity.x = -91;
     }
-
-    acorn = ''
-
-    // var nuts = setTimeout(acornBounce);
-    // function acornBounce() {
-    // acorn = acorns.create(0, 0, 'acorn1');
-    // acorn.body.velocity.x = 500;
-    // acorn.body.bounce.y = 0.1;
-    // acorn.body.gravity.y = 1000;
-    // nuts = setTimeout(acornBounce, 2000000); // repeat myself
-    // }
 
     frog = game.add.sprite(780, game.world.height - 1000, 'smilingfrog')
     frog.scale.x = game.rnd.realInRange(.12,.12);
@@ -200,12 +183,13 @@
     frog.body.gravity.y = 1000;
     frog.body.collideWorldBounds = true;
 
-    frog.animations.add('left', [0, 1, 2], 6, true);
-    frog.animations.add('right', [3, 4, 5], 6, true);
-
-    game.physics.arcade.enable(acorn);
-
     cursors = game.input.keyboard.createCursorKeys();
+    arrow.animations.add('blink', [0, 1], 2.2, true);
+    arrow.animations.play('blink')
+    start.animations.add('blink', [1, 0], .55, true);
+    start.animations.play('blink')
+    highScore.animations.add('blink', [1, 0], .55, true);
+    highScore.animations.play('blink')
 
   }
 
@@ -213,131 +197,9 @@
 
     spinningWheel.angle += 1;
 
-
-    game.time.events.loop(Phaser.Timer.SECOND * 12, cloudMovement, this);
-    cloudMovement1();
-    cloudMovement();
-    function cloudMovement(){
-        setTimeout(function(){
-            cloudMovement3();
-        }, Phaser.Timer.SECOND * 9)
-        setTimeout(function(){ 
-            cloudMovement2();
-        }, Phaser.Timer.SECOND * 3);
-    };
-    function cloudReset(){
-        cloud1.angle = 0;
-        cloud2.angle = 0;
-        cloud3.angle = 0;
-        cloud4.angle = 0;
-        cloud5.angle = 0;
-        cloud6.angle = 0;
-        // cloud1.body.velocity.x = 0;
-        // cloud2.body.velocity.x = 0;
-        // cloud3.body.velocity.x = 0;
-        // cloud4.body.velocity.x = 0;
-        // cloud5.body.velocity.x = 0;
-        // cloud6.body.velocity.x = 0;
-    }
-    function cloudMovement1(){
-        cloud1.angle -= .03;
-        cloud2.angle += .03;
-        cloud3.angle += .03;
-        cloud4.angle += .03;
-        cloud5.angle -= .03;
-        cloud6.angle += .03;
-        // cloud1.body.velocity.x -= .03;
-        // cloud2.body.velocity.x += .03;
-        // cloud3.body.velocity.x += .03;
-        // cloud4.body.velocity.x += .03;
-        // cloud5.body.velocity.x -= .03;
-        // cloud6.body.velocity.x += .03;
-    }
-    function cloudMovement2(){
-        cloud1.angle += .06;
-        cloud2.angle -= .06;
-        cloud3.angle -= .06;
-        cloud4.angle -= .06;
-        cloud5.angle += .06;
-        cloud6.angle -= .06;
-        // cloud1.body.velocity.x += .03;
-        // cloud2.body.velocity.x -= .03;
-        // cloud3.body.velocity.x -= .03;
-        // cloud4.body.velocity.x -= .03;
-        // cloud5.body.velocity.x += .03;
-        // cloud6.body.velocity.x -= .03;
-    }
-    function cloudMovement3(){
-        cloud1.angle -= .06;
-        cloud2.angle += .06;
-        cloud3.angle += .06;
-        cloud4.angle += .06;
-        cloud5.angle -= .06;
-        cloud6.angle += .06;
-        // cloud1.body.velocity.x -= .06;
-        // cloud2.body.velocity.x += .06;
-        // cloud3.body.velocity.x += .06;
-        // cloud4.body.velocity.x += .06;
-        // cloud5.body.velocity.x -= .06;
-        // cloud6.body.velocity.x += .06;
-    }
-    
-
-
     game.physics.arcade.collide(frog, platforms);
-    game.physics.arcade.collide(acorn, platforms);
-    game.physics.arcade.collide(acorn, frog);
-    game.physics.arcade.collide(frog, spinningWheel)
-
-    if (frog.body.touching.down)
-    {
-    frog.body.velocity.x = 0;
-    }
-
-    if (cursors.left.isDown && frog.body.touching.down)
-    {
-      // hop frog to left
-      frog.body.velocity.y = -100
-
-      frog.body.velocity.x = -200
-
-      frog.animations.play('left');
-    }
-    else if (cursors.right.isDown && frog.body.touching.down)
-    {
-      // hop frog right
-      frog.body.velocity.y = -100
-
-      frog.body.velocity.x = 200
-
-      frog.animations.play('right');
 
     }
-    else
-    {
-      frog.animations.stop();
-
-      frog.frame = 4;
-    }
-
-    if (cursors.up.isDown && frog.body.touching.down)
-    {
-      frog.body.velocity.y = -450;
-      if (cursors.left.isDown)
-      {
-        frog.body.velocity.x = -200
-
-        frog.animations.play('left');
-      }
-      else if (cursors.right.isDown)
-      {
-        frog.body.velocity.x = 200
-
-        frog.animations.play('right');
-      }
-    }
-
-  }
 
   function render(){
 
