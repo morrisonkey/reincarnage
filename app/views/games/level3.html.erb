@@ -27,11 +27,7 @@
     game.load.image('sawmill', '/images/sawmill.png');
     game.load.image('wheel', '/images/wheel.png');
     game.load.image('cloud1', '/images/cloud_1.png');
-    game.load.image('cloud2', '/images/cloud_2.png');
-    game.load.image('cloud3', '/images/cloud_3.png');
     game.load.image('cloud4', '/images/cloud_4.png');
-    game.load.image('cloud5', '/images/cloud_5.png');
-    game.load.image('cloud6', '/images/cloud_6.png');
     game.load.image('tree', '/images/tree.png');
     game.load.image('grass1', '/images/grass_1.png');
     game.load.image('grass2', '/images/grass_2.png');
@@ -73,35 +69,17 @@
     background.scale.x = game.rnd.realInRange(1.87, 1.87);
     background.scale.y = game.rnd.realInRange(1.87, 1.87);
 
-    // cloud1 = game.add.image(0, 15, 'cloud1');
-    // cloud1.anchor.setTo(-.1, -.1);
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
 
-    // cloud2 = game.add.image(0, 380, 'cloud2');
-    // cloud2.anchor.setTo(-.1, -.1);
-
-    // cloud3 = game.add.image(335, 85, 'cloud3');
-    // cloud3.anchor.setTo(-.1, -.1);
-
-    // cloud4 = game.add.image(595, 270, 'cloud4');
-    // cloud4.anchor.setTo(-.1, -.1);
-
-    // cloud5 = game.add.image(650, 30, 'cloud5');
-    // cloud5.anchor.setTo(-.1, -.1);
-
-    // cloud6 = game.add.image(854, 258, 'cloud6');
-    // cloud6.anchor.setTo(-.1, -.1);
-
-    // game.add.image(235, 535, 'grass3');
-
-    // game.add.image(25, 40, 'tree');
-
-    // game.add.image(760, 415, 'sawmill');
-
-    // game.add.image(50, 540, 'grass1');
-
-    // game.add.image(455, 540, 'grass2');
-
-    // game.add.image(655, 560, 'grass4');
+    createCloud(335, -50, 5, 'cloud1');
 
     game.add.image(105, 560, 'rock1');
 
@@ -187,8 +165,8 @@
     frog = game.add.sprite(150, 520, 'smilingfrog')
     game.add.image(-525, 625, 'water');
 
-    frog.scale.x = game.rnd.realInRange(.25, .25);
-    frog.scale.y = game.rnd.realInRange(.25, .25);
+    frog.scale.x = game.rnd.realInRange(.18, .18);
+    frog.scale.y = game.rnd.realInRange(.18, .18);
     game.physics.arcade.enable(frog);
     frog.body.bounce.y = 0.1;
     frog.body.gravity.y = 1000;
@@ -197,12 +175,15 @@
     // frog.animations.add('right', [3, 4, 5], 6, true);
 
     // //adding bird of prey
-    birdie = game.add.sprite(750, -150, 'player_bird');
-    birdie.scale.x = game.rnd.realInRange(2, 2);
-    birdie.scale.y = game.rnd.realInRange(2, 2);
+    birdie = game.add.sprite(750, -30, 'player_bird');
+    birdie.scale.x = game.rnd.realInRange(1.8, 1.8);
+    birdie.scale.y = game.rnd.realInRange(1.8, 1.8);
     game.physics.arcade.enable(birdie);
     birdie.enableBody = true;
     birdie.body.immovable = true;
+    birdie.body.collideWorldBounds = true;
+    birdie.body.velocity.x = 180;
+    birdie.body.bounce.setTo(1, 1);
     // birdie.body.collideWorldBounds = true;
     // birdie.body.velocity.x = -180;
     // birdie.body.bounce.setTo(1, 1);
@@ -257,11 +238,10 @@
         fly1.kill();
         flyCount++;
         console.log(flyCount);
-        fly1.scale.setTo(2,2); //NOT YET WORKING
 
         if (flyCount == 5)
         {
-
+            frog.scale.setTo(.28,.28);
             game.physics.arcade.accelerateToObject(birdie, frog, 110, 500, 500);
 
              var levelChange = function() {
@@ -270,6 +250,7 @@
         }
         else if (flyCount == 1)
         {
+            frog.scale.setTo(.2,.2);
             fly1 = game.add.sprite(0, 490, 'fly')
             fly1.enableBody = true;
             game.physics.arcade.enable(fly1);
@@ -285,6 +266,7 @@
         }
         else if (flyCount == 2)
         {
+            frog.scale.setTo(.22,.22);
             fly1 = game.add.sprite(450, 490, 'fly')
             fly1.enableBody = true;
             game.physics.arcade.enable(fly1);
@@ -301,6 +283,7 @@
         }
         else if (flyCount == 3)
         {
+            frog.scale.setTo(.24,.24);
             fly1 = game.add.sprite(750, 490, 'fly')
             fly1.enableBody = true;
             game.physics.arcade.enable(fly1);
@@ -316,6 +299,7 @@
         }
         else if (flyCount == 4)
         {
+            frog.scale.setTo(.26,.26);
             fly1 = game.add.sprite(500, 490, 'fly')
             fly1.enableBody = true;
             game.physics.arcade.enable(fly1);

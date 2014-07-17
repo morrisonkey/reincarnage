@@ -10,6 +10,7 @@
 
     game.load.spritesheet('dude', '/images/dude.png', 32, 48);
 
+    game.load.image('background', '/images/background.png');
     game.load.image('tree', '/images/tree.png');
     game.load.image('greenBackdrop', '/images/green_backdrop.png');
     game.load.image('level2background', '/images/tree.png');
@@ -23,6 +24,8 @@
     game.load.image('branch3', '/images/h_branch_3.png');
     game.load.image('branch4', '/images/h_branch_4.png');
     game.load.image('spider', '/images/spider_bigger_face.png');
+    game.load.image('cloud2', '/images/cloud_2.png');
+    game.load.image('cloud5', '/images/cloud_5.png');
     // level 2 images
     // game.load.image('webstring', '/images/webstring');
     // game.load.spritesheet('hangingspider', '/images/hangingspider');
@@ -50,9 +53,25 @@
     // tree.scale.x = game.rnd.realInRange(19, 19);
     // tree.scale.y = game.rnd.realInRange(19, 19);
 
-    tree = game.add.image(0,0, 'greenBackdrop');
-    tree.scale.x = game.rnd.realInRange(6, 6);
-    tree.scale.y = game.rnd.realInRange(6, 6);
+    // background image and scaled
+    background = game.add.image(0, -1000, 'background');
+    background.scale.x = game.rnd.realInRange(4, 4);
+    background.scale.y = game.rnd.realInRange(4, 4);
+
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.y = -5;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
+
+    createCloud(755, 445, -3, 'cloud2');
+    createCloud(35, 280, 5, 'cloud5');
 
     platforms = game.add.group();
 

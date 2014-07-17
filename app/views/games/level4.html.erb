@@ -14,6 +14,7 @@ function preload(){
     game.load.image('cloud5', '/images/cloud_5.png');
     game.load.image('cloud6', '/images/cloud_6.png');
     game.load.image('tree', '/images/tree.png');
+    game.load.image('sawmill', '/images/house_with_window_curtains.png');
     game.load.image('grass1', '/images/grass_1.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
@@ -41,6 +42,25 @@ function create(){
     background = game.add.image(0, 0, 'background');
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
+
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
+
+    createCloud(755, 385, -3, 'cloud3');
+    createCloud(35, 100, 5, 'cloud4');
+
+    tree = game.add.image(-450, 100, 'tree');
+    tree.scale.x = game.rnd.realInRange(1.5, 1.5);
+    tree.scale.y = game.rnd.realInRange(1.5, 1.5);
+
 
 
     // randomized bird sprites
@@ -127,6 +147,10 @@ function create(){
     game.physics.arcade.enable(birdie);
     birdie.body.collideWorldBounds = true;
 
+    sawmill = game.add.image(730, 700, 'sawmill');
+    sawmill.scale.x = game.rnd.realInRange(2, 2);
+    sawmill.scale.y = game.rnd.realInRange(2, 2);
+
     crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.25, .25);
     crosshair.scale.y = game.rnd.realInRange(.25, .25);
@@ -138,6 +162,7 @@ function create(){
     crosshair.body.velocity.x = -200;
     crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
+
 
     crosshair.animations.add('bang', [1], 0, true);
     crosshair.animations.add('regular', [0], 0, true);

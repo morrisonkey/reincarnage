@@ -14,6 +14,7 @@
 
     game.load.image('tree', '/images/tree.png');
     // level 1 images
+    game.load.image('background', '/images/background.png');
     game.load.image('levelOneBackground', '/images/level1background-01.png');
     game.load.image('greenBackdrop', '/images/green_backdrop.png');
     game.load.image('whiteBackdrop', '/images/whiteBackground.png');
@@ -30,6 +31,8 @@
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider', '/images/spider_bigger_face.png');
     game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
+    game.load.image('cloud3', '/images/cloud_3.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
     // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
     // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
     // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
@@ -48,15 +51,30 @@
 
   function create(){
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.add.image(0, 0, 'whiteBackdrop').scale.setTo(50,50);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    // background image and scaled
+    background = game.add.image(0, -500, 'background');
+    background.scale.x = game.rnd.realInRange(4, 4);
+    background.scale.y = game.rnd.realInRange(4, 4);
 
     game.add.image(0, 0, 'levelOneBackground');
 
     // spider = game.add.image(6, 3, 'spider');
 
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
 
+    createCloud(755, 385, -3, 'cloud3');
+    createCloud(35, 100, 5, 'cloud4');
 
 
     // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
@@ -172,9 +190,9 @@
     fly.animations.add('left', [2, 3], .5, true);
     fly.animations.play('right');
 
-    beetle = game.add.sprite(800, 700, 'dude')
-    beetle.scale.x = game.rnd.realInRange(.4, .4);
-    beetle.scale.y = game.rnd.realInRange(.4, .4);
+    beetle = game.add.sprite(800, 690, 'dude')
+    beetle.scale.x = game.rnd.realInRange(.45, .45);
+    beetle.scale.y = game.rnd.realInRange(.45, .45);
     game.physics.arcade.enable(beetle);
 
     beetle.body.bounce.y = 0.1;
