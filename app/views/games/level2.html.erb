@@ -37,6 +37,11 @@
 
   var platforms;
 
+    var timer;
+    var timer2;
+    var total = 0;
+    var total2 = 0;
+
   function create(){
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -158,9 +163,23 @@
             // create frog function with increasing y velocity
             function(){
             frog.body.velocity.y = -100;
-            }, 4000);
+            }, 40000);
     }
     branches();
+
+
+            //  Create our Timer
+    timer = game.time.create(false);
+    timer2 = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    timer.loop(1000, updateCounter, this);
+    timer2.loop(1, updateCounter2, this);
+
+    //  Start the timer running - this is important!
+    //  It won't start automatically, allowing you to hook it to button events and the like.
+    timer.start();
+    timer2.start();
   }
 
   function update(){
@@ -175,6 +194,8 @@
 
     function winFunc(spider, frog){
         spider.kill();
+        timer.stop();
+        timer2.stop();
         console.log('WINNER!');
             var levelChange = function() {
             window.location.replace("http://localhost:3000/games/level3")
@@ -230,8 +251,22 @@
 
   }
 
-  function render(){
 
+function updateCounter() {
+
+    total++;
+
+}
+
+function updateCounter2() {
+
+    total2++;
+
+}
+
+
+  function render(){
+    game.debug.text('TIME: ' + total + ':' + total2, 850, 20);
 
   }
 
