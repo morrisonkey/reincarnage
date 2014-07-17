@@ -130,7 +130,7 @@ function create(){
     crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.15, .15);
     crosshair.scale.y = game.rnd.realInRange(.15, .15);
-    crosshair.enableBody = false;
+    crosshair.enableBody = true;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
     crosshair.minSpeed = -150;
@@ -241,34 +241,33 @@ function create(){
 // }
 
 function update(){
-
+    // game.physics.arcade.collide(birdFriend1, crosshair);
+    // game.physics.arcade.collide(birdFriend2, crosshair);
+    // game.physics.arcade.collide(birdFriend3, crosshair);
+    // game.physics.arcade.collide(birdFriend4, crosshair);
+    // game.physics.arcade.collide(birdFriend5, crosshair);
+    // game.physics.arcade.collide(birdFriend6, crosshair);
 
             //crosshair bang functionality
     game.time.events.loop(Phaser.Timer.SECOND * 5, crosshairBang, this);
 
         function crosshairBang(){
-    game.physics.arcade.collide(birdie, crosshair);
-    game.physics.arcade.collide(birdFriend1, crosshair);
-    game.physics.arcade.collide(birdFriend2, crosshair);
-    game.physics.arcade.collide(birdFriend3, crosshair);
-    game.physics.arcade.collide(birdFriend4, crosshair);
-    game.physics.arcade.collide(birdFriend5, crosshair);
-    game.physics.arcade.collide(birdFriend6, crosshair);
+        // crosshair.enableBody = true;
+        // game.physics.arcade.collide(birdie, crosshair);
+        // game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
+        console.log('BANG!'); 
+        // debugger
+        if (crosshair.body.hitTest(birdie.x, birdie.y) == true){
+            console.log('WINNER')
+        } else if (crosshair.body.hitTest(birdie.x, birdie.y) == false) {console.log('MISSED')};
 
-       
-        game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
-        console.log('BANG!');
-        game.stage.backgroundColor = '#992d2d';
+        // setTimeout(function(){crosshair.enable = false; console.log('off')}, 2000);
 
-
-            function winFunc(){
-                // add functionality for bug to seem to go behind spider and hit hidden div
-                console.log('WINNER!');
-             }
-
-
-
-    }
+        //     function winFunc(){
+        //         birdie.kill(); 
+        //         console.log('WINNER!');
+        //      }
+        }
 
     // game.physics.arcade.collide(bird, crosshair);
     initiateControls = function(fowl)
