@@ -17,7 +17,7 @@ function preload(){
     game.load.image('grass1', '/images/grass_1.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
-    game.load.image('crosshair', '/images/crosshair.png');
+    game.load.spritesheet('crosshair', '/images/crosshair_sprite.png', 400, 400);
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
     game.load.spritesheet('bird2', '/images/bird sprite2-1.png', 84, 80);
     game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80);
@@ -128,9 +128,9 @@ function create(){
     birdie.body.collideWorldBounds = true;
 
     crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
-    crosshair.scale.x = game.rnd.realInRange(.15, .15);
-    crosshair.scale.y = game.rnd.realInRange(.15, .15);
-    // crosshair.enableBody = false;
+    crosshair.scale.x = game.rnd.realInRange(.25, .25);
+    crosshair.scale.y = game.rnd.realInRange(.25, .25);
+    crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
     crosshair.minSpeed = -150;
@@ -139,6 +139,8 @@ function create(){
     crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
 
+    crosshair.animations.add('bang', [0, 1], 6, true);
+    crosshair.animations.play('bang');
 
     birdie.animations.add('left', [0, 1, 2], 6, true);
     birdFriend1.animations.add('left', [0, 1, 2], 6, true);
