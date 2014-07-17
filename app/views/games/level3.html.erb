@@ -115,7 +115,7 @@
 
     logs.enableBody = true;
 
-    var ground = platforms.create(0, game.world.height -5, 'whatever');
+    // var ground = platforms.create(0, game.world.height -5);
 
     var ledge = platforms.create(140, 595, 'invisible_line');
 
@@ -127,9 +127,8 @@
     ledge.body.immovable = true;
     ledge.scale.x = game.rnd.realInRange(1.3, 1.3);
 
-    ground.scale.setTo(50,3);
-
-    ground.body.immovable = true;
+    // ground.scale.setTo(50,3);
+    // ground.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -193,7 +192,7 @@
     game.physics.arcade.enable(frog);
     frog.body.bounce.y = 0.1;
     frog.body.gravity.y = 1000;
-    frog.body.collideWorldBounds = true;
+    frog.checkWorldBounds = true;
     // frog.animations.add('left', [0, 1, 2], 6, true);
     // frog.animations.add('right', [3, 4, 5], 6, true);
 
@@ -230,55 +229,7 @@
     fly1.animations.add('right', [0, 1], 15, true);
     fly1.animations.play('right')
     fly1.body.bounce.setTo(1, 1);
-    
-    // fly2 = game.add.sprite(900, 500, 'fly')
-    // game.physics.arcade.enable(fly1);
-    // fly2.scale.x = game.rnd.realInRange(.8, .8);
-    // fly2.scale.y = game.rnd.realInRange(.8, .8);
-    // fly2.body.velocity.x = -80;
-    // fly2.animations.add('left', [2, 3], 15, true);
-    // fly2.animations.play('left')
 
-    // fly3 = game.add.sprite(900, 500, 'fly')
-    // game.physics.arcade.enable(fly3);
-    // fly3.scale.x = game.rnd.realInRange(.8, .8);
-    // fly3.scale.y = game.rnd.realInRange(.8, .8);
-    // fly3.body.velocity.x = -80;
-    // fly3.animations.add('left', [2, 3], 15, true);
-    // fly3.animations.play('left')
-    
-    // fly4 = game.add.sprite(1900, 500, 'fly')
-    // game.physics.arcade.enable(fly4);
-    // fly4.scale.x = game.rnd.realInRange(.8, .8);
-    // fly4.scale.y = game.rnd.realInRange(.8, .8);
-    // fly4.body.velocity.x = -80;
-    // fly4.animations.add('left', [2, 3], 15, true);
-    // fly4.animations.play('left')
-
-    // fly5 = game.add.sprite(-40, 620, 'fly')
-    // game.physics.arcade.enable(fly5);
-    // fly5.scale.x = game.rnd.realInRange(.8, .8);
-    // fly5.scale.y = game.rnd.realInRange(.8, .8);
-    // fly5.body.velocity.x = 85;
-    // fly5.animations.add('right', [0, 1], 15, true);
-    // fly5.animations.play('right')
-    
-    // fly6 = game.add.sprite(2400, 600, 'fly')
-    // game.physics.arcade.enable(fly6);
-    // fly6.scale.x = game.rnd.realInRange(.8, .8);
-    // fly6.scale.y = game.rnd.realInRange(.8, .8);
-    // fly6.body.velocity.x = -90;
-    // fly6.animations.add('left', [2, 3], 15, true);
-    // fly6.animations.play('left')
-
-    // fly7 = game.add.sprite(-600, 470, 'fly')
-    // game.physics.arcade.enable(fly7);
-    // fly7.scale.x = game.rnd.realInRange(.8, .8);
-    // fly7.scale.y = game.rnd.realInRange(.8, .8);
-    // fly7.body.velocity.x = 90;
-    // fly7.animations.add('right', [0, 1], 15, true);
-    // fly7.animations.play('right')
-    
     cursors = game.input.keyboard.createCursorKeys();
 
   }
@@ -289,10 +240,18 @@
     // game.physics.arcade.collide(frog, fly1);
 
     game.physics.arcade.overlap(frog, fly1, winFunc, null, this);
+    frog.events.onOutOfBounds.add(killFrog, this);
 
-    // game.physics.arcade.overlap(frog, fly2, winFunc, null, this);
-
-
+    function killFrog(){
+        frog.kill();
+        frog = game.add.sprite(150, 520, 'smilingfrog')
+        frog.scale.x = game.rnd.realInRange(.25, .25);
+        frog.scale.y = game.rnd.realInRange(.25, .25);
+        game.physics.arcade.enable(frog);
+        frog.body.bounce.y = 0.1;
+        frog.body.gravity.y = 1000;
+        frog.checkWorldBounds = true;
+    }
 
     function winFunc(){
         fly1.kill();
@@ -300,14 +259,77 @@
         console.log(flyCount);
         fly1.scale.setTo(2,2); //NOT YET WORKING
 
-        if (flyCount == 1){
+        if (flyCount == 5)
+        {
 
             game.physics.arcade.accelerateToObject(birdie, frog, 110, 500, 500);
 
              var levelChange = function() {
            window.location.replace("http://localhost:3000/games/level4")};
             $('body').fadeOut(3800, function(){levelChange();});
-        };
+        }
+        else if (flyCount == 1)
+        {
+            fly1 = game.add.sprite(0, 490, 'fly')
+            fly1.enableBody = true;
+            game.physics.arcade.enable(fly1);
+            fly1.body.collideWorldBounds = true;
+            fly1.scale.x = game.rnd.realInRange(.8, .8);
+            fly1.scale.y = game.rnd.realInRange(.8, .8);
+            fly1.minSpeed = -180;
+            fly1.maxSpeed = 180;
+            fly1.body.velocity.x = 30;
+            fly1.animations.add('right', [0, 1], 15, true);
+            fly1.animations.play('right')
+            fly1.body.bounce.setTo(1, 1);
+        }
+        else if (flyCount == 2)
+        {
+            fly1 = game.add.sprite(450, 490, 'fly')
+            fly1.enableBody = true;
+            game.physics.arcade.enable(fly1);
+            fly1.body.collideWorldBounds = true;
+            fly1.scale.x = game.rnd.realInRange(.8, .8);
+            fly1.scale.y = game.rnd.realInRange(.8, .8);
+            fly1.minSpeed = -180;
+            fly1.maxSpeed = 180;
+            fly1.body.velocity.x = -30;
+            fly1.body.velocity.y = 100;
+            fly1.animations.add('right', [0, 1], 15, true);
+            fly1.animations.play('right')
+            fly1.body.bounce.setTo(1, 1);
+        }
+        else if (flyCount == 3)
+        {
+            fly1 = game.add.sprite(750, 490, 'fly')
+            fly1.enableBody = true;
+            game.physics.arcade.enable(fly1);
+            fly1.body.collideWorldBounds = true;
+            fly1.scale.x = game.rnd.realInRange(.8, .8);
+            fly1.scale.y = game.rnd.realInRange(.8, .8);
+            fly1.minSpeed = -180;
+            fly1.maxSpeed = 180;
+            fly1.body.velocity.x = 30;
+            fly1.animations.add('right', [0, 1], 15, true);
+            fly1.animations.play('right')
+            fly1.body.bounce.setTo(1, 1);
+        }
+        else if (flyCount == 4)
+        {
+            fly1 = game.add.sprite(500, 490, 'fly')
+            fly1.enableBody = true;
+            game.physics.arcade.enable(fly1);
+            fly1.body.collideWorldBounds = true;
+            fly1.scale.x = game.rnd.realInRange(.8, .8);
+            fly1.scale.y = game.rnd.realInRange(.8, .8);
+            fly1.minSpeed = -180;
+            fly1.maxSpeed = 180;
+            fly1.body.velocity.x = -30;
+            fly1.body.velocity.y = 180;
+            fly1.animations.add('right', [0, 1], 15, true);
+            fly1.animations.play('right')
+            fly1.body.bounce.setTo(1, 1);
+        }
 
 
     }
