@@ -306,6 +306,9 @@ function winFunc()
 {
     birdie.kill(); 
     console.log('WINNER!');
+    var levelChange = function() {
+    window.location.replace("http://www.reincarnage.herokuapp.com")};
+    $('body').fadeOut(3800, function(){levelChange();});
 };
 
 fire();
