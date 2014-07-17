@@ -18,18 +18,9 @@ function preload(){
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
     game.load.image('crosshair', '/images/crosshair.png');
-    game.load.spritesheet('player_bird', '/images/bird sprite-1.png', 84, 80)
-    game.load.spritesheet('bird1', '/images/bird sprite1-1.png', 84, 80)
-    game.load.spritesheet('bird2', '/images/bird sprite2-1.png', 84, 80)
-    game.load.spritesheet('bird3', '/images/bird sprite3-1.png', 84, 80)
-    game.load.spritesheet('bird4', '/images/bird sprite4-1.png', 84, 80)
-    game.load.spritesheet('bird5', '/images/bird sprite5-1.png', 84, 80)
-    game.load.spritesheet('bird6', '/images/bird sprite6-1.png', 84, 80)
-    game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80)
-    game.load.spritesheet('bird8', '/images/bird sprite8-1.png', 84, 80)
-    game.load.spritesheet('bird9', '/images/bird sprite9-1.png', 84, 80)
-    game.load.spritesheet('bird10', '/images/bird sprite10-1.png', 84, 80)
-    game.load.spritesheet('bird11', '/images/bird sprite11-1.png', 84, 80)
+    game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
+    game.load.spritesheet('bird2', '/images/bird sprite2-1.png', 84, 80);
+    game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80);
 }
 
 var flightedAnimal;
@@ -55,7 +46,7 @@ function create(){
     // randomized bird sprites
     randomBird = function()
     {
-        var bird_array = ["player_bird", "bird1", "bird2", "bird3", "bird4", "bird5", "bird6", "bird7", "bird8", "bird9"]
+        var bird_array = ["bird2", "bird7"]
         color = bird_array[Math.floor(bird_array.length * Math.random())];
         return color
     }
@@ -131,7 +122,7 @@ function create(){
     birdFriend6.body.bounce.setTo(1, 1);
     birdFriend6.body.immovable = true;
 
-    birdie = game.add.sprite(game.world.randomX, game.world.randomY, 'bird10')
+    birdie = game.add.sprite(game.world.randomX, game.world.randomY, 'player_bird')
     birdie.enableBody = true;
     game.physics.arcade.enable(birdie);
     birdie.body.collideWorldBounds = true;
@@ -139,13 +130,13 @@ function create(){
     crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.15, .15);
     crosshair.scale.y = game.rnd.realInRange(.15, .15);
-    crosshair.enableBody = true;
+    crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
     crosshair.minSpeed = -150;
     crosshair.maxSpeed = 150;
-    crosshair.body.velocity.x = -150;
-    crosshair.body.velocity.y = 150;
+    crosshair.body.velocity.x = -200;
+    crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
 
 
@@ -229,15 +220,57 @@ function create(){
     birdFriend5.animations.add('fall', [25], 0, true);
     birdFriend6.animations.add('fall', [25], 0, true);
 
-
     }
 
     var fowl;
 
+//     function toggleBody() {
+
+//     //  Here we simply disable the body entirely
+//     //  This stops all motion and collision checks against it
+//     //  without actually destroying the body object itself.
+
+//     if (crosshair.body.enable)
+//     {
+//         crosshair.body.enable = false;
+//     }
+//     else
+//     {
+//         crosshair.body.enable = true;
+//     }
+// }
+
 function update(){
 
-    // game.physics.arcade.collide(bird, crosshair);
 
+            //crosshair bang functionality
+    game.time.events.loop(Phaser.Timer.SECOND * 5, crosshairBang, this);
+
+        function crosshairBang(){
+    game.physics.arcade.collide(birdie, crosshair);
+    game.physics.arcade.collide(birdFriend1, crosshair);
+    game.physics.arcade.collide(birdFriend2, crosshair);
+    game.physics.arcade.collide(birdFriend3, crosshair);
+    game.physics.arcade.collide(birdFriend4, crosshair);
+    game.physics.arcade.collide(birdFriend5, crosshair);
+    game.physics.arcade.collide(birdFriend6, crosshair);
+
+       
+        game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
+        console.log('BANG!');
+        game.stage.backgroundColor = '#992d2d';
+
+
+            function winFunc(){
+                // add functionality for bug to seem to go behind spider and hit hidden div
+                console.log('WINNER!');
+             }
+
+
+
+    }
+
+    // game.physics.arcade.collide(bird, crosshair);
     initiateControls = function(fowl)
     {
 
@@ -307,26 +340,6 @@ function update(){
     }
 
 
-            //crosshair bang functionality
-    game.time.events.loop(Phaser.Timer.SECOND * 5, crosshairBang, this);
-
-        function crosshairBang(){
-
-       
-        game.physics.arcade.collide(fowl, crosshair);
-        game.physics.arcade.overlap(fowl, crosshair, winFunc, null, this);
-        console.log('BANG!');
-        game.stage.backgroundColor = '#992d2d';
-
-
-            function winFunc(){
-                // add functionality for bug to seem to go behind spider and hit hidden div
-                console.log('WINNER!');
-             }
-
-
-
-    }
 
 
 
