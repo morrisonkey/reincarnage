@@ -39,6 +39,7 @@
     game.load.image('grass4', '/images/grass_4.png');
     game.load.image('rock1', '/images/rock_1.png');
     game.load.image('rock2', '/images/rock_2.png');
+    game.load.image('water', '/images/water copy.png');
     // level 1 images
     // game.load.spritesheet('frogmouth', '/images/frogmouth');
     // level 3 images
@@ -120,6 +121,7 @@
 
     var ledge = platforms.create(505, 605, 'invisible_line');
 
+
     ledge.body.immovable = true;
     ledge.scale.x = game.rnd.realInRange(1.3, 1.3);
 
@@ -198,6 +200,8 @@
 
 
     frog = game.add.sprite(150, game.world.height - 300, 'smilingfrog')
+    game.add.image(-525, 625, 'water');
+
     frog.scale.x = game.rnd.realInRange(.25, .25);
     frog.scale.y = game.rnd.realInRange(.25, .25);
     game.physics.arcade.enable(frog);
