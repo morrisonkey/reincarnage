@@ -43,22 +43,8 @@
     game.load.image('branch4', '/images/branch_4.png');
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider_with_web', '/images/spider_with_web.png');
-    // level 2 images
-    // game.load.image('webstring', '/images/webstring');
-    // game.load.spritesheet('hangingspider', '/images/hangingspider');
-    // game.load.spritesheet('frogmouth', '/images/frogmouth');
-    // level 3 images
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
-    // game.load.spritesheet('frogtongue', '/images/frogtongue');
-    // game.load.spritesheet('fly1', '/images/fly1');
-    // game.load.spritesheet('fly2', '/images/fly2');
-    // game.load.spritesheet('bird1', '/images/bird1');
-    // level 4 images
-    // game.load.image('crosshair', '/images/crosshair');
-    // game.load.spritesheet('bird2', '/images/bird2');
-    // game.load.spritesheet('bird3', '/images/bird3');
-    // game.load.spritesheet('fallingbird', '/images/fallingbird');
   }
 
   var platforms;
@@ -109,10 +95,10 @@
 
     platforms.enableBody = true;
 
+    // adding text to screen
     var logo = game.add.image(415, 41, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
-
     var arrow = game.add.sprite(493, 190, 'arrow');
     arrow.scale.x = game.rnd.realInRange(.1, .1);
     arrow.scale.y = game.rnd.realInRange(.1, .1);
@@ -198,6 +184,8 @@
     spinningWheel.angle += 1;
 
     game.physics.arcade.collide(frog, platforms);
+
+
 
     }
 
