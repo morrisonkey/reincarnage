@@ -136,9 +136,17 @@ function create(){
     game.physics.arcade.enable(birdie);
     birdie.body.collideWorldBounds = true;
 
-    crosshair = game.add.image(450, 300, 'crosshair');
+    crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.15, .15);
     crosshair.scale.y = game.rnd.realInRange(.15, .15);
+    crosshair.enableBody = true;
+    game.physics.arcade.enable(crosshair);
+    crosshair.body.collideWorldBounds = true;
+    crosshair.minSpeed = -150;
+    crosshair.maxSpeed = 150;
+    crosshair.body.velocity.x = -150;
+    crosshair.body.velocity.y = 150;
+    crosshair.body.bounce.setTo(1, 1);
 
 
     birdie.animations.add('left', [0, 1, 2], 6, true);
@@ -226,7 +234,7 @@ function create(){
 
     var fowl;
 
-    function update(){
+function update(){
 
     // game.physics.arcade.collide(bird, crosshair);
 
@@ -295,7 +303,33 @@ function create(){
             fowl.body.velocity.y *= .5;
 
         }
+
     }
+
+
+            //crosshair bang functionality
+    game.time.events.loop(Phaser.Timer.SECOND * 5, crosshairBang, this);
+
+        function crosshairBang(){
+
+       
+        game.physics.arcade.collide(fowl, crosshair);
+        game.physics.arcade.overlap(fowl, crosshair, winFunc, null, this);
+        console.log('BANG!');
+        game.stage.backgroundColor = '#992d2d';
+
+
+            function winFunc(){
+                // add functionality for bug to seem to go behind spider and hit hidden div
+                console.log('WINNER!');
+             }
+
+
+
+    }
+
+
+
 
     initiateAnimations = function(fowl)
     {
