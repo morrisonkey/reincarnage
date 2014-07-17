@@ -60,6 +60,8 @@
   var platforms;
   var logs;
   var flyCount;
+  var birdie;
+
 
   function create(){
 
@@ -212,12 +214,12 @@
     // frog.animations.add('right', [3, 4, 5], 6, true);
 
     // //adding bird of prey
-    // birdie = game.add.sprite(400, 0, 'player_bird');
-    // birdie.scale.x = game.rnd.realInRange(2, 2);
-    // birdie.scale.y = game.rnd.realInRange(2, 2);
-    // game.physics.arcade.enable(birdie);
-    // birdie.enableBody = true;
-    // birdie.body.immovable = true;
+    birdie = game.add.sprite(750, -150, 'player_bird');
+    birdie.scale.x = game.rnd.realInRange(2, 2);
+    birdie.scale.y = game.rnd.realInRange(2, 2);
+    game.physics.arcade.enable(birdie);
+    birdie.enableBody = true;
+    birdie.body.immovable = true;
     // birdie.body.collideWorldBounds = true;
     // birdie.body.velocity.x = -180;
     // birdie.body.bounce.setTo(1, 1);
@@ -240,7 +242,17 @@
     fly1.animations.add('right', [0, 1], 15, true);
     fly1.animations.add('left', [2, 3], 15, true);
 
-    // createFly(175, 490, 0, 'right');
+    fly2 = game.add.sprite(400, 480, 'fly')
+    game.physics.arcade.enable(fly1);
+    fly2.scale.x = game.rnd.realInRange(.8, .8);
+    fly2.scale.y = game.rnd.realInRange(.8, .8);
+    fly2.body.velocity.x = -80;
+    fly2.animations.add('right', [0, 1], 15, true);
+    fly2.animations.add('left', [2, 3], 15, true);
+
+
+
+    // createFly(275, 490, 0, 'right');
 
     // createFly(900, 500, 0, 'left');
 
@@ -255,19 +267,41 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
+        // birdie = game.add.sprite(700, -10, 'player_bird');
+        //     birdie.scale.x = game.rnd.realInRange(2, 2);
+        //     birdie.scale.y = game.rnd.realInRange(2, 2);
+        //     game.physics.arcade.enable(birdie);
+        //     birdie.enableBody = true;
+
   }
 
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
-    game.physics.arcade.collide(frog, fly1);
+    // game.physics.arcade.collide(frog, fly1);
 
     game.physics.arcade.overlap(frog, fly1, winFunc, null, this);
 
+    // game.physics.arcade.overlap(frog, fly2, winFunc, null, this);
+
+
+
     function winFunc(){
-        
+        fly1.kill();
         flyCount++;
         console.log(flyCount);
+        fly1.scale.setTo(2,2); //NOT YET WORKING
+
+        if (flyCount == 1){
+
+            game.physics.arcade.accelerateToObject(birdie, frog, 110, 500, 500);
+
+             var levelChange = function() {
+           window.location.replace("http://localhost:3000/games/level4")};
+            $('body').fadeOut(5000, function(){levelChange();});
+        };
+
+
     }
 
     initiateAnimations = function(fowl)
