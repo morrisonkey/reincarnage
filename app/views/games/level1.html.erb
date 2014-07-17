@@ -40,6 +40,12 @@
     var acorn2;
     var spider;
 
+    var timer;
+    var timer2;
+    var total = 0;
+    var total2 = 0;
+
+
   function create(){
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -184,6 +190,19 @@
 
     cursors = game.input.keyboard.createCursorKeys();
 
+        //  Create our Timer
+    timer = game.time.create(false);
+    timer2 = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    timer.loop(1000, updateCounter, this);
+    timer2.loop(1, updateCounter2, this);
+
+    //  Start the timer running - this is important!
+    //  It won't start automatically, allowing you to hook it to button events and the like.
+    timer.start();
+    timer2.start();
+
   }
 
 
@@ -209,6 +228,8 @@
     function winFunc(beetle, spider){
         // add functionality for bug to seem to go behind spider and hit hidden div
         beetle.kill();
+        timer.stop();
+        timer2.stop();
         // insert timeout function
         spider.body.velocity.x = 0
         spider.body.velocity.y += 500
@@ -260,12 +281,27 @@
     }
 
 
+
   }
+
+function updateCounter() {
+
+    total++;
+
+}
+
+function updateCounter2() {
+
+    total2++;
+
+}
+
+
 
   function render(){
 
     // game.debug.cameraInfo(game.camera, 32, 32);
-
+    game.debug.text('TIME: ' + total + ':' + total2, 900, 20);
   }
 
 
