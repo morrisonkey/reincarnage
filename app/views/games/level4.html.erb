@@ -139,8 +139,8 @@ function create(){
     crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
 
-    crosshair.animations.add('bang', [0, 1], 6, true);
-    crosshair.animations.play('bang');
+    crosshair.animations.add('bang', [1], 0, true);
+    crosshair.animations.add('regular', [0], 0, true);
 
     birdie.animations.add('left', [0, 1, 2], 6, true);
     birdFriend1.animations.add('left', [0, 1, 2], 6, true);
@@ -223,32 +223,25 @@ function create(){
     birdFriend6.animations.add('fall', [25], 0, true);
 
 
-bangBang = function(){
-    game.time.events.loop(Phaser.Timer.SECOND * 10, crosshairBang, this);
-        function crosshairBang(){
-        crosshair.enableBody = true;
-    game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
 
-            function winFunc(){
-                birdie.kill(); 
-                console.log('WINNER!');
-             };
-        console.log('BANG!'); 
-        // setTimeout(function(){crosshair.enable = false; console.log('off')}, 2000);
-    };
-
-    game.time.events.loop(Phaser.Timer.SECOND * 11, crosshairBangOff, this);
-    function crosshairBangOff(){
-        crosshair.body.destroy;
-        console.log('off');
-    };
-};
-
-bangBang();
-
-    }
+}
 
     var fowl;
+
+// bangBang = function(){
+//             crosshair.enableBody = true;
+//             game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
+//             crosshair.animations.play('bang');
+                
+//             console.log('BANG!'); 
+//                 setTimeout(function()
+//                     {
+//                         crosshair.enable = false; 
+//                         console.log('off');
+//                         crosshair.animations.play('regular');
+//                     }, 2000);
+//             // setTimeout(function(){crosshair.body.destroy; console.log('off');}, 1000);
+// };
 
 //     function toggleBody() {
 
@@ -266,6 +259,31 @@ bangBang();
 //     }
 // }
 
+fire = setInterval(function()
+{
+    crosshair.enableBody = true;
+    game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
+    crosshair.animations.play('bang');
+
+    console.log('FIRE');
+
+reload = setTimeout(function()
+{
+    crosshair.enableBody = false;
+    crosshair.animations.play('regular');
+    console.log('OFF');
+    fire();
+}, 50);
+    reload(); 
+}, 5000);
+
+function winFunc()
+{
+    birdie.kill(); 
+    console.log('WINNER!');
+};
+
+fire();
 function update(){
     // game.physics.arcade.collide(birdFriend1, crosshair);
     // game.physics.arcade.collide(birdFriend2, crosshair);
@@ -275,7 +293,6 @@ function update(){
     // game.physics.arcade.collide(birdFriend6, crosshair);
     // game.physics.arcade.collide(birdie, crosshair);
             //crosshair bang functionality
-
 
 
         //         // debugger
