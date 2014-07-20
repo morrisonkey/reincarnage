@@ -12,45 +12,31 @@
     //     createLog(minLogSize + 450, 600, 'log1', 1.87, -90)
     // ]
 
-    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
+    //level 3 images
+
+    //invisible platforms
     game.load.image('invisible_line', '/images/blank_line.png');
     game.load.image('invisible_line', '/images/invisible_line.png');
 
-
-    // main images for world
+    //background
     game.load.image('background', '/images/level_3_background.png');
-    game.load.image('backgroundKey', '/images/background_key.png');
+    game.load.image('cloud1', '/images/cloud_1.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
+
+    //interactables
+    game.load.image('rock1', '/images/rock_1.png');
+    game.load.image('rock2', '/images/rock_2.png');
     game.load.image('log1', '/images/log_1.png');
     game.load.image('log2', '/images/log_2.png');
     game.load.image('log3', '/images/log_3.png');
     game.load.image('log4', '/images/log_4.png');
-    game.load.image('sawmill', '/images/sawmill.png');
-    game.load.image('wheel', '/images/wheel.png');
-    game.load.image('cloud1', '/images/cloud_1.png');
-    game.load.image('cloud4', '/images/cloud_4.png');
-    game.load.image('tree', '/images/tree.png');
-    game.load.image('grass1', '/images/grass_1.png');
-    game.load.image('grass2', '/images/grass_2.png');
-    game.load.image('grass3', '/images/grass_3.png');
-    game.load.image('grass4', '/images/grass_4.png');
-    game.load.image('rock1', '/images/rock_1.png');
-    game.load.image('rock2', '/images/rock_2.png');
     game.load.image('water', '/images/water copy.png');
-    // level 1 images
-    // game.load.spritesheet('frogmouth', '/images/frogmouth');
-    // level 3 images
+
+    //animals
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
     game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
-    game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80)
-    // game.load.spritesheet('frogtongue', '/images/frogtongue');
-    // game.load.spritesheet('fly1', '/images/fly1');
-    // game.load.spritesheet('fly2', '/images/fly2');
-    // game.load.spritesheet('bird1', '/images/bird1');
-    // level 4 images
-    // game.load.spritesheet('bird2', '/images/bird2');
-    // game.load.spritesheet('bird3', '/images/bird3');
-    // game.load.spritesheet('fallingbird', '/images/fallingbird');
+    game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
   }
 
   var platforms;

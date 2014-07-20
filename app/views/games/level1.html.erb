@@ -8,34 +8,32 @@
 
     // todo: maybe load with offset *******************
 
-    game.load.spritesheet('dude', '/images/bug_sprite_sheet1.png', 95.2, 124);
+    // images for level 1
+
+    // invisible platforms
     game.load.image('invisible_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
 
-    game.load.image('tree', '/images/tree.png');
-    // level 1 images
+    // background
     game.load.image('background', '/images/background.png');
     game.load.image('levelOneBackground', '/images/level1background-01.png');
-    game.load.image('greenBackdrop', '/images/green_backdrop.png');
-    game.load.image('whiteBackdrop', '/images/whiteBackground.png');
+    game.load.image('cloud3', '/images/cloud_3.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
+    // interactables
+    game.load.image('branch1', '/images/h_branch_2.png');
+    game.load.image('branch2', '/images/h_branch_3.png');
+    game.load.image('branch3', '/images/h_branch_4.png');
+    game.load.image('branch4', '/images/h_branch_1.png');
     game.load.image('acorn1', '/images/acorn_1.png');
     game.load.image('acorn2', '/images/acorn_2.png');
     game.load.image('acorn3', '/images/acorn_3.png');
     game.load.image('acorn4', '/images/acorn_4.png');
     game.load.image('acorn5', '/images/acorn_5.png');
     game.load.image('acorn6', '/images/acorn_6.png');
-    game.load.image('branch1', '/images/h_branch_2.png');
-    game.load.image('branch2', '/images/h_branch_3.png');
-    game.load.image('branch3', '/images/h_branch_4.png');
-    game.load.image('branch4', '/images/h_branch_1.png');
-    game.load.image('cobweb', '/images/cobweb.png');
+    // animals
     game.load.image('spider', '/images/spider_bigger_face.png');
     game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
-    game.load.image('cloud3', '/images/cloud_3.png');
-    game.load.image('cloud4', '/images/cloud_4.png');
-    // game.load.spritesheet('branch-tiles', '/images/branch_1.png', 500, 500, 1);
-    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
-    // game.load.spritesheet('branch-tiles', 'assets/physics/ninja-tiles128.png', 128, 128, 34);
+    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124);
   }
 
   var platforms;
@@ -190,7 +188,7 @@
     fly.animations.add('left', [2, 3], .5, true);
     fly.animations.play('right');
 
-    beetle = game.add.sprite(800, 690, 'dude')
+    beetle = game.add.sprite(800, 690, 'beetle')
     beetle.scale.x = game.rnd.realInRange(.45, .45);
     beetle.scale.y = game.rnd.realInRange(.45, .45);
     game.physics.arcade.enable(beetle);

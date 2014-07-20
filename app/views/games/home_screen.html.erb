@@ -4,47 +4,51 @@
 
   function preload(){
 
-    game.load.spritesheet('dude', '/images/bug_sprite_sheet.png', 32, 48);
+    // main images for world
+
+    //invisible platforms
     game.load.image('invisible_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
 
-    // main images for world
+    // text
     game.load.image('logo', '/images/logo2.png');
     game.load.spritesheet('arrow', '/images/arrow.png', 413, 437);
     game.load.spritesheet('start', '/images/start courier.png', 708.5, 236);
     game.load.spritesheet('highScore', '/images/high score courier.png', 1063, 236);
+
+    //background
     game.load.image('background', '/images/background.png');
     game.load.image('backgroundKey', '/images/background_key.png');
-    game.load.image('log1', '/images/log_1.png');
-    game.load.image('log2', '/images/log_2.png');
-    game.load.image('log3', '/images/log_3.png');
-    game.load.image('log4', '/images/log_4.png');
     game.load.image('sawmill', '/images/house_with_window_curtains.png');
-    game.load.image('wheel', '/images/wheel.png');
     game.load.image('cloud1', '/images/cloud_1.png');
     game.load.image('cloud2', '/images/cloud_2.png');
     game.load.image('cloud3', '/images/cloud_3.png');
     game.load.image('cloud4', '/images/cloud_4.png');
     game.load.image('cloud5', '/images/cloud_5.png');
     game.load.image('cloud6', '/images/cloud_6.png');
-    game.load.image('tree', '/images/tree.png');
     game.load.image('grass1', '/images/grass_1.png');
     game.load.image('grass2', '/images/grass_2.png');
     game.load.image('grass3', '/images/grass_3.png');
     game.load.image('grass4', '/images/grass_4.png');
+    game.load.image('tree', '/images/tree.png');
+    game.load.image('wheel', '/images/wheel.png');
+
+    //water front
+    game.load.image('water', '/images/water.png');
+    game.load.image('log1', '/images/log_1.png');
+    game.load.image('log2', '/images/log_2.png');
+    game.load.image('log3', '/images/log_3.png');
+    game.load.image('log4', '/images/log_4.png');
     game.load.image('rock1', '/images/rock_1.png');
     game.load.image('rock2', '/images/rock_2.png');
-    game.load.image('water', '/images/water.png');
-    // level 1 images
-    game.load.image('levelOneBackground', '/images/level_1_background.png');
-    game.load.image('branch1', '/images/branch_1.png');
-    game.load.image('branch2', '/images/branch_2.png');
-    game.load.image('branch3', '/images/branch_3.png');
-    game.load.image('branch4', '/images/branch_4.png');
+
+    // animals
+    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124)
     game.load.image('cobweb', '/images/cobweb.png');
     game.load.image('spider_with_web', '/images/spider_with_web.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
+    
   }
 
   var platforms;
@@ -134,6 +138,15 @@
 
     game.add.image(-5, 685, 'water');
 
+
+    spider = game.add.image(860, 150, 'spider_with_web');
+    spider.scale.x = game.rnd.realInRange(.3, .3);
+    spider.scale.y = game.rnd.realInRange(.3, .3);
+
+    // beetle = game.add.sprite(830, 530, 'beetle')
+    // beetle.scale.x = game.rnd.realInRange(.45, .45);
+    // beetle.scale.y = game.rnd.realInRange(.45, .45);
+
     ground.scale.setTo(50,3);
 
     ground.body.immovable = true;
@@ -160,9 +173,9 @@
     ledge.body.velocity.x = -91;
     }
 
-    frog = game.add.sprite(780, game.world.height - 1000, 'smilingfrog')
-    frog.scale.x = game.rnd.realInRange(.12,.12);
-    frog.scale.y = game.rnd.realInRange(.12,.12);
+    frog = game.add.sprite(500, game.world.height - 2000, 'smilingfrog')
+    frog.scale.x = game.rnd.realInRange(.25,.25);
+    frog.scale.y = game.rnd.realInRange(.25,.25);
     game.physics.arcade.enable(frog);
 
     frog.body.bounce.y = 0.1;
