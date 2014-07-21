@@ -20,10 +20,10 @@
     game.load.image('cloud3', '/images/cloud_3.png');
     game.load.image('cloud4', '/images/cloud_4.png');
     // interactables
-    game.load.image('branch1', '/images/h_branch_2.png');
-    game.load.image('branch2', '/images/h_branch_3.png');
-    game.load.image('branch3', '/images/h_branch_4.png');
-    game.load.image('branch4', '/images/h_branch_1.png');
+    game.load.image('branch1', '/images/branch 1.png');
+    game.load.image('branch2', '/images/branch 2.png');
+    game.load.image('branch3', '/images/branch 3.png');
+    game.load.image('branch4', '/images/branch 4.png');
     game.load.image('acorn1', '/images/acorn_1.png');
     game.load.image('acorn2', '/images/acorn_2.png');
     game.load.image('acorn3', '/images/acorn_3.png');
@@ -58,8 +58,6 @@
 
     game.add.image(0, 0, 'levelOneBackground');
 
-    // spider = game.add.image(6, 3, 'spider');
-
     createCloud = function(x, y, xVelocity, image)
     {
         cloud = game.add.sprite(x, y, image);
@@ -88,13 +86,7 @@
 
     platforms.enableBody = true;
 
-    acorns = game.add.group();
-    acorns.enableBody = true;
 
-    // game.physics.arcade.enable(acorns);
-
-    acorn2 = game.add.group();
-    acorn2.enableBody = true;
 
     // game.physics.arcade.enable(acorns2);
 
@@ -111,12 +103,6 @@
     // goal.scale.x = game.rnd.realInRange(.55, .55);
     // goal.scale.y = game.rnd.realInRange(.55, .55);
     // goal.body.immovable = true;
-
-    var ground = platforms.create(0, game.world.height -5, 'log1');
-
-    ground.scale.setTo(50,3);
-
-    ground.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -135,31 +121,34 @@
 
 
     // left side
-    createBranch(0, 120, 'branch1', 2);
+    createBranch(0, 108, 'branch1', 2);
     createObject(0, 120, 'purp_line', 6.5);
 
     // right side
-    createBranch(410, 275, 'branch2', 2);
+    createBranch(410, 270, 'branch2', 2);
     createObject(415, 275, 'purp_line', 6.2);
 
     // left side
-    createBranch(-50, 440, 'branch3', 2);
+    createBranch(-50, 420, 'branch3', 2);
     createObject(-50, 440, 'purp_line', 7.30);
 
     // right side
-    createBranch(410, 593, 'branch4', 2);
-    createObject(455, 593, 'purp_line', 5.8);
+    createBranch(410, 570, 'branch4', 2);
+    createObject(455, 595, 'purp_line', 5.8);
 
     // ground
-    createBranch(0, 750, 'branch3', 3);
-    createObject(0, 750, 'purp_line', 11);
+    createBranch(0, 746, 'branch2', 3);
+    createObject(0, 755, 'purp_line', 11);
+    
+    acorns = game.add.group();
+    acorns.enableBody = true;
+    // game.physics.arcade.enable(acorns);
 
     function createAcorn(x, y, image, size, xVelocity){
-    acorn = platforms.create(x, y, image);
+    acorn = acorns.create(x, y, image);
     game.physics.arcade.enable(acorn);
     acorn.body.immovable = true;
     acorn.enableBody = true;
-    acorn.exist = true;
     acorn.scale.setTo(size, size);
     acorn.body.velocity.x = xVelocity;
     acorn.body.bounce.y = 0.1;
@@ -171,13 +160,13 @@
     var acorn_array = ["acorn1", "acorn2", "acorn3", "acorn4", "acorn5", "acorn6"]
     random_acorn = acorn_array[Math.floor(acorn_array.length * Math.random())];
         // shoot right
-    createAcorn(-1500, 70, random_acorn, 1.2, 500);
+    createAcorn(-1500, 80, random_acorn, 1.2, 500);
         // shoot left
-    createAcorn(2000, 220, random_acorn, 1.5, -500);
+    createAcorn(2000, 245, random_acorn, 1.5, -500);
         // shoot right
-    createAcorn(-500, 400, random_acorn, 1.5, 500);
+    createAcorn(-500, 385, random_acorn, 1.5, 500);
         // shoot left
-    createAcorn(1000, 547, random_acorn, 1.5, -500);
+    createAcorn(1000, 530, random_acorn, 1.5, -500);
     }
 
     fly = game.add.sprite(10, 25, 'fly')
@@ -227,7 +216,7 @@
 
     game.physics.arcade.collide(beetle, platforms);
     game.physics.arcade.collide(acorn, platforms);
-    game.physics.arcade.collide(acorn, beetle);
+    game.physics.arcade.collide(beetle, acorns);
     game.physics.arcade.collide(platforms, platforms);
     // game.physics.arcade.collide(beetle, spider);
 
