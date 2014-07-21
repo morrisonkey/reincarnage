@@ -159,10 +159,10 @@ function create(){
     crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
-    // crosshair.minSpeed = -150;
-    // crosshair.maxSpeed = 150;
-    // crosshair.body.velocity.x = -200;
-    // crosshair.body.velocity.y = 200;
+    crosshair.minSpeed = -150;
+    crosshair.maxSpeed = 150;
+    crosshair.body.velocity.x = -200;
+    crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
 
 
@@ -297,13 +297,12 @@ function birdDead(fowl)
     setTimeout(function(){fallOut(fowl);}, 800);
 }
     crosshair.enableBody = true;
-    crosshair.body.setSize(200, 200);
-    game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
-    game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
-    game.physics.arcade.overlap(birdFriend3, crosshair, birdDead(birdFriend3), null, this);
-    game.physics.arcade.overlap(birdFriend4, crosshair, birdDead(birdFriend4), null, this);
-    game.physics.arcade.overlap(birdFriend5, crosshair, birdDead(birdFriend5), null, this);
-    game.physics.arcade.overlap(birdFriend6, crosshair, birdDead(birdFriend6), null, this);
+    // game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
+    // game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
+    // game.physics.arcade.overlap(birdFriend3, crosshair, birdDead(birdFriend3), null, this);
+    // game.physics.arcade.overlap(birdFriend4, crosshair, birdDead(birdFriend4), null, this);
+    // game.physics.arcade.overlap(birdFriend5, crosshair, birdDead(birdFriend5), null, this);
+    // game.physics.arcade.overlap(birdFriend6, crosshair, birdDead(birdFriend6), null, this);
     game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
     crosshair.animations.play('bang');
 
@@ -338,9 +337,9 @@ function winFunc()
     setTimeout(function(){falling();}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
-    // var levelChange = function() {
-    // window.location.replace("http://reincarnage.herokuapp.com")};
-    // $('body').fadeOut(3800, function(){levelChange();});
+    var levelChange = function() {
+    window.location.replace("http://reincarnage.herokuapp.com")};
+    $('body').fadeOut(3800, function(){levelChange();});
 };
 
 fire();

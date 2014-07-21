@@ -55,6 +55,7 @@
 
   function create(){
 
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.add.image(0, 0, 'background');
@@ -192,7 +193,12 @@
 
   }
 
+
   function update(){
+    setTimeout(function(){
+    var levelChange = function() {
+    window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
+    $('body').fadeOut(3800, function(){levelChange();});}, 8000);
 
     spinningWheel.angle += 1;
 
