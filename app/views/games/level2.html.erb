@@ -82,7 +82,7 @@
     cursors = game.input.keyboard.createCursorKeys();
 
 
-    spider = game.add.sprite(780, game.world.height - 1000, 'spider')
+    spider = game.add.sprite(180, game.world.height - 1000, 'spider')
     spider.scale.x = game.rnd.realInRange(.6, .6);
     spider.scale.y = game.rnd.realInRange(.6, .6);
     game.physics.arcade.enable(spider);
@@ -117,22 +117,22 @@
     function branches() {
 
         function waveOne() { 
-            // left side
-            createBranches(0, 800, 'branch4', 2, -250);
             // right side
-            createBranches(410, 1200, 'branch3', 2, -250);
+            createBranches(410, 800, 'branch3', 2, -250);
             // left side
-            createBranches(0, 1600, 'branch2', 2, -250);
+            createBranches(0, 1200, 'branch4', 2, -250);
             // right side
-            createBranches(410, 2000, 'branch1', 2, -250);
+            createBranches(410, 1600, 'branch1', 2, -250);
+            // left side
+            createBranches(0, 2000, 'branch2', 2, -250);
             // left side
             createBranches(0, 2400, 'branch4', 2, -250);
             // right side
             createBranches(410, 2800, 'branch3', 2, -250);
             // left side
             createBranches(0, 3200, 'branch2', 2, -250);
-            // left side
-            createBranches(0, 3600, 'branch4', 2, -250);
+            // right side
+            createBranches(410, 3600, 'branch1', 2, -250);
             // end of wave one
         };
         waveOne();

@@ -74,23 +74,9 @@
     createCloud(755, 385, -3, 'cloud3');
     createCloud(35, 100, 5, 'cloud4');
 
-
-    // tile = game.add.sprite(600, 480, 'branch-tiles', 3);
-    // game.physics.ninja.enableTile(tile, tile.frame);
-
-    // game.add.image(0, 0, 1024, 768, 'greenBackdrop');
-
-
-    // background = game.add.image(0, 0, 1024, 768, 'levelOneBackground');
-
-
     platforms = game.add.group();
 
     platforms.enableBody = true;
-
-
-
-    // game.physics.arcade.enable(acorns2);
 
     spider = game.add.sprite(90, -30, 'spider');
     game.physics.arcade.enable(spider);
@@ -98,13 +84,6 @@
     spider.scale.x = game.rnd.realInRange(.55, .55);
     spider.scale.y = game.rnd.realInRange(.55, .55);
     spider.body.immovable = true;
-
-    // goal = game.add.sprite(90, 10, 'purp_line');
-    // game.physics.arcade.enable(goal);
-    // goal.enableBody = true;
-    // goal.scale.x = game.rnd.realInRange(.55, .55);
-    // goal.scale.y = game.rnd.realInRange(.55, .55);
-    // goal.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -124,23 +103,23 @@
 
     // left side
     createBranch(0, 108, 'branch1', 2);
-    createObject(0, 120, 'purp_line', 6.5);
+    createObject(0, 120, 'invisible_line', 6.5);
 
     // right side
     createBranch(410, 270, 'branch2', 2);
-    createObject(415, 275, 'purp_line', 6.2);
+    createObject(415, 275, 'invisible_line', 6.2);
 
     // left side
     createBranch(-50, 420, 'branch3', 2);
-    createObject(-50, 440, 'purp_line', 7.30);
+    createObject(-50, 440, 'invisible_line', 7.30);
 
     // right side
     createBranch(410, 570, 'branch4', 2);
-    createObject(455, 595, 'purp_line', 5.8);
+    createObject(455, 595, 'invisible_line', 5.8);
 
     // ground
     createBranch(0, 746, 'branch2', 3);
-    createObject(0, 755, 'purp_line', 11);
+    createObject(0, 755, 'invisible_line', 11);
     
     acorns = game.add.group();
     acorns.enableBody = true;
@@ -164,20 +143,26 @@
         // shoot right
     createAcorn(-1500, 80, random_acorn, 1.2, 500);
         // shoot left
-    createAcorn(2000, 245, random_acorn, 1.5, -500);
+    createAcorn(2000, 230, random_acorn, 1.5, -500);
         // shoot right
     createAcorn(-500, 385, random_acorn, 1.5, 500);
         // shoot left
     createAcorn(1000, 530, random_acorn, 1.5, -500);
     }
 
-    fly = game.add.sprite(10, 25, 'fly')
-    fly.scale.x = game.rnd.realInRange(.8, .8);
-    fly.scale.y = game.rnd.realInRange(.8, .8);
+    createFly = function(x, y, size, direction)
+    {
+    fly = game.add.sprite(x, y, 'fly')
     game.physics.arcade.enable(fly);
+    fly.scale.x = game.rnd.realInRange(size, size);
+    fly.scale.y = game.rnd.realInRange(size, size);
     fly.animations.add('right', [0, 1], .5, true);
-    fly.animations.add('left', [2, 3], .5, true);
-    fly.animations.play('right');
+    fly.animations.add('left', [2, 3], .35, true);
+    fly.animations.play(direction);
+    }
+
+    createFly(10, 20, 1.2, 'right')
+    createFly(55, 50, .8, 'left')
 
     beetle = game.add.sprite(800, 690, 'beetle')
     beetle.scale.x = game.rnd.realInRange(.45, .45);
@@ -307,7 +292,6 @@ function updateCounter2() {
 
   function render(){
 
-    // game.debug.cameraInfo(game.camera, 32, 32);
     game.debug.text('TIME: ' + total + ':' + total2, 850, 20);
   }
 

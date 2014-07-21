@@ -26,14 +26,17 @@ function preload(){
     game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80);
 }
 
-var flightedAnimal;
 var birdie;
-var birds;
 var crosshair;
 var cursors;
 var background;
-var player_bird;
-var friendly_bird;
+var birdFriend1;
+var birdFriend2;
+var birdFriend3;
+var birdFriend4;
+var birdFriend5;
+var birdFriend6;
+
 
 function create(){
 
@@ -474,6 +477,10 @@ function update(){
         else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
             fowl.animations.play('up')
+        }
+        else
+        {
+            fowl.animations.play('right')
         }
     }
 
