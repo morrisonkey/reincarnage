@@ -14,6 +14,12 @@
     //     createLog(minLogSize + 450, 600, 'log1', 1.87, -90)
     // ]
 
+    // sounds for level 3
+
+    game.load.audio('jump', '/sounds/jump2.mp3');
+    game.load.audio('flap', '/sounds/wingFlap2.mp3');
+    game.load.audio('flap2', '/sounds/wingFlap1.mp3');
+
     //level 3 images
 
     //invisible platforms
@@ -50,9 +56,17 @@
   var logs;
   var platforms;
   var water;
+  var jump;
+  var flap;
+  var flap2;
 
 
   function create(){
+
+    jump = game.add.audio('jump');
+    flap = game.add.audio('flap');
+    flap2 = game.add.audio('flap2');
+
 
     flyCount = 0
 
@@ -93,6 +107,7 @@
     createLedge(505, 605, 1.3, 0);
 
     cursors = game.input.keyboard.createCursorKeys();
+    space_key = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     // creating very first log
     createLog(500, 600, 'log1', 1.87, -90);
@@ -102,7 +117,7 @@
     logFloat();
 
     game.time.events.loop(Phaser.Timer.SECOND * 25, logFloat, this);
-
+    flap.play();
     // create a log
     function createLog(x, y, image, size, xVelocity) {
         log = logs.create(x, y, image);
@@ -122,6 +137,7 @@
 
     // create group of 4 logs offscreen
     function logFloat() {
+        flap.play();
         createLog(1100, 600, 'log1', 1.87, -90);
         createLedge(1120, 620, 1.6, -90);
         createLog(1700, 570, 'log3', 1.87, -92);
@@ -261,6 +277,7 @@
             frog.scale.setTo(.27,.27);
             birdie.body.velocity.x = 0;
             game.physics.arcade.accelerateToObject(birdie, frog, 75, 500, 500);
+            flap.play();
 
              var levelChange = function() {
            window.location.replace("http://reincarnage.herokuapp.com/games/level4")};
@@ -274,11 +291,13 @@
             }
             frog.scale.setTo(.21,.21);
             createFly(0, 490, 30, 0);
+            flap2.play();
         }
         else if (flyCount == 2)
         {
             frog.scale.setTo(.24,.24);
             createFly(750, 490, -30, 100);
+            flap2.play();
         }
 
     }
@@ -369,9 +388,11 @@
     //   frog.frame = 4;
     // }
 
-    if (cursors.up.isDown && frog.body.touching.down)
+    if (space_key.isDown && frog.body.touching.down)
     {
       frog.body.velocity.y = -450;
+      jump.play();
+      flap2.play();
       if (cursors.left.isDown)
       {
         frog.body.velocity.x = -200

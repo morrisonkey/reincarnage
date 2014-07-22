@@ -6,6 +6,10 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, creat
 
 function preload(){
 
+    // level 4 sounds
+
+    game.load.audio('gunshot', '/sounds/gunshot.wav')
+
     // level 4 images
 
     // background
@@ -36,9 +40,12 @@ var birdFriend3;
 var birdFriend4;
 var birdFriend5;
 var birdFriend6;
+var gunshot;
 
 
 function create(){
+
+    gunshot = game.add.audio('gunshot');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     cursors = game.input.keyboard.createCursorKeys();
@@ -254,8 +261,6 @@ function create(){
     birdFriend5.animations.add('fall', [25], 0, true);
     birdFriend6.animations.add('fall', [25], 0, true);
 
-
-
 }
 
     var fowl;
@@ -302,6 +307,7 @@ function birdDead(fowl)
     setTimeout(function(){fallOut(fowl);}, 800);
 }
     crosshair.enableBody = true;
+    gunshot.play();
     // game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
     // game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
     // game.physics.arcade.overlap(birdFriend3, crosshair, birdDead(birdFriend3), null, this);
@@ -326,7 +332,7 @@ reload = setTimeout(function()
 var shotUp = false
 var fallOut = function(fowl){
     fowl.body.velocity.y = 600;
-    fowl.animations.play('fall');
+    fowl.animations.play('shot');
 }
 var falling = function(){
     birdie.body.velocity.y = 600;
@@ -480,7 +486,10 @@ function update(){
         }
         else
         {
+            if (shotUp === false)
+            {
             fowl.animations.play('right')
+            }
         }
     }
 

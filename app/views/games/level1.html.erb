@@ -8,6 +8,10 @@
 
   function preload(){
 
+    // sounds for level 1
+
+    game.load.audio('jump', '/sounds/jump1.mp3');
+
     // todo: maybe load with offset *******************
 
     // images for level 1
@@ -42,6 +46,7 @@
     var acorns;
     var acorn2;
     var spider;
+    var jump;
 
     var timer;
     var timer2;
@@ -51,6 +56,7 @@
 
   function create(){
 
+    jump = game.add.audio('jump');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     // background image and scaled
@@ -181,6 +187,7 @@
     acorn.body.collideWorldBounds = false;
 
     cursors = game.input.keyboard.createCursorKeys();
+    space_key = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         //  Create our Timer
     timer = game.time.create(false);
@@ -267,9 +274,10 @@
     }
     
     //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && beetle.body.touching.down)
+    if (space_key.isDown && beetle.body.touching.down)
     {
         beetle.body.velocity.y = -350;
+        jump.play();
     }
 
 
