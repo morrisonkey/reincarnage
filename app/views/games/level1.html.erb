@@ -64,8 +64,6 @@
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
 
-    game.add.image(0, 0, 'levelOneBackground');
-
     createCloud = function(x, y, xVelocity, image)
     {
         cloud = game.add.sprite(x, y, image);
@@ -79,6 +77,8 @@
 
     createCloud(755, 385, -3, 'cloud3');
     createCloud(35, 100, 5, 'cloud4');
+
+    game.add.image(0, 0, 'levelOneBackground');
 
     platforms = game.add.group();
 
