@@ -24,7 +24,7 @@
 
     //invisible platforms
     game.load.image('invisible_line', '/images/blank_line.png');
-    game.load.image('invisible_line', '/images/invisible_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
 
     //background
     game.load.image('background', '/images/level_3_background.png');
@@ -59,6 +59,8 @@
   var jump;
   var flap;
   var flap2;
+  var flyContainers;
+  var createFlyForcefield;
 
 
   function create(){
@@ -101,6 +103,10 @@
     // create log group
     logs = game.add.group();
     logs.enableBody = true;
+
+    // create invisible fly fence group
+    flyContainers = game.add.group();
+    flyContainers.enableBody = true;
 
     // place platforms behind rocks
     createLedge(140, 595, 1, 0);
@@ -147,6 +153,17 @@
         createLog(2900, 600, 'log2', 1.87, -91);
         createLedge(2910, 620, 1.6, -91);
     }
+
+    // create function for container for flies
+    function createFlyForcefield(y, xScale) {
+        flyForcefield = flyContainers.create(0, y, 'invisible_line');
+        flyForcefield.scale.x = game.rnd.realInRange(xScale, xScale);
+        flyForcefield.body.immovable = true;
+    }
+
+    // add container for flies
+    createFlyForcefield(200, 50);
+    createFlyForcefield(650, 50);
 
     // add frog
     frog = game.add.sprite(150, 540, 'smilingfrog')
@@ -203,7 +220,7 @@
     }
 
     // adding first fly
-    createFly(650, 490, 30, 180);
+    createFly(650, 490, 30, 160);
 
 
     // fly = game.add.sprite(650, 490, 'fly')
@@ -227,7 +244,7 @@
   function update(){
 
     game.physics.arcade.collide(frog, platforms);
-    // game.physics.arcade.collide(frog, fly);
+    game.physics.arcade.collide(fly, flyContainers);
 
     game.physics.arcade.overlap(frog, fly, winFunc, null, this);
     frog.events.onOutOfBounds.add(killFrog, this);

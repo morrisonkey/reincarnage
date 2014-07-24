@@ -13,7 +13,7 @@
 
     // invisible platforms
     game.load.image('invisible_line', '/images/blank_line.png');
-    game.load.image('invisible_line', '/images/invisible_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
 
     // background
     game.load.image('background', '/images/background.png');
@@ -82,6 +82,18 @@
     cursors = game.input.keyboard.createCursorKeys();
 
 
+
+
+            frog = game.add.sprite(400, 800, 'smilingFrog');
+            game.physics.arcade.enable(frog);
+            frog.scale.x = game.rnd.realInRange(2.5, 2.5);
+            frog.scale.y = game.rnd.realInRange(2.5, 2.5);
+            frogMouth = game.add.sprite(-10, 980, 'purp_line');
+            game.physics.arcade.enable(frogMouth);
+            frogMouth.enableBody = true;
+            frogMouth.scale.x = game.rnd.realInRange(11 , 11);
+            frogMouth.body.immovable = true;
+
     spider = game.add.sprite(180, game.world.height - 1000, 'spider')
     spider.scale.x = game.rnd.realInRange(.6, .6);
     spider.scale.y = game.rnd.realInRange(.6, .6);
@@ -89,13 +101,6 @@
 
     spider.body.gravity.y = 10;
     spider.body.collideWorldBounds = true;
-
-
-            frog = game.add.sprite(400, 800, 'smilingFrog');
-            game.physics.arcade.enable(frog);
-            frog.scale.x = game.rnd.realInRange(2.5, 2.5);
-            frog.scale.y = game.rnd.realInRange(2.5, 2.5);
-
     
 
     // spider.animations.add('left', [0, 1, 2], 6, true);
@@ -118,19 +123,19 @@
 
         function waveOne() { 
             // right side
-            createBranches(410, 800, 'branch3', 2, -250);
+            createBranches(510, 800, 'branch3', 2, -250);
             // left side
-            createBranches(0, 1200, 'branch4', 2, -250);
+            createBranches(-100, 1200, 'branch4', 2, -250);
             // right side
-            createBranches(410, 1600, 'branch1', 2, -250);
+            createBranches(510, 1600, 'branch1', 2, -250);
             // left side
-            createBranches(0, 2000, 'branch2', 2, -250);
+            createBranches(-100, 2000, 'branch2', 2, -250);
             // left side
             createBranches(0, 2400, 'branch4', 2, -250);
             // right side
-            createBranches(410, 2800, 'branch3', 2, -250);
+            createBranches(510, 2800, 'branch3', 2, -250);
             // left side
-            createBranches(0, 3200, 'branch2', 2, -250);
+            createBranches(-100, 3200, 'branch2', 2, -250);
             // right side
             createBranches(410, 3600, 'branch1', 2, -250);
             // end of wave one
@@ -140,23 +145,23 @@
         window.setTimeout(
         function() {
             // left side
-            createBranches(-40, 800, 'branch4', 2, -350);
+            createBranches(-30, 800, 'branch4', 2, -350);
             // right side
             createBranches(450, 1300, 'branch3', 2, -350);
             // left side
             createBranches(-40, 1800, 'branch2', 2, -350);
             // right side
-            createBranches(450, 2300, 'branch1', 2, -350);
+            createBranches(460, 2300, 'branch1', 2, -350);
             // left side
-            createBranches(-40, 2800, 'branch4', 2, -350);
+            createBranches(-35, 2800, 'branch4', 2, -350);
             // right side
-            createBranches(450, 3300, 'branch1', 2, -350);
+            createBranches(440, 3300, 'branch1', 2, -350);
             // right side
-            createBranches(450, 3800, 'branch3', 2, -350);
+            createBranches(410, 3800, 'branch3', 2, -350);
             // left side
             createBranches(-40, 4300, 'branch2', 2, -350);
             // right side
-            createBranches(450, 4800, 'branch1', 2, -350);
+            createBranches(420, 4800, 'branch1', 2, -350);
             // end of wave 2
             console.log('WORKS');
         }, 15000);
@@ -164,19 +169,19 @@
         window.setTimeout(
         function waveThree() {
             // left side
-            createBranches(-75, 800, 'branch4', 2, -450);
+            createBranches(-55, 800, 'branch4', 2, -450);
             // right side
             createBranches(485, 1400, 'branch3', 2, -450);
             // left side
-            createBranches(-75, 2000, 'branch2', 2, -450);
+            createBranches(-65, 2000, 'branch2', 2, -450);
             // right side
-            createBranches(485, 2600, 'branch1', 2, -450);
+            createBranches(480, 2600, 'branch1', 2, -450);
             // right side
-            createBranches(485, 3200, 'branch3', 2, -450);
+            createBranches(465, 3200, 'branch3', 2, -450);
             // left side
-            createBranches(-75, 3800, 'branch4', 2, -450);
+            createBranches(-55, 3800, 'branch4', 2, -450);
             // right side
-            createBranches(485, 4200, 'branch3', 2, -450);
+            createBranches(440, 4200, 'branch3', 2, -450);
         }, 30000);
 
         //frog
@@ -184,7 +189,8 @@
             // create frog function with increasing y velocity
             function(){
             frog.body.velocity.y = -100;
-            }, 40000);
+            frogMouth.body.velocity.y = -100;
+            }, 4000);
     }
     branches();
 
@@ -211,10 +217,11 @@
     // game.physics.arcade.collide(acorn, spider);
     // game.physics.arcade.collide(spider, frog);
 
-    game.physics.arcade.overlap(spider, frog, winFunc, null, this);
+    game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
 
-    function winFunc(spider, frog){
+    function winFunc(spider){
         spider.kill();
+        frog.body.velocity.y = 100
         timer.stop();
         timer2.stop();
         console.log('WINNER!');
