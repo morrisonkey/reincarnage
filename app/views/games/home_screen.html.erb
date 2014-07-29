@@ -185,6 +185,31 @@
 
     game.physics.arcade.collide(frog, platforms);
 
+    if (cursors.down.isDown && arrow.body.y = )
+    {
+        //  Move to the left
+        arrow.body.y = ;
+
+    }
+    else if (cursors.up.isDown && arrow.body.y = )
+    {
+        //  Move to the right
+        arrow.body.y = ;
+    }
+
+
+    if (arrow.body.y = && cursors.enter.isDown)
+    {
+        //  Move to the left
+        arrow.body.y = ;
+
+    }
+    else if (arrow.body.y = && cursors.enter.isDown)
+    {
+        //  Move to the right
+        arrow.body.y = ;
+    }
+
 
 
     }
