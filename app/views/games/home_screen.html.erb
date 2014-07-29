@@ -187,6 +187,7 @@
     cursors = game.input.keyboard.createCursorKeys();
     arrow.animations.add('blink', [0, 1], 2.2, true);
     arrow.animations.play('blink')
+    game.physics.arcade.enable(arrow);
     start.animations.add('blink', [1, 0], .55, true);
     start.animations.play('blink')
     highScore.animations.add('blink', [1, 0], .55, true);

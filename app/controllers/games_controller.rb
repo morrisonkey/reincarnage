@@ -14,9 +14,6 @@ class GamesController < ApplicationController
   def level4
   end
 
-  def high_scores
-  end
-
   def win_screen
   end
   
