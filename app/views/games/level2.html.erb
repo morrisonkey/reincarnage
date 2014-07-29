@@ -1,3 +1,5 @@
+<br>
+<h2>Avoid the branches to make your way down to the hungry frog (Controls: Left, Right, Up, Down)</h2>
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -7,32 +9,39 @@
         'tree': '/images/tree.png',
         
     }
+    // level 2 images
 
-    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
+    // invisible platforms
+    game.load.image('invisible_line', '/images/blank_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
 
-    game.load.image('tree', '/images/tree.png');
-    game.load.image('greenBackdrop', '/images/green_backdrop.png');
-    game.load.image('level2background', '/images/tree.png');
-    game.load.image('acorn1', '/images/acorn_1.png');
-    game.load.image('acorn2', '/images/acorn_2.png');
-    game.load.image('acorn3', '/images/acorn_3.png');
-    game.load.image('acorn4', '/images/acorn_4.png');
-    game.load.image('acorn5', '/images/acorn_5.png');
+    // background
+    game.load.image('background', '/images/background.png');
+    game.load.image('cloud2', '/images/cloud_2.png');
+    game.load.image('cloud5', '/images/cloud_5.png');
+
+    // interactables
     game.load.image('branch1', '/images/h_branch_1.png');
     game.load.image('branch2', '/images/h_branch_2.png');
     game.load.image('branch3', '/images/h_branch_3.png');
     game.load.image('branch4', '/images/h_branch_4.png');
+    game.load.image('branch5', '/images/branch 1.png');
+    game.load.image('branch6', '/images/branch 2.png');
+    game.load.image('branch7', '/images/branch 3.png');
+    game.load.image('branch8', '/images/branch 4.png');
+    // possibly add acorns attached to trees to add style (maybe make them interactive)
+    // game.load.image('acorn1', '/images/acorn_1.png');
+    // game.load.image('acorn2', '/images/acorn_2.png');
+    // game.load.image('acorn3', '/images/acorn_3.png');
+    // game.load.image('acorn4', '/images/acorn_4.png');
+    // game.load.image('acorn5', '/images/acorn_5.png');
+
+    // animals
     game.load.image('spider', '/images/spider_bigger_face.png');
-    // level 2 images
-    // game.load.image('webstring', '/images/webstring');
-    // game.load.spritesheet('hangingspider', '/images/hangingspider');
-    // game.load.spritesheet('spidermouth', '/images/spidermouth');
-    // level 3 images
     game.load.image('smilingFrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
-    // game.load.spritesheet('spidertongue', '/images/spidertongue');
-    // game.load.spritesheet('fly1', '/images/fly1');
-    // game.load.spritesheet('fly2', '/images/fly2');
+    //perhaps add flies as additional points for spider
+    // game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png');
   }
 
   var platforms;
@@ -50,9 +59,25 @@
     // tree.scale.x = game.rnd.realInRange(19, 19);
     // tree.scale.y = game.rnd.realInRange(19, 19);
 
-    tree = game.add.image(0,0, 'greenBackdrop');
-    tree.scale.x = game.rnd.realInRange(6, 6);
-    tree.scale.y = game.rnd.realInRange(6, 6);
+    // background image and scaled
+    background = game.add.image(0, -1000, 'background');
+    background.scale.x = game.rnd.realInRange(4, 4);
+    background.scale.y = game.rnd.realInRange(4, 4);
+
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.y = -5;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
+
+    createCloud(755, 445, -3, 'cloud2');
+    createCloud(35, 280, 5, 'cloud5');
 
     platforms = game.add.group();
 
@@ -61,20 +86,25 @@
     cursors = game.input.keyboard.createCursorKeys();
 
 
-    spider = game.add.sprite(780, game.world.height - 1000, 'spider')
-    spider.scale.x = game.rnd.realInRange(.6, .6);
-    spider.scale.y = game.rnd.realInRange(.6, .6);
-    game.physics.arcade.enable(spider);
-
-    spider.body.gravity.y = 10;
-    spider.body.collideWorldBounds = true;
 
 
             frog = game.add.sprite(400, 800, 'smilingFrog');
             game.physics.arcade.enable(frog);
             frog.scale.x = game.rnd.realInRange(2.5, 2.5);
             frog.scale.y = game.rnd.realInRange(2.5, 2.5);
+            frogMouth = game.add.sprite(-10, 980, 'invisible_line');
+            game.physics.arcade.enable(frogMouth);
+            frogMouth.enableBody = true;
+            frogMouth.scale.x = game.rnd.realInRange(11 , 11);
+            frogMouth.body.immovable = true;
 
+    spider = game.add.sprite(180, game.world.height - 1000, 'spider')
+    spider.scale.x = game.rnd.realInRange(.6, .6);
+    spider.scale.y = game.rnd.realInRange(.6, .6);
+    game.physics.arcade.enable(spider);
+
+    spider.body.gravity.y = 10;
+    spider.body.collideWorldBounds = true;
     
 
     // spider.animations.add('left', [0, 1, 2], 6, true);
@@ -96,22 +126,22 @@
     function branches() {
 
         function waveOne() { 
-            // left side
-            createBranches(0, 800, 'branch4', 2, -250);
             // right side
-            createBranches(410, 1200, 'branch3', 2, -250);
+            createBranches(510, 800, 'branch3', 2, -250);
             // left side
-            createBranches(0, 1600, 'branch2', 2, -250);
+            createBranches(-100, 1200, 'branch4', 2, -250);
             // right side
-            createBranches(410, 2000, 'branch1', 2, -250);
+            createBranches(510, 1600, 'branch1', 2, -250);
+            // left side
+            createBranches(-100, 2000, 'branch2', 2, -250);
             // left side
             createBranches(0, 2400, 'branch4', 2, -250);
             // right side
-            createBranches(410, 2800, 'branch3', 2, -250);
+            createBranches(510, 2800, 'branch3', 2, -250);
             // left side
-            createBranches(0, 3200, 'branch2', 2, -250);
-            // left side
-            createBranches(0, 3600, 'branch4', 2, -250);
+            createBranches(-100, 3200, 'branch2', 2, -250);
+            // right side
+            createBranches(410, 3600, 'branch1', 2, -250);
             // end of wave one
         };
         waveOne();
@@ -119,23 +149,23 @@
         window.setTimeout(
         function() {
             // left side
-            createBranches(-40, 800, 'branch4', 2, -350);
+            createBranches(-30, 800, 'branch4', 2, -350);
             // right side
             createBranches(450, 1300, 'branch3', 2, -350);
             // left side
             createBranches(-40, 1800, 'branch2', 2, -350);
             // right side
-            createBranches(450, 2300, 'branch1', 2, -350);
+            createBranches(460, 2300, 'branch1', 2, -350);
             // left side
-            createBranches(-40, 2800, 'branch4', 2, -350);
+            createBranches(-35, 2800, 'branch4', 2, -350);
             // right side
-            createBranches(450, 3300, 'branch1', 2, -350);
+            createBranches(440, 3300, 'branch1', 2, -350);
             // right side
-            createBranches(450, 3800, 'branch3', 2, -350);
+            createBranches(410, 3800, 'branch3', 2, -350);
             // left side
             createBranches(-40, 4300, 'branch2', 2, -350);
             // right side
-            createBranches(450, 4800, 'branch1', 2, -350);
+            createBranches(420, 4800, 'branch1', 2, -350);
             // end of wave 2
             console.log('WORKS');
         }, 15000);
@@ -143,19 +173,19 @@
         window.setTimeout(
         function waveThree() {
             // left side
-            createBranches(-75, 800, 'branch4', 2, -450);
+            createBranches(-55, 800, 'branch4', 2, -450);
             // right side
             createBranches(485, 1400, 'branch3', 2, -450);
             // left side
-            createBranches(-75, 2000, 'branch2', 2, -450);
+            createBranches(-65, 2000, 'branch2', 2, -450);
             // right side
-            createBranches(485, 2600, 'branch1', 2, -450);
+            createBranches(480, 2600, 'branch1', 2, -450);
             // right side
-            createBranches(485, 3200, 'branch3', 2, -450);
+            createBranches(465, 3200, 'branch3', 2, -450);
             // left side
-            createBranches(-75, 3800, 'branch4', 2, -450);
+            createBranches(-55, 3800, 'branch4', 2, -450);
             // right side
-            createBranches(485, 4200, 'branch3', 2, -450);
+            createBranches(440, 4200, 'branch3', 2, -450);
         }, 30000);
 
         //frog
@@ -163,6 +193,7 @@
             // create frog function with increasing y velocity
             function(){
             frog.body.velocity.y = -100;
+            frogMouth.body.velocity.y = -100;
             }, 40000);
     }
     branches();
@@ -190,15 +221,16 @@
     // game.physics.arcade.collide(acorn, spider);
     // game.physics.arcade.collide(spider, frog);
 
-    game.physics.arcade.overlap(spider, frog, winFunc, null, this);
+    game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
 
-    function winFunc(spider, frog){
+    function winFunc(spider){
         spider.kill();
+        frog.body.velocity.y = 100
         timer.stop();
         timer2.stop();
         console.log('WINNER!');
             var levelChange = function() {
-            window.location.replace("http://www.reincarnage.herokuapp.com/games/level3")
+            window.location.replace("http://reincarnage.herokuapp.com/games/level3")
        };
 
        $('body').fadeOut(3000, function(){levelChange();});
