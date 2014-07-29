@@ -52,6 +52,7 @@
   }
 
   var platforms;
+  var arrow;
 
   function create(){
 
@@ -204,30 +205,30 @@
 
     game.physics.arcade.collide(frog, platforms);
 
-    if (cursors.down.isDown && arrow.body.y = )
+    if (cursors.down.isDown)
     {
-        //  Move to the left
-        arrow.body.y = ;
-
+        //  Move down
+        arrow.kill();
+        // var arrow2 = game.add.sprite(493, 235, 'arrow');
+        // arrow2.scale.x = game.rnd.realInRange(.1, .1);
+        // arrow2.scale.y = game.rnd.realInRange(.1, .1);
     }
-    else if (cursors.up.isDown && arrow.body.y = )
-    {
-        //  Move to the right
-        arrow.body.y = ;
-    }
+    // else if (cursors.up.isDown && arrow.body.y = )
+    // {
+    //     //  Move up
+    //     arrow.body.y = ;
+    // }
 
 
-    if (arrow.body.y = && cursors.enter.isDown)
-    {
-        //  Move to the left
-        arrow.body.y = ;
+    // if (arrow.body.y = && cursors.enter.isDown)
+    // {
+    //     window.location.replace("http://reincarnage.herokuapp.com/games/level1");
 
-    }
-    else if (arrow.body.y = && cursors.enter.isDown)
-    {
-        //  Move to the right
-        arrow.body.y = ;
-    }
+    // }
+    // else if (arrow.body.y = && cursors.enter.isDown)
+    // {
+    //     // window.location.replace("http://reincarnage.herokuapp.com/games/highScore");
+    // }
 
 
 
