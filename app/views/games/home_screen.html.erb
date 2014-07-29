@@ -115,7 +115,7 @@
     highScore.scale.x = game.rnd.realInRange(.4, .4);
     highScore.scale.y = game.rnd.realInRange(.4, .4);
 
-
+    game.physics.arcade.enable(arrow);
 
     ledge = platforms.create(555, 90, 'purp_line');
     ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
@@ -187,7 +187,7 @@
     cursors = game.input.keyboard.createCursorKeys();
     arrow.animations.add('blink', [0, 1], 2.2, true);
     arrow.animations.play('blink')
-    game.physics.arcade.enable(arrow);
+    arrow.animations.add('up', )
     start.animations.add('blink', [1, 0], .55, true);
     start.animations.play('blink')
     highScore.animations.add('blink', [1, 0], .55, true);
@@ -206,13 +206,12 @@
 
     game.physics.arcade.collide(frog, platforms);
 
+    // arrow.body.velocity.y = 0;
+
     if (cursors.down.isDown)
     {
         //  Move down
-        arrow.kill();
-        // var arrow2 = game.add.sprite(493, 235, 'arrow');
-        // arrow2.scale.x = game.rnd.realInRange(.1, .1);
-        // arrow2.scale.y = game.rnd.realInRange(.1, .1);
+        arrow.body.velocity.y = -180;
     }
     // else if (cursors.up.isDown && arrow.body.y = )
     // {
