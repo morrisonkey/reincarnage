@@ -1,0 +1,1 @@
+game.load.image('logo', '/images/logo2.png');

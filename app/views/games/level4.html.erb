@@ -1,11 +1,18 @@
+<br>
+<h2>Get the human to shoot and eat you to complete your rise up the food chain. (Controls: Left, Right, Up, Down)</h2>
 <script type="text/javascript">
 
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 function preload(){
 
-    game.load.spritesheet('dude', '/images/dude.png', 32, 48);
+    // level 4 sounds
 
+    game.load.audio('gunshot', '/sounds/gunshot.mp3')
+
+    // level 4 images
+
+    // background
     game.load.image('background', '/images/background.png');
     game.load.image('cloud1', '/images/cloud_1.png');
     game.load.image('cloud2', '/images/cloud_2.png');
@@ -14,25 +21,31 @@ function preload(){
     game.load.image('cloud5', '/images/cloud_5.png');
     game.load.image('cloud6', '/images/cloud_6.png');
     game.load.image('tree', '/images/tree.png');
-    game.load.image('grass1', '/images/grass_1.png');
-    game.load.image('smilingfrog', '/images/frog_mouth_open.png');
-    game.load.image('frog', '/images/frog_mouth_closed.png');
+    game.load.image('sawmill', '/images/house_with_window_curtains.png');
+    // interactables
     game.load.spritesheet('crosshair', '/images/crosshair_sprite.png', 400, 400);
+    // animals
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
     game.load.spritesheet('bird2', '/images/bird sprite2-1.png', 84, 80);
     game.load.spritesheet('bird7', '/images/bird sprite7-1.png', 84, 80);
 }
 
-var flightedAnimal;
 var birdie;
-var birds;
 var crosshair;
 var cursors;
 var background;
-var player_bird;
-var friendly_bird;
+var birdFriend1;
+var birdFriend2;
+var birdFriend3;
+var birdFriend4;
+var birdFriend5;
+var birdFriend6;
+var gunshot;
+
 
 function create(){
+
+    gunshot = game.add.audio('gunshot');
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     cursors = game.input.keyboard.createCursorKeys();
@@ -41,6 +54,25 @@ function create(){
     background = game.add.image(0, 0, 'background');
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
+
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
+
+    createCloud(755, 385, -3, 'cloud3');
+    createCloud(35, 100, 5, 'cloud4');
+
+    tree = game.add.image(-450, 100, 'tree');
+    tree.scale.x = game.rnd.realInRange(1.5, 1.5);
+    tree.scale.y = game.rnd.realInRange(1.5, 1.5);
+
 
 
     // randomized bird sprites
@@ -122,10 +154,16 @@ function create(){
     birdFriend6.body.bounce.setTo(1, 1);
     birdFriend6.body.immovable = true;
 
-    birdie = game.add.sprite(game.world.randomX, game.world.randomY, 'player_bird')
+    birdie = game.add.sprite(15, 670, 'player_bird')
     birdie.enableBody = true;
     game.physics.arcade.enable(birdie);
     birdie.body.collideWorldBounds = true;
+    birdie.body.bounce.setTo(1, 1);
+
+
+    sawmill = game.add.image(730, 700, 'sawmill');
+    sawmill.scale.x = game.rnd.realInRange(2, 2);
+    sawmill.scale.y = game.rnd.realInRange(2, 2);
 
     crosshair = game.add.sprite(game.world.randomX, 300, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.25, .25);
@@ -135,76 +173,77 @@ function create(){
     crosshair.body.collideWorldBounds = true;
     crosshair.minSpeed = -150;
     crosshair.maxSpeed = 150;
-    crosshair.body.velocity.x = -200;
+    crosshair.body.velocity.x = 200;
     crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
+
 
     crosshair.animations.add('bang', [1], 0, true);
     crosshair.animations.add('regular', [0], 0, true);
 
-    birdie.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend1.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend2.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend3.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend4.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend5.animations.add('left', [0, 1, 2], 6, true);
-    birdFriend6.animations.add('left', [0, 1, 2], 6, true);
+    birdie.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend1.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend2.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend3.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend4.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend5.animations.add('left', [0, 1, 2, 1], 6, true);
+    birdFriend6.animations.add('left', [0, 1, 2, 1], 6, true);
 
-    birdie.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend1.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend2.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend3.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend4.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend5.animations.add('right', [9, 10, 11], 6, true);
-    birdFriend6.animations.add('right', [9, 10, 11], 6, true);
+    birdie.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend1.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend2.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend3.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend4.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend5.animations.add('right', [9, 10, 11, 10], 6, true);
+    birdFriend6.animations.add('right', [9, 10, 11, 10], 6, true);
 
-    birdie.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend1.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend2.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend3.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend4.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend5.animations.add('up', [21, 22, 23], 6, true);
-    birdFriend6.animations.add('up', [21, 22, 23], 6, true);
+    birdie.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend1.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend2.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend3.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend4.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend5.animations.add('up', [21, 22, 23, 22], 6, true);
+    birdFriend6.animations.add('up', [21, 22, 23, 22], 6, true);
 
-    birdie.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend1.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend2.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend3.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend4.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend5.animations.add('down', [18, 19, 20], 6, true);
-    birdFriend6.animations.add('down', [18, 19, 20], 6, true);
+    birdie.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend1.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend2.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend3.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend4.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend5.animations.add('down', [18, 19, 20, 19], 6, true);
+    birdFriend6.animations.add('down', [18, 19, 20, 19], 6, true);
 
-    birdie.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend1.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend2.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend3.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend4.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend5.animations.add('left_up', [3, 4, 5], 6, true);
-    birdFriend6.animations.add('left_up', [3, 4, 5], 6, true);
+    birdie.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend1.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend2.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend3.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend4.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend5.animations.add('left_up', [3, 4, 5, 4], 6, true);
+    birdFriend6.animations.add('left_up', [3, 4, 5, 4], 6, true);
 
-    birdie.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend1.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend2.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend3.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend4.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend5.animations.add('right_up', [12, 13, 14], 6, true);
-    birdFriend6.animations.add('right_up', [12, 13, 14], 6, true);
+    birdie.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend1.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend2.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend3.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend4.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend5.animations.add('right_up', [12, 13, 14, 13], 6, true);
+    birdFriend6.animations.add('right_up', [12, 13, 14, 13], 6, true);
 
-    birdie.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend1.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend2.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend3.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend4.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend5.animations.add('left_down', [6, 7, 8], 6, true);
-    birdFriend6.animations.add('left_down', [6, 7, 8], 6, true);
+    birdie.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend1.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend2.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend3.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend4.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend5.animations.add('left_down', [6, 7, 8, 7], 6, true);
+    birdFriend6.animations.add('left_down', [6, 7, 8, 7], 6, true);
 
-    birdie.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend1.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend2.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend3.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend4.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend5.animations.add('right_down', [15, 16, 17], 6, true);
-    birdFriend6.animations.add('right_down', [15, 16, 17], 6, true);
+    birdie.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend1.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend2.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend3.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend4.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend5.animations.add('right_down', [15, 16, 17, 16], 6, true);
+    birdFriend6.animations.add('right_down', [15, 16, 17, 16], 6, true);
 
     birdie.animations.add('shot', [24], 0, true);
     birdFriend1.animations.add('shot', [24], 0, true);
@@ -214,15 +253,13 @@ function create(){
     birdFriend5.animations.add('shot', [24], 0, true);
     birdFriend6.animations.add('shot', [24], 0, true);
 
-    birdie.animations.add('fall', [25], 0, true);
+    birdie.animations.add('fall', [18], 0, true);
     birdFriend1.animations.add('fall', [25], 0, true);
     birdFriend2.animations.add('fall', [25], 0, true);
     birdFriend3.animations.add('fall', [25], 0, true);
     birdFriend4.animations.add('fall', [25], 0, true);
     birdFriend5.animations.add('fall', [25], 0, true);
     birdFriend6.animations.add('fall', [25], 0, true);
-
-
 
 }
 
@@ -261,7 +298,22 @@ function create(){
 
 fire = setInterval(function()
 {
+function birdDead(fowl)
+{
+    fowl.body.collideWorldBounds = false;
+    fowl.body.velocity.x = 0;
+    fowl.body.velocity.y = 0;
+    fowl.animations.play('shot');
+    setTimeout(function(){fallOut(fowl);}, 800);
+}
     crosshair.enableBody = true;
+    gunshot.play();
+    // game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
+    // game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
+    // game.physics.arcade.overlap(birdFriend3, crosshair, birdDead(birdFriend3), null, this);
+    // game.physics.arcade.overlap(birdFriend4, crosshair, birdDead(birdFriend4), null, this);
+    // game.physics.arcade.overlap(birdFriend5, crosshair, birdDead(birdFriend5), null, this);
+    // game.physics.arcade.overlap(birdFriend6, crosshair, birdDead(birdFriend6), null, this);
     game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
     crosshair.animations.play('bang');
 
@@ -277,12 +329,27 @@ reload = setTimeout(function()
     reload(); 
 }, 5000);
 
+var shotUp = false
+var fallOut = function(fowl){
+    fowl.body.velocity.y = 600;
+    fowl.animations.play('shot');
+}
+var falling = function(){
+    birdie.body.velocity.y = 600;
+    birdie.animations.play('fall');
+}
 function winFunc()
 {
-    birdie.kill(); 
+    shotUp = true
+    birdie.body.collideWorldBounds = false;
+    birdie.body.velocity.x = 0
+    birdie.body.velocity.y = 0
+    birdie.animations.play('shot')
+    setTimeout(function(){falling();}, 800);
+    // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
     var levelChange = function() {
-    window.location.replace("http://www.reincarnage.herokuapp.com")};
+    window.location.replace("http://reincarnage.herokuapp.com")};
     $('body').fadeOut(3800, function(){levelChange();});
 };
 
@@ -306,70 +373,71 @@ function update(){
     // game.physics.arcade.collide(bird, crosshair);
     initiateControls = function(fowl)
     {
-
-        if (cursors.up.isDown)
+        if (shotUp === false)
         {
-            if (cursors.left.isDown)
+            if (cursors.up.isDown)
             {
-                fowl.body.velocity.y = -180;
+                if (cursors.left.isDown)
+                {
+                    fowl.body.velocity.y = -180;
 
+                    fowl.body.velocity.x = -180;
+
+                }
+                else if (cursors.right.isDown)
+                {
+                    fowl.body.velocity.y = -180;
+
+                    fowl.body.velocity.x = 180;
+
+                }
+                else
+                {
+                    fowl.body.velocity.y = -180;
+
+                    fowl.body.velocity.x *= .99;
+
+                }
+            }
+            else if (cursors.down.isDown)
+            {
+                if (cursors.left.isDown)
+                {
+                    fowl.body.velocity.y = 180;
+
+                    fowl.body.velocity.x = -180;
+
+                }
+                else if (cursors.right.isDown)
+                {
+                    fowl.body.velocity.y = 180;
+
+                    fowl.body.velocity.x = 180;
+
+                }
+                else
+                {
+                    fowl.body.velocity.y = 180;
+
+                    fowl.body.velocity.x *= .99;
+
+                }
+            }
+            else if (cursors.left.isDown)
+            {
                 fowl.body.velocity.x = -180;
+
+                fowl.body.velocity.y *= .5;
 
             }
             else if (cursors.right.isDown)
             {
-                fowl.body.velocity.y = -180;
-
                 fowl.body.velocity.x = 180;
 
-            }
-            else
-            {
-                fowl.body.velocity.y = -180;
-
-                fowl.body.velocity.x *= .99;
+                fowl.body.velocity.y *= .5;
 
             }
         }
-        else if (cursors.down.isDown)
-        {
-            if (cursors.left.isDown)
-            {
-                fowl.body.velocity.y = 180;
-
-                fowl.body.velocity.x = -180;
-
-            }
-            else if (cursors.right.isDown)
-            {
-                fowl.body.velocity.y = 180;
-
-                fowl.body.velocity.x = 180;
-
-            }
-            else
-            {
-                fowl.body.velocity.y = 180;
-
-                fowl.body.velocity.x *= .99;
-
-            }
-        }
-        else if (cursors.left.isDown)
-        {
-            fowl.body.velocity.x = -180;
-
-            fowl.body.velocity.y *= .5;
-
-        }
-        else if (cursors.right.isDown)
-        {
-            fowl.body.velocity.x = 180;
-
-            fowl.body.velocity.y *= .5;
-
-        }
-
     }
 
 
@@ -393,25 +461,40 @@ function update(){
         {
             fowl.animations.play('left_up')
         }
-        else if (fowl.body.velocity.x >= 180)
+        else if (fowl.body.velocity.x >= 140)
         {
             fowl.animations.play('right')
         }
-        else if (fowl.body.velocity.x <= -180)
+        else if (fowl.body.velocity.x <= -140)
         {
             fowl.animations.play('left')
         }
         else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
-            fowl.animations.play('down')
+            if (shotUp === false)
+            {
+                fowl.animations.play('down')
+            }
+            else
+            {
+                fowl.animations.play('fall')
+            }
         }
         else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
             fowl.animations.play('up')
         }
+        else
+        {
+            if (shotUp === false)
+            {
+            fowl.animations.play('right')
+            }
+        }
     }
 
 
+    initiateControls(birdie);
     initiateAnimations(birdie);
     initiateAnimations(birdFriend1);
     initiateAnimations(birdFriend2);
@@ -420,7 +503,6 @@ function update(){
     initiateAnimations(birdFriend5);
     initiateAnimations(birdFriend6);
 
-    initiateControls(birdie);
 
 }
 
