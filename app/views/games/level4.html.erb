@@ -42,8 +42,26 @@ var birdFriend5;
 var birdFriend6;
 var gunshot;
 
+var timer;
+var timer2;
+var total = 0;
+var total2 = 0;
+
 
 function create(){
+
+    //  Create our Timer
+    timer = game.time.create(false);
+    timer2 = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    timer.loop(1000, updateCounter, this);
+    timer2.loop(1, updateCounter2, this);
+
+    //  Start the timer running - this is important!
+    //  It won't start automatically, allowing you to hook it to button events and the like.
+    timer.start();
+    timer2.start();
 
     gunshot = game.add.audio('gunshot');
 
@@ -506,11 +524,21 @@ function update(){
 
 }
 
+function updateCounter() {
 
+    total++;
+
+}
+
+function updateCounter2() {
+
+    total2++;
+
+}
 
 function render(){
 
-
+game.debug.text('TIME: ' + total + ':' + total2, 850, 20);
 }
 
 $(function(){
