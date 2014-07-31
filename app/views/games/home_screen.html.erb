@@ -48,13 +48,12 @@
     game.load.image('spider_with_web', '/images/spider_with_web.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
-    
   }
 
   var platforms;
+  var arrow;
 
   function create(){
-
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -94,7 +93,6 @@
 
     spinningWheel = game.add.image(1000, 620, 'wheel');
     spinningWheel.anchor.setTo(0.5, 0.5);
-
     
     platforms = game.add.group();
 
@@ -113,8 +111,6 @@
     var highScore = game.add.sprite(570, 235, 'highScore');
     highScore.scale.x = game.rnd.realInRange(.4, .4);
     highScore.scale.y = game.rnd.realInRange(.4, .4);
-
-
 
     ledge = platforms.create(555, 90, 'purp_line');
     ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
@@ -139,7 +135,6 @@
 
     game.add.image(-5, 685, 'water');
 
-
     spider = game.add.image(860, 150, 'spider_with_web');
     spider.scale.x = game.rnd.realInRange(.3, .3);
     spider.scale.y = game.rnd.realInRange(.3, .3);
@@ -153,7 +148,6 @@
     ground.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
-
 
 // set interval
 
@@ -186,6 +180,7 @@
     cursors = game.input.keyboard.createCursorKeys();
     arrow.animations.add('blink', [0, 1], 2.2, true);
     arrow.animations.play('blink')
+
     start.animations.add('blink', [1, 0], .55, true);
     start.animations.play('blink')
     highScore.animations.add('blink', [1, 0], .55, true);
@@ -194,23 +189,21 @@
   }
 
 
-  function update(){
-    setTimeout(function(){
-    var levelChange = function() {
-    window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
-    $('body').fadeOut(3800, function(){levelChange();});}, 8000);
+    function update(){
+        setTimeout(function(){
+            var levelChange = function() {
+            window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
+            $('body').fadeOut(3800, function(){levelChange();});}, 8000);
 
-    spinningWheel.angle += 1;
+        spinningWheel.angle += 1;
 
-    game.physics.arcade.collide(frog, platforms);
-
-
+        game.physics.arcade.collide(frog, platforms);
 
     }
 
-  function render(){
+    function render(){
 
 
-  }
+    }
 
   </script>

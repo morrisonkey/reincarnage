@@ -51,6 +51,31 @@
     var total = 0;
     var total2 = 0;
 
+ //     var branch1
+ // var branch2
+ // var branch3
+//  var branch4
+//  var branch5
+//  var branch6
+//  var branch7
+//  var branch8
+//  var branch9
+// var branch10
+// var branch11
+// var branch12
+// var branch13
+// var branch14
+// var branch15
+// var branch16
+// var branch17
+// var branch18
+// var branch19
+// var branch20
+// var branch21
+// var branch22
+// var branch23
+// var branch24
+
   function create(){
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -127,21 +152,21 @@
 
         function waveOne() { 
             // right side
-            createBranches(510, 800, 'branch3', 2, -250);
+            branch1 = createBranches(510, 800, 'branch3', 2, -250);
             // left side
-            createBranches(-100, 1200, 'branch4', 2, -250);
+            branch2 = createBranches(-100, 1200, 'branch4', 2, -250);
             // right side
-            createBranches(510, 1600, 'branch1', 2, -250);
+            branch3 = createBranches(510, 1600, 'branch1', 2, -250);
             // left side
-            createBranches(-100, 2000, 'branch2', 2, -250);
+            branch4 = createBranches(-100, 2000, 'branch2', 2, -250);
             // left side
-            createBranches(0, 2400, 'branch4', 2, -250);
+            branch5 = createBranches(0, 2400, 'branch4', 2, -250);
             // right side
-            createBranches(510, 2800, 'branch3', 2, -250);
+            branch6 = createBranches(510, 2800, 'branch3', 2, -250);
             // left side
-            createBranches(-100, 3200, 'branch2', 2, -250);
+            branch7 = createBranches(-100, 3200, 'branch2', 2, -250);
             // right side
-            createBranches(410, 3600, 'branch1', 2, -250);
+            branch8 = createBranches(410, 3600, 'branch1', 2, -250);
             // end of wave one
         };
         waveOne();
@@ -149,23 +174,23 @@
         window.setTimeout(
         function() {
             // left side
-            createBranches(-30, 800, 'branch4', 2, -350);
+            branch9 = createBranches(-30, 800, 'branch4', 2, -350);
             // right side
-            createBranches(450, 1300, 'branch3', 2, -350);
+            branch10 = createBranches(450, 1300, 'branch3', 2, -350);
             // left side
-            createBranches(-40, 1800, 'branch2', 2, -350);
+            branch11 = createBranches(-40, 1800, 'branch2', 2, -350);
             // right side
-            createBranches(460, 2300, 'branch1', 2, -350);
+            branch12 = createBranches(460, 2300, 'branch1', 2, -350);
             // left side
-            createBranches(-35, 2800, 'branch4', 2, -350);
+            branch13 = createBranches(-35, 2800, 'branch4', 2, -350);
             // right side
-            createBranches(440, 3300, 'branch1', 2, -350);
+            branch14 = createBranches(440, 3300, 'branch1', 2, -350);
             // right side
-            createBranches(410, 3800, 'branch3', 2, -350);
+            branch15 = createBranches(410, 3800, 'branch3', 2, -350);
             // left side
-            createBranches(-40, 4300, 'branch2', 2, -350);
+            branch16 = createBranches(-40, 4300, 'branch2', 2, -350);
             // right side
-            createBranches(420, 4800, 'branch1', 2, -350);
+            branch17 = createBranches(420, 4800, 'branch1', 2, -350);
             // end of wave 2
             console.log('WORKS');
         }, 15000);
@@ -173,19 +198,19 @@
         window.setTimeout(
         function waveThree() {
             // left side
-            createBranches(-55, 800, 'branch4', 2, -450);
+            branch18 = createBranches(-55, 800, 'branch4', 2, -450);
             // right side
-            createBranches(485, 1400, 'branch3', 2, -450);
+            branch19 = createBranches(485, 1400, 'branch3', 2, -450);
             // left side
-            createBranches(-65, 2000, 'branch2', 2, -450);
+            branch20 = createBranches(-65, 2000, 'branch2', 2, -450);
             // right side
-            createBranches(480, 2600, 'branch1', 2, -450);
+            branch21 = createBranches(480, 2600, 'branch1', 2, -450);
             // right side
-            createBranches(465, 3200, 'branch3', 2, -450);
+            branch22 = createBranches(465, 3200, 'branch3', 2, -450);
             // left side
-            createBranches(-55, 3800, 'branch4', 2, -450);
+            branch23 = createBranches(-55, 3800, 'branch4', 2, -450);
             // right side
-            createBranches(440, 4200, 'branch3', 2, -450);
+            branch24 = createBranches(440, 4200, 'branch3', 2, -450);
         }, 30000);
 
         //frog
@@ -239,7 +264,61 @@
     if (spider.body.touching.down)
     {
     spider.body.velocity.x = 0;
+    // platforms.body.velocity.y = 0;
+    // branch1.body.velocity.y = 0;
+    // branch2.body.velocity.y = 0;
+    // branch3.body.velocity.y = 0;
+    // branch4.body.velocity.y = 0;
+    // branch5.body.velocity.y = 0;
+    // branch6.body.velocity.y = 0;
+    // branch7.body.velocity.y = 0;
+    // branch8.body.velocity.y = 0;
+    // branch9.body.velocity.y = 0;
+    // branch10.body.velocity.y = 0;
+    // branch11.body.velocity.y = 0;
+    // branch12.body.velocity.y = 0;
+    // branch13.body.velocity.y = 0;
+    // branch14.body.velocity.y = 0;
+    // branch15.body.velocity.y = 0;
+    // branch16.body.velocity.y = 0;
+    // branch17.body.velocity.y = 0;
+    // branch18.body.velocity.y = 0;
+    // branch19.body.velocity.y = 0;
+    // branch20.body.velocity.y = 0;
+    // branch21.body.velocity.y = 0;
+    // branch22.body.velocity.y = 0;
+    // branch23.body.velocity.y = 0;
+    // branch24.body.velocity.y = 0;
     }
+    else if (spider.body.touching.down === false) {
+        // branch1.body.velocity.y = -250;
+        // branch2.body.velocity.y = -250;
+        // branch3.body.velocity.y = -250;
+        // branch4.body.velocity.y = -250;
+        // branch5.body.velocity.y = -250;
+        // branch6.body.velocity.y = -250;
+        // branch7.body.velocity.y = -250;
+        // branch8.body.velocity.y = -250;
+        // branch9.body.velocity.y = -350;
+        // branch10.body.velocity.y = -350;
+        // branch11.body.velocity.y = -350;
+        // branch12.body.velocity.y = -350;
+        // branch13.body.velocity.y = -350;
+        // branch14.body.velocity.y = -350;
+        // branch15.body.velocity.y = -350;
+        // branch16.body.velocity.y = -350;
+        // branch17.body.velocity.y = -350;
+        // branch18.body.velocity.y = -350;
+        // branch19.body.velocity.y = -450;
+        // branch20.body.velocity.y = -450;
+        // branch21.body.velocity.y = -450;
+        // branch22.body.velocity.y = -450;
+        // branch23.body.velocity.y = -450;
+        // branch24.body.velocity.y = -450;  
+    }
+    
+
+
 
     if (cursors.left.isDown)
     {

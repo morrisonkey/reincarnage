@@ -13,4 +13,8 @@ class GamesController < ApplicationController
 
   def level4
   end
+
+  def win_screen
+  end
+  
 end
