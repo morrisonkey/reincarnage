@@ -41,8 +41,7 @@
     game.load.image('water', '/images/water copy.png');
 
     //animals
-    game.load.image('smilingfrog', '/images/frog_mouth_open.png');
-    game.load.image('frog', '/images/frog_mouth_closed.png');
+    game.load.spritesheet('smilingfrog', '/images/frogsprite.png', 216, 218);
     game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
   }
@@ -203,6 +202,10 @@
     birdie.animations.add('up', [21, 22, 23, 22], 6, true);
     birdie.animations.add('left_up', [3, 4, 5, 4], 6, true);
     birdie.animations.add('right_up', [12, 13, 14, 13], 6, true);
+
+    frog.animations.add('open', [0], 0, true);
+    frog.animations.add('closed', [1], 0, true);
+
     
     flies = game.add.group();
     flies.enableBody = true;
@@ -270,6 +273,8 @@
         frog.kill();
         water.kill();
         frog = game.add.sprite(150, 540, 'smilingfrog')
+        frog.animations.add('open', [0], 0, true);
+        frog.animations.add('closed', [1], 0, true);
         if (flyCount < 1)
         {
         frog.scale.x = game.rnd.realInRange(.18, .18);
@@ -380,13 +385,16 @@
     if (frog.body.touching.down)
     {
     frog.body.velocity.x = 0;
+    frog.animations.play('closed');
+    }
+    else
+    {
+    frog.animations.play('open');
     }
 
     if (cursors.left.isDown)
     {
       // hop frog to left
-
-      frog.animations.play('left');
       
       frog.body.velocity.x = -200
 
@@ -402,8 +410,6 @@
     else if (cursors.right.isDown)
     {
       // hop frog right
-
-      frog.animations.play('right');
     
       frog.body.velocity.x = 200
 
@@ -430,14 +436,10 @@
       if (cursors.left.isDown)
       {
         frog.body.velocity.x = -200
-
-        frog.animations.play('left');
       }
       else if (cursors.right.isDown)
       {
         frog.body.velocity.x = 200
-
-        frog.animations.play('right');
       }
     }
 
