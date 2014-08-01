@@ -25,10 +25,10 @@
     game.load.image('branch2', '/images/h_branch_2.png');
     game.load.image('branch3', '/images/h_branch_3.png');
     game.load.image('branch4', '/images/h_branch_4.png');
-    // game.load.image('branch5', '/images/branch 1.png');
-    // game.load.image('branch6', '/images/branch 2.png');
-    // game.load.image('branch7', '/images/branch 3.png');
-    // game.load.image('branch8', '/images/branch 4.png');
+    game.load.image('branch5', '/images/branch 1.png');
+    game.load.image('branch6', '/images/branch 2.png');
+    game.load.image('branch7', '/images/branch 3.png');
+    game.load.image('branch8', '/images/branch 4.png');
     // possibly add acorns attached to trees to add style (maybe make them interactive)
     // game.load.image('acorn1', '/images/acorn_1.png');
     // game.load.image('acorn2', '/images/acorn_2.png');
@@ -45,6 +45,7 @@
   }
 
     var spider;
+    var spiderDead;
     var frog;
     var frogMouth;
     var platforms;
@@ -69,7 +70,7 @@
     var branch15;
     var branch16;
     var branch17;
-// var branch18
+    var branch18;
 // var branch19
 // var branch20
 // var branch21
@@ -114,17 +115,17 @@
 
 
 
-    frog = game.add.sprite(400, 3500, 'frog');
+    frog = game.add.sprite(500, 3200 +7300, 'frog');
     game.physics.arcade.enable(frog);
     frog.scale.x = game.rnd.realInRange(2.5, 2.5);
     frog.scale.y = game.rnd.realInRange(2.5, 2.5);
-    frog.body.velocity.y = -100;
-    frogMouth = game.add.sprite(-10, 3680, 'invisible_line');
+    frog.body.velocity.y = -250;
+    frogMouth = game.add.sprite(-10, 3380 +7300, 'invisible_line');
     game.physics.arcade.enable(frogMouth);
     frogMouth.enableBody = true;
     frogMouth.scale.x = game.rnd.realInRange(11 , 11);
     frogMouth.body.immovable = true;
-    frogMouth.body.velocity.y = -100;
+    frogMouth.body.velocity.y = -250;
 
     spider = game.add.sprite(180, game.world.height - 1000, 'spider')
     spider.scale.x = game.rnd.realInRange(.6, .6);
@@ -164,7 +165,7 @@
             branch1.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch1);
             branch1.body.immovable = true;
-            branch1.body.velocity.y = -250;
+            // branch1.body.velocity.y = -250;
 
             // left side
             // branch2 = createBranches(-100, 1200, 'branch4', 2, -250);
@@ -173,7 +174,7 @@
             branch2.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch2);
             branch2.body.immovable = true;
-            branch2.body.velocity.y = -250;
+            // branch2.body.velocity.y = -250;
             // // right side
             // branch3 = createBranches(510, 1600, 'branch1', 2, -250);
             branch3 = platforms.create(510, 1600, 'branch1');
@@ -181,7 +182,7 @@
             branch3.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch3);
             branch3.body.immovable = true;
-            branch3.body.velocity.y = -250;
+            // branch3.body.velocity.y = -250;
             // // left side
             // branch4 = createBranches(-100, 2000, 'branch2', 2, -250);
             branch4 = platforms.create(-100, 2000, 'branch2');
@@ -189,7 +190,7 @@
             branch4.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch4);
             branch4.body.immovable = true;
-            branch4.body.velocity.y = -250;
+            // branch4.body.velocity.y = -250;
             // // left side
             // branch5 = createBranches(0, 2400, 'branch4', 2, -250);
             branch5 = platforms.create(0, 2400, 'branch4');
@@ -197,7 +198,7 @@
             branch5.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch5);
             branch5.body.immovable = true;
-            branch5.body.velocity.y = -250;
+            // branch5.body.velocity.y = -250;
             // // right side
             // branch6 = createBranches(510, 2800, 'branch3', 2, -250);
             branch6 = platforms.create(510, 2800, 'branch3');
@@ -205,7 +206,7 @@
             branch6.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch6);
             branch6.body.immovable = true;
-            branch6.body.velocity.y = -250;
+            // branch6.body.velocity.y = -250;
             // // left side
             // branch7 = createBranches(-100, 3200, 'branch2', 2, -250);
             branch7 = platforms.create(-100, 3200, 'branch2');
@@ -213,7 +214,7 @@
             branch7.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch7);
             branch7.body.immovable = true;
-            branch7.body.velocity.y = -250;
+            // branch7.body.velocity.y = -250;
             // // right side
             // branch8 = createBranches(410, 3600, 'branch1', 2, -250);
             branch8 = platforms.create(410, 3600, 'branch1');
@@ -221,7 +222,7 @@
             branch8.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch8);
             branch8.body.immovable = true;
-            branch8.body.velocity.y = -250;
+            // branch8.body.velocity.y = -250;
             // end of wave one
         // };
 
@@ -234,7 +235,7 @@
             branch9.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch9);
             branch9.body.immovable = true;
-            branch9.body.velocity.y = -350;
+            // branch9.body.velocity.y = -350;
         //     // right side
         //     branch10 = createBranches(450, 1300, 'branch3', 2, -350);
         branch10 = platforms.create(450, 1300+5000, 'branch3');
@@ -242,7 +243,7 @@
             branch10.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch10);
             branch10.body.immovable = true;
-            branch10.body.velocity.y = -350;
+            // branch10.body.velocity.y = -350;
         //     // left side
         //     branch11 = createBranches(-40, 1800, 'branch2', 2, -350);
         branch11 = platforms.create(-40, 1800+5000, 'branch2');
@@ -250,7 +251,7 @@
             branch11.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch11);
             branch11.body.immovable = true;
-            branch11.body.velocity.y = -350;
+            // branch11.body.velocity.y = -350;
         //     // right side
         //     branch12 = createBranches(460, 2300, 'branch1', 2, -350);
         branch12 = platforms.create(460, 2300+5000, 'branch1');
@@ -258,7 +259,7 @@
             branch12.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch12);
             branch12.body.immovable = true;
-            branch12.body.velocity.y = -350;
+            // branch12.body.velocity.y = -350;
         //     // left side
         //     branch13 = createBranches(-35, 2800, 'branch4', 2, -350);
         branch13 = platforms.create(-35, 2800+5000, 'branch4');
@@ -266,7 +267,7 @@
             branch13.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch13);
             branch13.body.immovable = true;
-            branch13.body.velocity.y = -350;
+            // branch13.body.velocity.y = -350;
         //     // right side
         //     branch14 = createBranches(440, 3300, 'branch1', 2, -350);
         branch14 = platforms.create(440, 3300+5000, 'branch1');
@@ -274,7 +275,7 @@
             branch14.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch14);
             branch14.body.immovable = true;
-            branch14.body.velocity.y = -350;
+            // branch14.body.velocity.y = -350;
         //     // right side
         //     branch15 = createBranches(410, 3800, 'branch3', 2, -350);
         branch15 = platforms.create(410, 3800+5000, 'branch3');
@@ -282,23 +283,31 @@
             branch15.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch15);
             branch15.body.immovable = true;
-            branch15.body.velocity.y = -350;
+            // branch15.body.velocity.y = -350;
         //     // left side
         //     branch16 = createBranches(-40, 4300, 'branch2', 2, -350);
-        branch16 = platforms.create(-40, 4300+5000, 'branch2');
+            branch16 = platforms.create(-40, 4300+5000, 'branch2');
             branch16.scale.x = game.rnd.realInRange(2, 2);
             branch16.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch16);
             branch16.body.immovable = true;
-            branch16.body.velocity.y = -350;
+            // branch16.body.velocity.y = -350;
         //     // right side
         //     branch17 = createBranches(420, 4800, 'branch1', 2, -350);
-        branch17 = platforms.create(420, 4800+5000, 'branch1');
+            branch17 = platforms.create(420, 4800+5000, 'branch1');
             branch17.scale.x = game.rnd.realInRange(2, 2);
             branch17.scale.y = game.rnd.realInRange(2, 2);
             game.physics.arcade.enable(branch17);
             branch17.body.immovable = true;
-            branch17.body.velocity.y = -350;
+            // branch17.body.velocity.y = -350;
+        //     // left side
+        //     branch16 = createBranches(-40, 4300, 'branch2', 2, -350);
+            branch18 = platforms.create(-120, 5300+5000, 'branch5');
+            branch18.scale.x = game.rnd.realInRange(2, 2);
+            branch18.scale.y = game.rnd.realInRange(2, 2);
+            game.physics.arcade.enable(branch18);
+            branch18.body.immovable = true;
+            // branch18.body.velocity.y = -350;
         //     // end of wave 2
         //     console.log('WORKS');
         };
@@ -338,6 +347,7 @@
     timer.start();
     timer2.start();
     branches();
+    spiderDead = false
   }
 
 
@@ -353,14 +363,16 @@
 
     function winFunc(spider){
         spider.kill();
+        spiderDead = true
         frog.animations.play('closed')
         frog.body.velocity.y = 100
         timer.stop();
         timer2.stop();
         console.log('WINNER!');
-            var levelChange = function() {
-            window.location.replace("http://reincarnage.herokuapp.com/games/level3")
-       };
+        var levelChange = function() {
+        window.location.replace("http://reincarnage.herokuapp.com/games/level3")};
+        var levelChange = function() {
+        window.location.replace("http://localhost:3000/games/level3")};
 
        $('body').fadeOut(3000, function(){levelChange();});
     }
@@ -388,7 +400,7 @@
     branch15.body.velocity.y = 0;
     branch16.body.velocity.y = 0;
     branch17.body.velocity.y = 0;
-    // branch18.body.velocity.y = 0;
+    branch18.body.velocity.y = 0;
     // branch19.body.velocity.y = 0;
     // branch20.body.velocity.y = 0;
     // branch21.body.velocity.y = 0;
@@ -397,8 +409,11 @@
     // branch24.body.velocity.y = 0;
     }
     else {
-        frog.body.velocity.y = -100;
-        frogMouth.body.velocity.y = -100;
+        if (spiderDead === false)
+        {
+        frog.body.velocity.y = -350;
+        frogMouth.body.velocity.y = -350;
+        }
         branch1.body.velocity.y = -250;
         branch2.body.velocity.y = -250;
         branch3.body.velocity.y = -250;
@@ -416,7 +431,7 @@
         branch15.body.velocity.y = -350;
         branch16.body.velocity.y = -350;
         branch17.body.velocity.y = -350;
-        // branch18.body.velocity.y = -350;
+        branch18.body.velocity.y = -350;
         // branch19.body.velocity.y = -450;
         // branch20.body.velocity.y = -450;
         // branch21.body.velocity.y = -450;
