@@ -12,13 +12,12 @@
 
     // text
     game.load.image('logo', '/images/logo2.png');
-    game.load.spritesheet('arrow', '/images/arrow.png', 413, 437);
+    game.load.spritesheet('arrow', '/images/ArrowSprite.png', 200, 400);
     game.load.spritesheet('start', '/images/start courier.png', 708.5, 236);
     game.load.spritesheet('highScore', '/images/high score courier copy.png', 1063, 236);
 
     //background
     game.load.image('background', '/images/background.png');
-    game.load.image('backgroundKey', '/images/background_key.png');
     game.load.image('sawmill', '/images/house_with_window_curtains.png');
     game.load.image('cloud1', '/images/cloud_1.png');
     game.load.image('cloud2', '/images/cloud_2.png');
@@ -43,8 +42,7 @@
     game.load.image('rock2', '/images/rock_2.png');
 
     // animals
-    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124)
-    game.load.image('cobweb', '/images/cobweb.png');
+    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124);
     game.load.image('spider_with_web', '/images/spider_with_web.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
@@ -52,6 +50,9 @@
 
   var platforms;
   var arrow;
+  var startGame;
+  var beginPlaying;
+  var seeHighScores;
 
   function create(){
 
@@ -102,12 +103,12 @@
     var logo = game.add.image(415, 41, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
-    var arrow = game.add.sprite(493, 190, 'arrow');
-    arrow.scale.x = game.rnd.realInRange(.1, .1);
-    arrow.scale.y = game.rnd.realInRange(.1, .1);
+    arrow = game.add.sprite(493, 190, 'arrow');
+    arrow.scale.x = game.rnd.realInRange(.3, .3);
+    arrow.scale.y = game.rnd.realInRange(.3, .3);
     var start = game.add.sprite(555, 155, 'start');
-    start.scale.x = game.rnd.realInRange(.4, .4);
-    start.scale.y = game.rnd.realInRange(.4, .4);
+    start.scale.x = game.rnd.realInRange(.402, .402);
+    start.scale.y = game.rnd.realInRange(.402, .402);
     var highScore = game.add.sprite(570, 235, 'highScore');
     highScore.scale.x = game.rnd.realInRange(.4, .4);
     highScore.scale.y = game.rnd.realInRange(.4, .4);
@@ -178,26 +179,53 @@
     frog.body.collideWorldBounds = true;
 
     cursors = game.input.keyboard.createCursorKeys();
-    arrow.animations.add('blink', [0, 1], 2.2, true);
-    arrow.animations.play('blink')
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
-    start.animations.add('blink', [1, 0], .55, true);
-    start.animations.play('blink')
-    highScore.animations.add('blink', [1, 0], .55, true);
-    highScore.animations.play('blink')
+    arrow.animations.add('up', [0, 1], 2.2, true);
+    arrow.animations.add('down', [2, 3], 2.2, true);
+    arrow.animations.play('up');
+    startGame = true
 
   }
 
 
     function update(){
-        setTimeout(function(){
-            var levelChange = function() {
-            window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
-            $('body').fadeOut(3800, function(){levelChange();});}, 8000);
+        // setTimeout(function(){
+        //     var levelChange = function() {
+        //     window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
+        //     $('body').fadeOut(3800, function(){levelChange();});}, 8000);
 
         spinningWheel.angle += 1;
 
         game.physics.arcade.collide(frog, platforms);
+
+
+            if (cursors.up.isDown)
+            {
+                arrow.animations.play('up');
+                startGame = true
+            }
+            if (cursors.down.isDown)
+            {
+                arrow.animations.play('down');
+                startGame = false
+            }
+            if (enterKey.isDown)
+            {
+                if (startGame === true)
+                {
+                    beginPlaying = function() {
+                        window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
+                        $('body').fadeOut(3800, function(){beginPlaying();});
+                }
+                else
+                {
+                    seeHighScores = function() {
+                        window.location.replace("http://reincarnage.herokuapp.com/games/win_screen")};
+                        $('body').fadeOut(3800, function(){seeHighScores();});
+                }
+            }
+
 
     }
 
