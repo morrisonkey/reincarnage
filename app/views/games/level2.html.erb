@@ -25,10 +25,10 @@
     game.load.image('branch2', '/images/h_branch_2.png');
     game.load.image('branch3', '/images/h_branch_3.png');
     game.load.image('branch4', '/images/h_branch_4.png');
-    game.load.image('branch5', '/images/branch 1.png');
-    game.load.image('branch6', '/images/branch 2.png');
-    game.load.image('branch7', '/images/branch 3.png');
-    game.load.image('branch8', '/images/branch 4.png');
+    // game.load.image('branch5', '/images/branch 1.png');
+    // game.load.image('branch6', '/images/branch 2.png');
+    // game.load.image('branch7', '/images/branch 3.png');
+    // game.load.image('branch8', '/images/branch 4.png');
     // possibly add acorns attached to trees to add style (maybe make them interactive)
     // game.load.image('acorn1', '/images/acorn_1.png');
     // game.load.image('acorn2', '/images/acorn_2.png');
@@ -44,6 +44,9 @@
     // game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png');
   }
 
+    var spider;
+    var frog;
+    var frogMouth;
     var platforms;
     var timer;
     var timer2;
@@ -111,22 +114,24 @@
 
 
 
-            frog = game.add.sprite(400, 5800, 'frog');
-            game.physics.arcade.enable(frog);
-            frog.scale.x = game.rnd.realInRange(2.5, 2.5);
-            frog.scale.y = game.rnd.realInRange(2.5, 2.5);
-            frogMouth = game.add.sprite(-10, 5980, 'invisible_line');
-            game.physics.arcade.enable(frogMouth);
-            frogMouth.enableBody = true;
-            frogMouth.scale.x = game.rnd.realInRange(11 , 11);
-            frogMouth.body.immovable = true;
+    frog = game.add.sprite(400, 3500, 'frog');
+    game.physics.arcade.enable(frog);
+    frog.scale.x = game.rnd.realInRange(2.5, 2.5);
+    frog.scale.y = game.rnd.realInRange(2.5, 2.5);
+    frog.body.velocity.y = -100;
+    frogMouth = game.add.sprite(-10, 3680, 'invisible_line');
+    game.physics.arcade.enable(frogMouth);
+    frogMouth.enableBody = true;
+    frogMouth.scale.x = game.rnd.realInRange(11 , 11);
+    frogMouth.body.immovable = true;
+    frogMouth.body.velocity.y = -100;
 
     spider = game.add.sprite(180, game.world.height - 1000, 'spider')
     spider.scale.x = game.rnd.realInRange(.6, .6);
     spider.scale.y = game.rnd.realInRange(.6, .6);
     game.physics.arcade.enable(spider);
 
-    spider.body.gravity.y = 10;
+    spider.body.gravity.y = 100;
     spider.body.collideWorldBounds = true;
     
     frog.animations.add('open', [0], 0, true);
@@ -317,10 +322,6 @@
         //     branch24 = createBranches(440, 4200, 'branch3', 2, -450);
         // }, 30000);
 
-        //frog
-            frog.body.velocity.y = -100;
-            frogMouth.body.velocity.y = -100;
-
     }
 
 
@@ -367,7 +368,9 @@
     if (spider.body.touching.down)
     {
     spider.body.velocity.x = 0;
-    // platforms.body.velocity.y = 0;
+    spider.body.velocity.y = 0;
+    frog.body.velocity.y = 0;
+    frogMouth.body.velocity.y = 0;
     branch1.body.velocity.y = 0;
     branch2.body.velocity.y = 0;
     branch3.body.velocity.y = 0;
@@ -394,6 +397,8 @@
     // branch24.body.velocity.y = 0;
     }
     else {
+        frog.body.velocity.y = -100;
+        frogMouth.body.velocity.y = -100;
         branch1.body.velocity.y = -250;
         branch2.body.velocity.y = -250;
         branch3.body.velocity.y = -250;
@@ -446,12 +451,6 @@
       {
       spider.body.velocity.x = 400
       }
-    }
-    else
-    {
-      spider.animations.stop();
-
-      spider.frame = 4;
     }
 
     if (cursors.up.isDown && !spider.body.touching.down)
