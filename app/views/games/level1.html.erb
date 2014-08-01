@@ -186,7 +186,7 @@
         acorn.body.collideWorldBounds = false;
 
         cursors = game.input.keyboard.createCursorKeys();
-        space_key = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         //  Create our Timer
         timer = game.time.create(false);
@@ -273,7 +273,7 @@
         }
         
         //  Allow the player to jump if they are touching the ground.
-        if (space_key.isDown && beetle.body.touching.down)
+        if (spaceKey.isDown && beetle.body.touching.down)
         {
             beetle.body.velocity.y = -350;
             jump.play();
