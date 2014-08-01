@@ -41,7 +41,7 @@ var birdFriend4;
 var birdFriend5;
 var birdFriend6;
 var gunshot;
-
+var hairsight;
 var timer;
 var timer2;
 var total = 0;
@@ -324,7 +324,12 @@ function birdDead(fowl)
     fowl.animations.play('shot');
     setTimeout(function(){fallOut(fowl);}, 800);
 }
-    crosshair.enableBody = true;
+    hairsight = game.add.sprite(crosshair.body.x + 50, crosshair.body.y + 50, 'crosshair');
+    hairsight.scale.x = game.rnd.realInRange(.0001, .0001);
+    hairsight.scale.y = game.rnd.realInRange(.0001, .0001);
+    hairsight.enableBody = false;
+    game.physics.arcade.enable(hairsight);
+    // crosshair.enableBody = true;
     gunshot.play();
     // game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
     // game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
@@ -332,13 +337,14 @@ function birdDead(fowl)
     // game.physics.arcade.overlap(birdFriend4, crosshair, birdDead(birdFriend4), null, this);
     // game.physics.arcade.overlap(birdFriend5, crosshair, birdDead(birdFriend5), null, this);
     // game.physics.arcade.overlap(birdFriend6, crosshair, birdDead(birdFriend6), null, this);
-    game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
+    game.physics.arcade.overlap(birdie, hairsight, winFunc, null, this);
     crosshair.animations.play('bang');
 
     console.log('FIRE');
 
 reload = setTimeout(function()
-{
+{   
+    hairsight.kill();
     crosshair.enableBody = false;
     crosshair.animations.play('regular');
     console.log('OFF');
@@ -366,8 +372,10 @@ function winFunc()
     setTimeout(function(){falling();}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
+    // var levelChange = function() {
+    // window.location.replace("http://reincarnage.herokuapp.com")};
     var levelChange = function() {
-    window.location.replace("http://reincarnage.herokuapp.com")};
+    window.location.replace("http://localhost:3000")};
     $('body').fadeOut(3800, function(){levelChange();});
 };
 
