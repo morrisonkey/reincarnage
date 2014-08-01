@@ -32,7 +32,7 @@
         game.load.audio('whoosh12', '/sounds/whoosh12.mp3');
         game.load.audio('whoosh14', '/sounds/whoosh14.mp3');
         game.load.audio('whoosh15', '/sounds/whoosh15.mp3');
-        game.load.audio('yipee'), '/sounds/yippee.mp3');
+        game.load.audio('yipee', '/sounds/yipee.mp3');
 
 
         // todo: maybe load with offset *******************
@@ -70,7 +70,7 @@
         var acorn2;
         var spider;
         var jump;
-
+        var acornHit;
         var timer;
         var timer2;
         var total = 0;
@@ -168,15 +168,33 @@
         acornLaunch();
         function acornLaunch() {
             var acorn_array = ["acorn1", "acorn2", "acorn3", "acorn4", "acorn5", "acorn6"]
+            var whoosh_array = ["whoosh1", "whoosh2", "whoosh3", "whoosh4", "whoosh5", "whoosh6", "whoosh7", "whoosh8", "whoosh9", "whoosh10", "whoosh11", "whoosh12", "whoosh14", "whoosh15"]
             random_acorn = acorn_array[Math.floor(acorn_array.length * Math.random())];
+            random_whoosh = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
                 // shoot right
             createAcorn(-1500, 80, random_acorn, 1.2, 500);
+            whoosh1 = game.add.audio(random_whoosh);
+            setTimeout(function(){
+                whoosh1.play();
+            }, 5);
                 // shoot left
             createAcorn(2000, 230, random_acorn, 1.5, -500);
+            whoosh2 = game.add.audio(random_whoosh);
+            setTimeout(function(){
+                whoosh2.play();
+            }, 1000);
                 // shoot right
             createAcorn(-500, 385, random_acorn, 1.5, 500);
+            whoosh3 = game.add.audio(random_whoosh);
+            setTimeout(function(){
+                whoosh3.play();
+            }, 2000);
                 // shoot left
             createAcorn(1000, 530, random_acorn, 1.5, -500);
+            whoosh4 = game.add.audio(random_whoosh);
+            setTimeout(function(){
+                whoosh4.play();
+            }, 3000);
         }
 
         createFly = function(x, y, size, direction)
@@ -225,6 +243,8 @@
         timer.start();
         timer2.start();
 
+        acornHit = false
+
       }
 
 
@@ -233,11 +253,27 @@
 
         game.physics.arcade.collide(beetle, platforms);
         game.physics.arcade.collide(acorn, platforms);
-        game.physics.arcade.collide(beetle, acorns);
+        // game.physics.arcade.collide(beetle, acorns);
         game.physics.arcade.collide(platforms, platforms);
         // game.physics.arcade.collide(beetle, spider);
 
         game.physics.arcade.overlap(beetle, spider, winFunc, null, this);
+        var grunt_array = ["grunt", "heep", "eep", "umpf"]
+        random_grunt = grunt_array[Math.floor(grunt_array.length * Math.random())];
+        grunt = game.add.audio(random_grunt);
+
+        game.physics.arcade.collide(beetle, acorns, gruntFunc, null, this);
+
+        function gruntFunc(beetle, acorn){
+            if (acornHit === false)
+            {
+            grunt.play();
+            acornHit = true
+            setTimeout(function(){
+                acornHit = false
+            }, 1600);
+            }
+        }
 
 
     // push state document
