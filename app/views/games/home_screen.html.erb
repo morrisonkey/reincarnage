@@ -181,9 +181,6 @@
     cursors = game.input.keyboard.createCursorKeys();
     enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
-    game.physics.arcade.enable(arrow);
-    arrow.body.bounce.y = 0.1;
-    arrow.body.collideWorldBounds = true;
     arrow.animations.add('up', [0, 1], 2.2, true);
     arrow.animations.add('down', [2, 3], 2.2, true);
     arrow.animations.play('up');
