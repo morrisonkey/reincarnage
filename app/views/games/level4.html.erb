@@ -376,8 +376,10 @@ function winFunc()
     var secondLevelTime = parseInt(sessionStorage.getItem("secondLevelTime"))
     var thirdLevelTime = parseInt(sessionStorage.getItem("thirdLevelTime"))
 
+    totalsMS = firstLevelTime + secondLevelTime + thirdLevelTime + total2
     totals = (firstLevelTime + secondLevelTime + thirdLevelTime + total2) / 1000
-    localStorage.setItem("totalTime", totals)
+    sessionStorage.setItem("totalTime", totals)
+    sessionStorage.setItem("totalTimeMS", totalsMS)
     setTimeout(function(){falling();}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
