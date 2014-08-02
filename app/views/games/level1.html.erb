@@ -215,7 +215,7 @@
         createFly(10, 20, 1.2, 'right')
         createFly(55, 50, .8, 'left')
 
-        beetle = game.add.sprite(800, 690, 'beetle')
+        beetle = game.add.sprite(800, 90, 'beetle')
         beetle.scale.x = game.rnd.realInRange(.45, .45);
         beetle.scale.y = game.rnd.realInRange(.45, .45);
         game.physics.arcade.enable(beetle);
@@ -302,15 +302,16 @@
             beetle.kill();
             timer.stop();
             timer2.stop();
+            sessionStorage.setItem("firstLevelTime", total2);
             // insert timeout function
             spider.body.velocity.x = 0
             spider.body.velocity.y += 500
             console.log('WINNER!');
 
             // var levelChange = function() {
-            // window.location.replace("http://reincarnage.herokuapp.com/games/level2")};
+            // window.location.replace("http://reincarnage.herokuapp.com/level2")};
             var levelChange = function() {
-            window.location.replace("http://localhost:3000/games/level2/" + total2)};
+            window.location.replace("http://localhost:3000/level2")};
 
           $('body').fadeOut(3000, function(){levelChange();});
 

@@ -1,20 +1,18 @@
 Rails.application.routes.draw do
 
-  root :to => 'games#home_screen'
+  root :to => 'games#home'
 
-  get 'games/home_screen'
+  get 'home' => "games#home"
 
-  get 'games/level1'
+  get 'level1' => "games#level1"
 
-  get 'games/level2/:id' => "games#level2"
+  get 'level2' => "games#level2"
 
-  get 'games/level3/:id' => "games#level3"
+  get 'level3' => "games#level3"
 
-  get 'games/level4/:id' => "games#level4"
+  get 'level4' => "games#level4"
   
-  get 'games/win_screen'
-
-  get 'scores/index'
+  get 'scores' => "games#scores"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

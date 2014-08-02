@@ -371,14 +371,21 @@ function winFunc()
     birdie.animations.play('shot')
     timer.stop();
     timer2.stop();
+    sessionStorage.setItem("fourthLevelTime", total2);
+    var firstLevelTime = parseInt(sessionStorage.getItem("firstLevelTime"))
+    var secondLevelTime = parseInt(sessionStorage.getItem("secondLevelTime"))
+    var thirdLevelTime = parseInt(sessionStorage.getItem("thirdLevelTime"))
+
+    totals = (firstLevelTime + secondLevelTime + thirdLevelTime + total2) / 1000
+    localStorage.setItem("totalTime", totals)
     setTimeout(function(){falling();}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
     // var levelChange = function() {
     // window.location.replace("http://reincarnage.herokuapp.com")};
-    var levelChange = function() {
-    window.location.replace("http://localhost:3000")};
-    $('body').fadeOut(3800, function(){levelChange();});
+    // var levelChange = function() {
+    // window.location.replace("http://localhost:3000/scores")};
+    // $('body').fadeOut(3800, function(){levelChange();});
 };
 
 fire();
