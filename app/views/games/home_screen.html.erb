@@ -3,7 +3,9 @@
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
   function preload(){
-
+    // audio
+    game.load.audio('laugh', '/sounds/laugh.mp3')
+    
     // main images for world
 
     //invisible platforms
@@ -46,6 +48,7 @@
     game.load.image('spider_with_web', '/images/spider_with_web.png');
     game.load.image('smilingfrog', '/images/frog_mouth_open.png');
     game.load.image('frog', '/images/frog_mouth_closed.png');
+
   }
 
   var platforms;
@@ -53,12 +56,16 @@
   var startGame;
   var beginPlaying;
   var seeHighScores;
+  var laugh;
+  var laughed = false
 
   function create(){
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.add.image(0, 0, 'background');
+
+    laugh = game.add.audio('laugh');
 
     createCloud = function(x, y, xVelocity, image)
     {
@@ -214,8 +221,13 @@
             {
                 if (startGame === true)
                 {
-                    beginPlaying = function() {
-                        window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
+                    if (laughed === false)
+                    {
+                    laugh.play();
+                    laughed = true;
+                    }
+                    // beginPlaying = function() {
+                    //     window.location.replace("http://reincarnage.herokuapp.com/games/level1")};
                     beginPlaying = function() {
                         window.location.replace("http://localhost:3000/games/level1")};
                         $('body').fadeOut(3800, function(){beginPlaying();});
