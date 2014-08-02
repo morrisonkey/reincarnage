@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
   get 'games/level1'
 
-  get 'games/level2'
+  get 'games/level2/:id' => "games#level2"
 
-  get 'games/level3'
+  get 'games/level3/:id' => "games#level3"
 
-  get 'games/level4'
+  get 'games/level4/:id' => "games#level4"
   
   get 'games/win_screen'
 

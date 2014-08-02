@@ -21,7 +21,7 @@
     game.load.audio('flap2', '/sounds/wingFlap1.mp3');
     game.load.audio('gulp1', '/sounds/gulp 1.mp3');
     game.load.audio('gulp2', '/sounds/gulp 2.mp3');
-    game.load.audio('ribbit', '/sounds/ribbit1.mp3');
+    game.load.audio('ribbit1', '/sounds/ribbit1.mp3');
     game.load.audio('ribbit2', '/sounds/ribbit2.mp3');
     game.load.audio('ribbit3', '/sounds/ribbit3.mp3');
     game.load.audio('splash', '/sounds/surfbort_short.mp3');
@@ -68,11 +68,11 @@
   var flyContainers;
   var createFlyForcefield;
   var ribbit_array;
-  var ribbit;
   var timer;
   var timer2;
   var total = 0;
   var total2 = 0;
+  var splashed = false;
 
 
   function create(){
@@ -82,7 +82,9 @@
     flap2 = game.add.audio('flap2');
     gulp1 = game.add.audio('gulp1');
     gulp2 = game.add.audio('gulp2');
-    ribbit = game.add.audio('ribbit3');
+    ribbit1 = game.add.audio('ribbit1');
+    ribbit2 = game.add.audio('ribbit2');
+    ribbit3 = game.add.audio('ribbit3');
     splash = game.add.audio('splash');
     yipee = game.add.audio('yipee');
 
@@ -189,7 +191,7 @@
     frog.body.bounce.y = 0.1;
     frog.body.gravity.y = 1000;
     frog.checkWorldBounds = true;
-    ribbit.play();
+    ribbit1.play();
 
     // add water
     water = game.add.image(-525, 625, 'water');
@@ -286,6 +288,17 @@
     function killFrog(){
         frog.kill();
         water.kill();
+        if (splashed === false)
+        {
+            splash.play();
+            splashed = true
+            setTimeout(function(){
+                ribbit3.play();
+            }, 1000);
+            setTimeout(function(){
+                splashed = false
+            }, 500);
+        }
         frog = game.add.sprite(150, 540, 'smilingfrog');
         frog.animations.add('open', [0], 0, true);
         frog.animations.add('closed', [1], 0, true);
@@ -353,7 +366,7 @@
             frog.scale.setTo(.21,.21);
             gulp1.play();
             setTimeout(function(){
-                ribbit.play();
+                ribbit2.play();
             }, 1100);
             createFly(0, 490, 30, 0);
             flap2.play();
@@ -363,7 +376,7 @@
             frog.scale.setTo(.24,.24);
             gulp2.play();
             setTimeout(function(){
-                ribbit.play();
+                ribbit1.play();
             }, 900);
             createFly(750, 490, -30, 100);
             flap2.play();
