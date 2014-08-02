@@ -32,7 +32,7 @@
         game.load.audio('whoosh12', '/sounds/whoosh12.mp3');
         game.load.audio('whoosh14', '/sounds/whoosh14.mp3');
         game.load.audio('whoosh15', '/sounds/whoosh15.mp3');
-        game.load.audio('yipee'), '/sounds/yippee.mp3');
+        game.load.audio('yipee', '/sounds/yippee.mp3');
 
 
         // todo: maybe load with offset *******************
@@ -79,7 +79,7 @@
 
       function create(){
 
-        jump = game.add.audio('jump');
+        jump = game.add.audio('jump1');
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // background image and scaled
@@ -256,6 +256,7 @@
             spider.body.velocity.x = 0
             spider.body.velocity.y += 500
             console.log('WINNER!');
+            <%total2 
 
             // var levelChange = function() {
             // window.location.replace("http://reincarnage.herokuapp.com/games/level2")};
