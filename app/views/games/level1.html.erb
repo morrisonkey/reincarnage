@@ -129,7 +129,7 @@
         function createObject(x, y, image, size) {
             object = platforms.create(x, y, image);
             object.scale.x = game.rnd.realInRange(size, size);
-            object.body.immovable = true;       
+            object.body.immovable = true;      
         }
 
 
@@ -312,11 +312,11 @@
             var levelChange = function() {
             window.location.replace("http://localhost:3000/games/level2/" + total2)};
 
-           $('body').fadeOut(3000, function(){levelChange();});
+          $('body').fadeOut(3000, function(){levelChange();});
 
-           // window.setTimeout(levelChange(), 4600);
+          // window.setTimeout(levelChange(), 4600);
 
-           // $('body').fadeOut(4000, levelChange());
+          // $('body').fadeOut(4000, levelChange());
         
 
             // setTimeout(function(){$('body').fadeOut(4000; levelChange();}, 2000);
@@ -381,5 +381,3 @@
       </script>
 
 </div>
-
-

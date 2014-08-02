@@ -369,6 +369,8 @@ function winFunc()
     birdie.body.velocity.x = 0
     birdie.body.velocity.y = 0
     birdie.animations.play('shot')
+    timer.stop();
+    timer2.stop();
     setTimeout(function(){falling();}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
