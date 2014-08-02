@@ -10,6 +10,7 @@
         
     }
     game.load.audio('gulp1', '/sounds/gulp 1.mp3');
+    game.load.audio('yipee', '/sounds/yipee.mp3');
     // level 2 images
 
     // invisible platforms
@@ -47,6 +48,7 @@
 
     var spider;
     var spiderDead;
+    var yipped;
     var frog;
     var frogMouth;
     var platforms;
@@ -54,6 +56,8 @@
     var timer2;
     var total = 0;
     var total2 = 0;
+    var finishLine;
+    var yipee;
     var branch1;
     var branch2;
     var branch3;
@@ -83,6 +87,7 @@
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     gulp = game.add.audio('gulp1');
+    yipee = game.add.audio('yipee');
 
     // tree = game.add.image(-3300, -9000, 'level2background');
     // tree.scale.x = game.rnd.realInRange(19, 19);
@@ -112,17 +117,12 @@
 
     platforms.enableBody = true;
 
-    cursors = game.input.keyboard.createCursorKeys();
-
-
-
-
-    frog = game.add.sprite(500, 3200 +7300, 'frog');
+    frog = game.add.sprite(435, 3200 +7400, 'frog');
     game.physics.arcade.enable(frog);
-    frog.scale.x = game.rnd.realInRange(2.5, 2.5);
-    frog.scale.y = game.rnd.realInRange(2.5, 2.5);
+    frog.scale.x = game.rnd.realInRange(3, 3);
+    frog.scale.y = game.rnd.realInRange(3, 3);
     frog.body.velocity.y = -250;
-    frogMouth = game.add.sprite(-10, 3380 +7300, 'invisible_line');
+    frogMouth = game.add.sprite(-10, 3400 +7400, 'invisible_line');
     game.physics.arcade.enable(frogMouth);
     frogMouth.enableBody = true;
     frogMouth.scale.x = game.rnd.realInRange(11 , 11);
@@ -311,6 +311,10 @@
             branch18.body.immovable = true;
             // branch18.body.velocity.y = -350;
         //     // end of wave 2
+        // finish line
+            finishLine = game.add.sprite(500, 5310+5000, "invisible_line")
+            finishLine.scale.x = game.rnd.realInRange(6, 6);
+            game.physics.arcade.enable(finishLine);
         //     console.log('WORKS');
         };
         waveOne();
@@ -350,6 +354,7 @@
     timer2.start();
     branches();
     spiderDead = false
+    yipped = false
   }
 
 
@@ -362,6 +367,30 @@
     // game.physics.arcade.collide(spider, frog);
 
     game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
+    // game.physics.arcade.collide(spider, acorns, gruntFunc, null, this);
+    game.physics.arcade.overlap(spider, finishLine, yipeeFunc, null, this);
+
+        // function gruntFunc(beetle, acorn){
+        //     if (acornHit === false)
+        //     {
+        //     grunt.play();
+        //     acornHit = true
+        //     setTimeout(function(){
+        //         acornHit = false
+        //     }, 800);
+        //     }
+        // }
+
+        function yipeeFunc(spider, finishLine){
+            if (yipped === false)
+            {
+                yipee.play();
+                yipped = true
+            }
+                game.input.disabled = true
+                spider.body.gravity.y = 1000;
+                spider.body.velocity.x = 0;
+        };
 
     function winFunc(spider){
         spider.kill();
@@ -404,6 +433,7 @@
     branch16.body.velocity.y = 0;
     branch17.body.velocity.y = 0;
     branch18.body.velocity.y = 0;
+    finishLine.body.velocity.y = 0;
     // branch19.body.velocity.y = 0;
     // branch20.body.velocity.y = 0;
     // branch21.body.velocity.y = 0;
@@ -435,6 +465,7 @@
         branch16.body.velocity.y = -350;
         branch17.body.velocity.y = -350;
         branch18.body.velocity.y = -350;
+        finishLine.body.velocity.y = -350;
         // branch19.body.velocity.y = -450;
         // branch20.body.velocity.y = -450;
         // branch21.body.velocity.y = -450;
