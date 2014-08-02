@@ -54,6 +54,7 @@
     var timer2;
     var total = 0;
     var total2 = 0;
+    var finishLine;
     var branch1;
     var branch2;
     var branch3;
@@ -311,6 +312,11 @@
             branch18.body.immovable = true;
             // branch18.body.velocity.y = -350;
         //     // end of wave 2
+        // finish line
+            finishLine = game.add.sprite(-120, 5305+5000, "purp_line")
+            finishLine.scale.x = game.rnd.realInRange(.01, .01);
+            finishLine.scale.y = game.rnd.realInRange(120, 120);
+            game.physics.arcade.enable(finishLine);
         //     console.log('WORKS');
         };
         waveOne();
@@ -362,6 +368,24 @@
     // game.physics.arcade.collide(spider, frog);
 
     game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
+    // game.physics.arcade.collide(spider, acorns, gruntFunc, null, this);
+    game.physics.arcade.overlap(spider, finishLine, yipeeFunc, null, this);
+
+        // function gruntFunc(beetle, acorn){
+        //     if (acornHit === false)
+        //     {
+        //     grunt.play();
+        //     acornHit = true
+        //     setTimeout(function(){
+        //         acornHit = false
+        //     }, 800);
+        //     }
+        // }
+
+        function yipeeFunc(spider, finishLine){
+            yipee.play();
+            spider.body.gravity.y = 1000;
+        }
 
     function winFunc(spider){
         spider.kill();
@@ -404,6 +428,7 @@
     branch16.body.velocity.y = 0;
     branch17.body.velocity.y = 0;
     branch18.body.velocity.y = 0;
+    finishLine.body.velocity.y = 0;
     // branch19.body.velocity.y = 0;
     // branch20.body.velocity.y = 0;
     // branch21.body.velocity.y = 0;
@@ -435,6 +460,7 @@
         branch16.body.velocity.y = -350;
         branch17.body.velocity.y = -350;
         branch18.body.velocity.y = -350;
+        finishLine.body.velocity.y = -350;
         // branch19.body.velocity.y = -450;
         // branch20.body.velocity.y = -450;
         // branch21.body.velocity.y = -450;
