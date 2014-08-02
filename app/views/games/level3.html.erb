@@ -19,6 +19,11 @@
     game.load.audio('jump', '/sounds/jump2.mp3');
     game.load.audio('flap', '/sounds/wingFlap2.mp3');
     game.load.audio('flap2', '/sounds/wingFlap1.mp3');
+    game.load.audio('gulp1', '/sounds/gulp 1.mp3');
+    game.load.audio('gulp2', '/sounds/gulp 2.mp3');
+    game.load.audio('ribbit', '/sounds/ribbit1.mp3');
+    game.load.audio('ribbit2', '/sounds/ribbit2.mp3');
+    game.load.audio('ribbit3', '/sounds/ribbit3.mp3');
 
     //level 3 images
 
@@ -60,7 +65,8 @@
   var flap2;
   var flyContainers;
   var createFlyForcefield;
-
+  var ribbit_array;
+  var ribbit1;
   var timer;
   var timer2;
   var total = 0;
@@ -72,7 +78,9 @@
     jump = game.add.audio('jump');
     flap = game.add.audio('flap');
     flap2 = game.add.audio('flap2');
-
+    gulp1 = game.add.audio('gulp1');
+    gulp2 = game.add.audio('gulp2');
+    ribbit1 = game.add.audio('ribbit3');
 
     flyCount = 0
 
@@ -314,6 +322,7 @@
                 frog.body.velocity.y = -100;
             }
             frog.scale.setTo(.27,.27);
+            gulp2.play();
             birdie.body.velocity.x = 0;
             game.physics.arcade.accelerateToObject(birdie, frog, 75, 500, 500);
             flap.play();
@@ -331,12 +340,14 @@
                 frog.body.velocity.y = -80;
             }
             frog.scale.setTo(.21,.21);
+            gulp1.play();
             createFly(0, 490, 30, 0);
             flap2.play();
         }
         else if (flyCount == 2)
         {
             frog.scale.setTo(.24,.24);
+            gulp2.play();
             createFly(750, 490, -30, 100);
             flap2.play();
         }
@@ -432,8 +443,12 @@
 
     if (space_key.isDown && frog.body.touching.down)
     {
+
+        // ribbit_array = ["ribbit1", "ribbit2", "ribbit3"]
+        // random_ribbit = ribbit_array[Math.floor(ribbit_array.length * Math.random())];
+        // ribbit = game.add.audio(random_ribbit);
       frog.body.velocity.y = -450;
-      jump.play();
+      ribbit1.play();
       flap2.play();
       if (cursors.left.isDown)
       {
