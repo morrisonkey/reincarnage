@@ -8,8 +8,8 @@
 
       function preload(){
 
-        beginningTimeSeconds = Math.floor(game.time.time / 1000)
-        beginningTimeMS = Math.floor(game.time.time)
+        beginningTimeSeconds = game.time.time / 1000
+        beginningTimeMS = game.time.time
 
         // sounds for level 1
         game.load.audio('eep', '/sounds/beetle eep.mp3');
@@ -76,8 +76,8 @@
         var yipee;
         var yipped;
         var acornHit;
-        var timer;
-        var timer2;
+        // var timer;
+        // var timer2;
         var total = 0;
         var total2 = 0;
         var beginningTimeSeconds;
@@ -219,7 +219,7 @@
         createFly(10, 20, 1.2, 'right')
         createFly(55, 50, .8, 'left')
 
-        beetle = game.add.sprite(800, 90, 'beetle')
+        beetle = game.add.sprite(800, 690, 'beetle')
         beetle.scale.x = game.rnd.realInRange(.45, .45);
         beetle.scale.y = game.rnd.realInRange(.45, .45);
         game.physics.arcade.enable(beetle);
@@ -304,9 +304,10 @@
         function winFunc(beetle, spider){
             // add functionality for bug to seem to go behind spider and hit hidden div
             beetle.kill();
-            timer.stop();
-            timer2.stop();
-            sessionStorage.setItem("firstLevelTime", total2);
+            // timer.stop();
+            // timer2.stop();
+            finishTime = game.time.time - beginningTimeMS
+            sessionStorage.setItem("firstLevelTime", finishTime);
             // insert timeout function
             spider.body.velocity.x = 0
             spider.body.velocity.y += 500
@@ -363,23 +364,23 @@
 
       }
 
-    function updateCounter() {
+    // function updateCounter() {
 
-        total++;
+    //     total++;
 
-    }
+    // }
 
-    function updateCounter2() {
+    // function updateCounter2() {
 
-        total2++;
+    //     total2++;
 
-    }
+    // }
 
 
 
       function render(){
         // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
-        game.debug.text('TIME: ' + ((Math.floor(game.time.time / 1000))- beginningTimeSeconds) + 's/' + ((Math.floor(game.time.time)) - beginningTimeMS) + 'ms', 850, 20);
+        game.debug.text('TIME: ' + ((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 850, 20);
       }
 
 

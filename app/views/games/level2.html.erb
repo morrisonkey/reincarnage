@@ -5,6 +5,10 @@
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
   function preload(){
+
+    beginningTimeSeconds = game.time.time / 1000
+    beginningTimeMS = game.time.time
+    
     var images = {
         'tree': '/images/tree.png',
         
@@ -52,8 +56,8 @@
     var frog;
     var frogMouth;
     var platforms;
-    var timer;
-    var timer2;
+    // var timer;
+    // var timer2;
     var total = 0;
     var total2 = 0;
     var finishLine;
@@ -340,18 +344,18 @@
     }
 
 
-            //  Create our Timer
-    timer = game.time.create(false);
-    timer2 = game.time.create(false);
+    //         //  Create our Timer
+    // timer = game.time.create(false);
+    // timer2 = game.time.create(false);
 
-    //  Set a TimerEvent to occur after 2 seconds
-    timer.loop(1000, updateCounter, this);
-    timer2.loop(1, updateCounter2, this);
+    // //  Set a TimerEvent to occur after 2 seconds
+    // timer.loop(1000, updateCounter, this);
+    // timer2.loop(1, updateCounter2, this);
 
-    //  Start the timer running - this is important!
-    //  It won't start automatically, allowing you to hook it to button events and the like.
-    timer.start();
-    timer2.start();
+    // //  Start the timer running - this is important!
+    // //  It won't start automatically, allowing you to hook it to button events and the like.
+    // timer.start();
+    // timer2.start();
     branches();
     spiderDead = false
     yipped = false
@@ -398,9 +402,10 @@
         spiderDead = true
         frog.animations.play('closed')
         frog.body.velocity.y = 100
-        timer.stop();
-        timer2.stop();
-        sessionStorage.setItem("secondLevelTime", total2);
+        // timer.stop();
+        // timer2.stop();
+        finishTime = game.time.time - beginningTimeMS
+        sessionStorage.setItem("secondLevelTime", finishTime);
         console.log('WINNER!');
         var levelChange = function() {
         window.location.replace("http://reincarnage.herokuapp.com/games/level3")};
@@ -528,10 +533,11 @@ function updateCounter2() {
 }
 
 
-  function render(){
-    game.debug.text('TIME: ' + total + 's/' + total2 + 'ms', 850, 20);
 
-  }
+    function render(){
+        // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
+        game.debug.text('TIME: ' + ((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 850, 20);
+    }
 
   $(function(){
     $('body').hide();
