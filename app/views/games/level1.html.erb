@@ -31,10 +31,6 @@
         game.load.audio('whoosh8', '/sounds/whoosh8.mp3');
         game.load.audio('whoosh9', '/sounds/whoosh9.mp3');
         game.load.audio('whoosh10', '/sounds/whoosh10.mp3');
-        game.load.audio('whoosh11', '/sounds/whoosh11.mp3');
-        game.load.audio('whoosh12', '/sounds/whoosh12.mp3');
-        game.load.audio('whoosh14', '/sounds/whoosh14.mp3');
-        game.load.audio('whoosh15', '/sounds/whoosh15.mp3');
         game.load.audio('yipee', '/sounds/yipee.mp3');
 
 
@@ -181,28 +177,39 @@
         game.time.events.loop(Phaser.Timer.SECOND * 3, acornLaunch, this);
         acornLaunch();
         function acornLaunch() {
-            var whoosh_array = ["whoosh1", "whoosh2", "whoosh3", "whoosh4", "whoosh5", "whoosh6", "whoosh7", "whoosh8", "whoosh9", "whoosh10", "whoosh11", "whoosh12", "whoosh14", "whoosh15"]
-            // random_whoosh = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
+            var whoosh_array = ["whoosh1", "whoosh2", "whoosh3", "whoosh4", "whoosh5", "whoosh6", "whoosh7", "whoosh8", "whoosh9", "whoosh10"]
+            var random_whoosh = function() {
+                whooshSound = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
+                return whooshSound
+            }
+            // var random_whoosh2 = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
+            // var random_whoosh3 = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
+            // var random_whoosh4 = whoosh_array[Math.floor(whoosh_array.length * Math.random())];
+
                 // shoot right
-            createAcorn(-1500, 80, 1.2, 500);
-            whoosh1 = game.add.audio(whoosh_array[Math.floor(whoosh_array.length * Math.random())]);
+            createAcorn(-1500, 80, 1.2, 600);
+            whoosh1 = game.add.audio(random_whoosh());
             setTimeout(function(){
                 whoosh1.play();
-            }, 5);
+            }, 2600);
                 // shoot left
-            createAcorn(2000, 230, 1.5, -500);
-            whoosh2 = game.add.audio(whoosh_array[Math.floor(whoosh_array.length * Math.random())]);
+            createAcorn(2000, 230, 1.5, -600);
+            whoosh2 = game.add.audio(random_whoosh());
             setTimeout(function(){
                 whoosh2.play();
-            }, 1000);
+            }, 1800);
                 // shoot right
             createAcorn(-500, 385, 1.5, 500);
-            whoosh3 = game.add.audio(whoosh_array[Math.floor(whoosh_array.length * Math.random())]);
+            whoosh3 = game.add.audio(random_whoosh());
             setTimeout(function(){
                 whoosh3.play();
-            }, 2000);
+            }, 1000);
                 // shoot left
             createAcorn(1000, 530, 1.5, -500);
+            whoosh4 = game.add.audio(random_whoosh());
+            setTimeout(function(){
+                whoosh4.play();
+            }, 5);
         }
 
         createFly = function(x, y, size, direction)

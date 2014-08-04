@@ -11,7 +11,11 @@ function preload(){
 
     // level 4 sounds
 
-    game.load.audio('gunshot', '/sounds/gunshot.mp3')
+    game.load.audio('gunshot', '/sounds/gunshot.mp3');
+    game.load.audio('flockSound', '/sounds/geese loop.mp3');
+    game.load.audio('splash', '/sounds/surfbort_short.mp3');
+    game.load.audio('yipee', '/sounds/yipee.mp3');
+    game.load.audio('wee', '/sounds/wee.mp3');
 
     // level 4 images
 
@@ -53,20 +57,13 @@ var total2 = 0;
 
 function create(){
 
-    // //  Create our Timer
-    // timer = game.time.create(false);
-    // timer2 = game.time.create(false);
-
-    // //  Set a TimerEvent to occur after 2 seconds
-    // timer.loop(1000, updateCounter, this);
-    // timer2.loop(1, updateCounter2, this);
-
-    // //  Start the timer running - this is important!
-    // //  It won't start automatically, allowing you to hook it to button events and the like.
-    // timer.start();
-    // timer2.start();
-
     gunshot = game.add.audio('gunshot');
+    flockSound = game.add.audio('flockSound');
+    splash = game.add.audio('splash');
+    yipee = game.add.audio('yipee');
+    wee = game.add.audio('wee');
+
+    flockSound.play();
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     cursors = game.input.keyboard.createCursorKeys();
@@ -275,12 +272,12 @@ function create(){
     birdFriend6.animations.add('shot', [24], 0, true);
 
     birdie.animations.add('fall', [18], 0, true);
-    birdFriend1.animations.add('fall', [25], 0, true);
-    birdFriend2.animations.add('fall', [25], 0, true);
-    birdFriend3.animations.add('fall', [25], 0, true);
-    birdFriend4.animations.add('fall', [25], 0, true);
-    birdFriend5.animations.add('fall', [25], 0, true);
-    birdFriend6.animations.add('fall', [25], 0, true);
+    birdFriend1.animations.add('fall', [18], 0, true);
+    birdFriend2.animations.add('fall', [18], 0, true);
+    birdFriend3.animations.add('fall', [18], 0, true);
+    birdFriend4.animations.add('fall', [18], 0, true);
+    birdFriend5.animations.add('fall', [18], 0, true);
+    birdFriend6.animations.add('fall', [18], 0, true);
 
 }
 
@@ -317,16 +314,16 @@ function create(){
 //     }
 // }
 
-fire = setInterval(function()
-{
 function birdDead(fowl)
 {
     fowl.body.collideWorldBounds = false;
     fowl.body.velocity.x = 0;
     fowl.body.velocity.y = 0;
     fowl.animations.play('shot');
-    setTimeout(function(){fallOut(fowl);}, 800);
+    setTimeout(function(){falling(fowl);}, 800);
 }
+fire = setInterval(function()
+{
     hairsight = game.add.sprite(crosshair.body.x + 50, crosshair.body.y + 50, 'crosshair');
     hairsight.scale.x = game.rnd.realInRange(.0001, .0001);
     hairsight.scale.y = game.rnd.realInRange(.0001, .0001);
@@ -334,12 +331,12 @@ function birdDead(fowl)
     game.physics.arcade.enable(hairsight);
     // crosshair.enableBody = true;
     gunshot.play();
-    // game.physics.arcade.overlap(birdFriend1, crosshair, birdDead(birdFriend1), null, this);
-    // game.physics.arcade.overlap(birdFriend2, crosshair, birdDead(birdFriend2), null, this);
-    // game.physics.arcade.overlap(birdFriend3, crosshair, birdDead(birdFriend3), null, this);
-    // game.physics.arcade.overlap(birdFriend4, crosshair, birdDead(birdFriend4), null, this);
-    // game.physics.arcade.overlap(birdFriend5, crosshair, birdDead(birdFriend5), null, this);
-    // game.physics.arcade.overlap(birdFriend6, crosshair, birdDead(birdFriend6), null, this);
+    // game.physics.arcade.overlap(birdFriend1, hairsight, winFunc(birdFriend1), null, this);
+    // game.physics.arcade.overlap(birdFriend2, hairsight, winFunc(birdFriend2), null, this);
+    // game.physics.arcade.overlap(birdFriend3, hairsight, winFunc(birdFriend3), null, this);
+    // game.physics.arcade.overlap(birdFriend4, hairsight, winFunc(birdFriend4), null, this);
+    // game.physics.arcade.overlap(birdFriend5, hairsight, winFunc(birdFriend5), null, this);
+    // game.physics.arcade.overlap(birdFriend6, hairsight, winFunc(birdFriend6), null, this);
     game.physics.arcade.overlap(birdie, hairsight, winFunc, null, this);
     crosshair.animations.play('bang');
 
@@ -357,13 +354,13 @@ reload = setTimeout(function()
 }, 5000);
 
 var shotUp = false
-var fallOut = function(fowl){
+// var fallOut = function(fowl){
+//     fowl.body.velocity.y = 600;
+//     fowl.animations.play('fall');
+// }
+var falling = function(fowl){
     fowl.body.velocity.y = 600;
-    fowl.animations.play('shot');
-}
-var falling = function(){
-    birdie.body.velocity.y = 600;
-    birdie.animations.play('fall');
+    fowl.animations.play('fall');
 }
 function winFunc()
 {
@@ -372,6 +369,12 @@ function winFunc()
     birdie.body.velocity.x = 0
     birdie.body.velocity.y = 0
     birdie.animations.play('shot')
+    setTimeout(function() {
+        wee.play();
+    }, 800);
+    setTimeout(function() {
+        yipee.play();
+    }, 1500);
     // timer.stop();
     // timer2.stop();
     finishTime = game.time.time - beginningTimeMS
@@ -387,7 +390,7 @@ function winFunc()
     // game.debug.text('TIME: ' + totalsMS + 'ms', 850, 20);
     sessionStorage.setItem("totalTimeMS", totalsMS)
     sessionStorage.setItem("totalTime", totalsS)
-    setTimeout(function(){falling();}, 800);
+    setTimeout(function(){falling(birdie);}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
     // var levelChange = function() {
@@ -396,25 +399,51 @@ function winFunc()
     window.location.replace("http://localhost:3000")};
     $('body').fadeOut(3800, function(){levelChange();});
 };
+// function winFunc(fowl)
+// {
+//     shotUp = true
+//     fowl.body.collideWorldBounds = false;
+//     fowl.body.velocity.x = 0
+//     fowl.body.velocity.y = 0
+//     fowl.animations.play('shot')
+
+//     if (fowl === birdie)
+//     {
+//     setTimeout(function() {
+//         wee.play();
+//     }, 800);
+//     setTimeout(function() {
+//         yipee.play();
+//     }, 1500);
+//     // timer.stop();
+//     // timer2.stop();
+//     finishTime = game.time.time - beginningTimeMS
+//     sessionStorage.setItem("fourthLevelTime", finishTime);
+//     var firstLevelTime = parseInt(sessionStorage.getItem("firstLevelTime"))
+//     var secondLevelTime = parseInt(sessionStorage.getItem("secondLevelTime"))
+//     var thirdLevelTime = parseInt(sessionStorage.getItem("thirdLevelTime"))
+
+//     totalsMS = firstLevelTime + secondLevelTime + thirdLevelTime + finishTime
+//     totalsS = (totalsMS / 1000).toFixed(2)
+//     // totals = (firstLevelTime + secondLevelTime + thirdLevelTime + finishTime) / 1000
+//     // sessionStorage.setItem("totalTime", totals)
+//     // game.debug.text('TIME: ' + totalsMS + 'ms', 850, 20);
+//     sessionStorage.setItem("totalTimeMS", totalsMS)
+//     sessionStorage.setItem("totalTime", totalsS)
+//     setTimeout(function(){falling(birdie);}, 800);
+//     // setTimeout(function(){birdie.kill();}, 6000);
+//     console.log('WINNER!');
+//     // var levelChange = function() {
+//     // window.location.replace("http://reincarnage.herokuapp.com")};
+//     var levelChange = function() {
+//     window.location.replace("http://localhost:3000")};
+//     $('body').fadeOut(3800, function(){levelChange();});
+//     }
+// };
 
 fire();
 function update(){
-    // game.physics.arcade.collide(birdFriend1, crosshair);
-    // game.physics.arcade.collide(birdFriend2, crosshair);
-    // game.physics.arcade.collide(birdFriend3, crosshair);
-    // game.physics.arcade.collide(birdFriend4, crosshair);
-    // game.physics.arcade.collide(birdFriend5, crosshair);
-    // game.physics.arcade.collide(birdFriend6, crosshair);
-    // game.physics.arcade.collide(birdie, crosshair);
-            //crosshair bang functionality
 
-
-        //         // debugger
-        // if (crosshair.body.hitTest(birdie.x, birdie.y) == true){
-        //     console.log('WINNER')
-        // } else if (crosshair.body.hitTest(birdie.x, birdie.y) == false) {console.log('MISSED')};
-
-    // game.physics.arcade.collide(bird, crosshair);
     initiateControls = function(fowl)
     {
         if (shotUp === false)
