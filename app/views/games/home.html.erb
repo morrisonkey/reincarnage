@@ -1,3 +1,6 @@
+<div id='scores'>
+</div>
+
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -175,8 +178,6 @@
     rockLedge.scale.x = game.rnd.realInRange(.55, .55);
     rockLedge.body.immovable = true;
 
-    var ground = platforms.create(0, game.world.height -5, 'log1');
-
     var rock1 = game.add.image(300, 650, 'rock1');
     rock1.scale.x = game.rnd.realInRange(.55, .55);
     rock1.scale.y = game.rnd.realInRange(.55, .55);
@@ -197,10 +198,6 @@
     // beetle.enableBody = true
     // beetle.scale.x = game.rnd.realInRange(.45, .45);
     // beetle.scale.y = game.rnd.realInRange(.45, .45);
-
-    ground.scale.setTo(50,3);
-
-    ground.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -270,6 +267,7 @@
     birdie.animations.add('right_down', [15, 16, 17, 16], 7, true);
 
     startGame = true
+    cursorActive = true
 
     happyFrogJump = setInterval(function(){
         if (frog.body.touching.down)
@@ -307,22 +305,26 @@
                 frog.animations.play('closed');
             }
 
-            if (cursors.up.isDown)
+            if (cursors.up.isDown || cursors.down.isDown)
             {
-                arrow.animations.play('up');
+                if (cursorActive === true)
+                {
+                    cursorActive = false
                 if (startGame === false)
                 {
+                arrow.animations.play('up');
+                tick.play();
                 startGame = true
-                tick.play();
                 }
-            }
-            if (cursors.down.isDown)
-            {
-                arrow.animations.play('down');
-                if (startGame === true)
+                else
                 {
-                startGame = false
+                arrow.animations.play('down');
                 tick.play();
+                startGame = false
+                }
+                setTimeout(function(){
+                    cursorActive = true
+                }, 145);
                 }
             }
             if (enterKey.isDown)

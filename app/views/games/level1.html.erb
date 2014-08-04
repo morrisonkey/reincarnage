@@ -232,7 +232,7 @@
         game.physics.arcade.enable(beetle);
 
         beetle.body.bounce.y = 0.1;
-        beetle.body.gravity.y = 350;
+        beetle.body.gravity.y = 700;
         beetle.body.collideWorldBounds = true;
 
         beetle.animations.add('left', [0, 1], 5, true);
@@ -363,7 +363,7 @@
         //  Allow the player to jump if they are touching the ground.
         if (spaceKey.isDown && beetle.body.touching.down)
         {
-            beetle.body.velocity.y = -350;
+            beetle.body.velocity.y = -500;
             jump.play();
         }
 

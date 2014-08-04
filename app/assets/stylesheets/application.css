@@ -17,7 +17,14 @@
 canvas {
    display : block;
    margin : auto;
+   overflow: hidden;
 }
 
-
+body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black;
+      margin-top: 10px;
+    }
 
