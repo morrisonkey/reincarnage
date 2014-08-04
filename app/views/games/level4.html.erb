@@ -16,6 +16,7 @@ function preload(){
     game.load.audio('splash', '/sounds/surfbort_short.mp3');
     game.load.audio('yipee', '/sounds/yipee.mp3');
     game.load.audio('wee', '/sounds/wee.mp3');
+    game.load.audio('fallSound', '/sounds/whoosh5.mp3');
 
     // level 4 images
 
@@ -62,6 +63,7 @@ function create(){
     splash = game.add.audio('splash');
     yipee = game.add.audio('yipee');
     wee = game.add.audio('wee');
+    fallSound = game.add.audio('fallSound');
 
     flockSound.play();
 
@@ -189,8 +191,6 @@ function create(){
     crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
-    crosshair.minSpeed = -150;
-    crosshair.maxSpeed = 150;
     crosshair.body.velocity.x = 200;
     crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
@@ -279,6 +279,8 @@ function create(){
     birdFriend5.animations.add('fall', [18], 0, true);
     birdFriend6.animations.add('fall', [18], 0, true);
 
+    birdie.animations.play('right');
+
 }
 
     var fowl;
@@ -314,14 +316,6 @@ function create(){
 //     }
 // }
 
-function birdDead(fowl)
-{
-    fowl.body.collideWorldBounds = false;
-    fowl.body.velocity.x = 0;
-    fowl.body.velocity.y = 0;
-    fowl.animations.play('shot');
-    setTimeout(function(){falling(fowl);}, 800);
-}
 fire = setInterval(function()
 {
     hairsight = game.add.sprite(crosshair.body.x + 50, crosshair.body.y + 50, 'crosshair');
@@ -331,12 +325,12 @@ fire = setInterval(function()
     game.physics.arcade.enable(hairsight);
     // crosshair.enableBody = true;
     gunshot.play();
-    // game.physics.arcade.overlap(birdFriend1, hairsight, winFunc(birdFriend1), null, this);
-    // game.physics.arcade.overlap(birdFriend2, hairsight, winFunc(birdFriend2), null, this);
-    // game.physics.arcade.overlap(birdFriend3, hairsight, winFunc(birdFriend3), null, this);
-    // game.physics.arcade.overlap(birdFriend4, hairsight, winFunc(birdFriend4), null, this);
-    // game.physics.arcade.overlap(birdFriend5, hairsight, winFunc(birdFriend5), null, this);
-    // game.physics.arcade.overlap(birdFriend6, hairsight, winFunc(birdFriend6), null, this);
+    game.physics.arcade.overlap(birdFriend1, hairsight, birdFriend1Dead, null, this);
+    game.physics.arcade.overlap(birdFriend2, hairsight, birdFriend2Dead, null, this);
+    game.physics.arcade.overlap(birdFriend3, hairsight, birdFriend3Dead, null, this);
+    game.physics.arcade.overlap(birdFriend4, hairsight, birdFriend4Dead, null, this);
+    game.physics.arcade.overlap(birdFriend5, hairsight, birdFriend5Dead, null, this);
+    game.physics.arcade.overlap(birdFriend6, hairsight, birdFriend6Dead, null, this);
     game.physics.arcade.overlap(birdie, hairsight, winFunc, null, this);
     crosshair.animations.play('bang');
 
@@ -361,6 +355,55 @@ var shotUp = false
 var falling = function(fowl){
     fowl.body.velocity.y = 600;
     fowl.animations.play('fall');
+    fallSound.play();
+}
+function birdFriend1Dead()
+{
+    birdFriend1.body.collideWorldBounds = false;
+    birdFriend1.body.velocity.x = 0;
+    birdFriend1.body.velocity.y = 0;
+    birdFriend1.animations.play('shot');
+    setTimeout(function(){falling(birdFriend1);}, 800);
+}
+function birdFriend2Dead()
+{
+    birdFriend2.body.collideWorldBounds = false;
+    birdFriend2.body.velocity.x = 0;
+    birdFriend2.body.velocity.y = 0;
+    birdFriend2.animations.play('shot');
+    setTimeout(function(){falling(birdFriend2);}, 800);
+}
+function birdFriend3Dead()
+{
+    birdFriend3.body.collideWorldBounds = false;
+    birdFriend3.body.velocity.x = 0;
+    birdFriend3.body.velocity.y = 0;
+    birdFriend3.animations.play('shot');
+    setTimeout(function(){falling(birdFriend3);}, 800);
+}
+function birdFriend4Dead()
+{
+    birdFriend4.body.collideWorldBounds = false;
+    birdFriend4.body.velocity.x = 0;
+    birdFriend4.body.velocity.y = 0;
+    birdFriend4.animations.play('shot');
+    setTimeout(function(){falling(birdFriend4);}, 800);
+}
+function birdFriend5Dead()
+{
+    birdFriend5.body.collideWorldBounds = false;
+    birdFriend5.body.velocity.x = 0;
+    birdFriend5.body.velocity.y = 0;
+    birdFriend5.animations.play('shot');
+    setTimeout(function(){falling(birdFriend5);}, 800);
+}
+function birdFriend6Dead()
+{
+    birdFriend6.body.collideWorldBounds = false;
+    birdFriend6.body.velocity.x = 0;
+    birdFriend6.body.velocity.y = 0;
+    birdFriend6.animations.play('shot');
+    setTimeout(function(){falling(birdFriend6);}, 800);
 }
 function winFunc()
 {
@@ -544,7 +587,7 @@ function update(){
         }
         else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
-            if (shotUp === false)
+            if (fowl.body.velocity.y < 600)
             {
                 fowl.animations.play('down')
             }
@@ -556,13 +599,6 @@ function update(){
         else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
             fowl.animations.play('up')
-        }
-        else
-        {
-            if (shotUp === false)
-            {
-            fowl.animations.play('right')
-            }
         }
     }
 
