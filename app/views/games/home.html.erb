@@ -6,7 +6,8 @@
     // audio
     game.load.audio('jump', '/sounds/jump2.mp3');
     game.load.audio('ribbit1', '/sounds/ribbit1.mp3');
-    game.load.audio('laugh', '/sounds/laugh.mp3')
+    game.load.audio('laugh', '/sounds/laugh.mp3');
+    game.load.audio('beHappy', '/sounds/beHappyLoop.mp3');
     
     // main images for world
 
@@ -72,6 +73,20 @@
     jump = game.add.audio('jump');
     ribbit1 = game.add.audio('ribbit1');
     laugh = game.add.audio('laugh');
+    beHappy = game.add.audio('beHappy' );
+
+    playMusic = function(){
+    beHappy.play();
+    setInterval(function(){
+        setTimeout(function()
+        { 
+            beHappy.play();
+        }, 375);
+    }, 56407)
+    };
+
+    playMusic();
+
 
     createCloud = function(x, y, xVelocity, image)
     {
