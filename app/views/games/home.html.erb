@@ -8,6 +8,7 @@
     game.load.audio('ribbit1', '/sounds/ribbit1.mp3');
     game.load.audio('laugh', '/sounds/laugh.mp3');
     game.load.audio('beHappy', '/sounds/beHappyLoop.mp3');
+    game.load.audio('tick', '/sounds/snap.mp3');
     
     // main images for world
 
@@ -73,7 +74,8 @@
     jump = game.add.audio('jump');
     ribbit1 = game.add.audio('ribbit1');
     laugh = game.add.audio('laugh');
-    beHappy = game.add.audio('beHappy' );
+    beHappy = game.add.audio('beHappy');
+    tick = game.add.audio('tick');
 
     playMusic = function(){
     beHappy.play();
@@ -218,12 +220,12 @@
     }
 
     // add frog
-    frog = game.add.sprite(330, 600, 'smilingfrog')
+    frog = game.add.sprite(330, 550, 'smilingfrog')
     frog.scale.x = game.rnd.realInRange(.17, .17);
     frog.scale.y = game.rnd.realInRange(.17, .17);
     game.physics.arcade.enable(frog);
     frog.body.bounce.y = 0.1;
-    frog.body.gravity.y = 1000;
+    frog.body.gravity.y = 2000;
     frog.checkWorldBounds = true;
     ribbit1.play();
 
@@ -253,8 +255,8 @@
     cursors = game.input.keyboard.createCursorKeys();
     enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
-    frog.animations.add('up', [0], 0, true);
-    frog.animations.add('down', [1], 0, true);
+    frog.animations.add('closed', [0], 0, true);
+    frog.animations.add('open', [1], 0, true);
     arrow.animations.add('up', [0, 1], 2.2, true);
     arrow.animations.add('down', [2, 3], 2.2, true);
     arrow.animations.play('up');
@@ -268,9 +270,21 @@
     birdie.animations.add('right_down', [15, 16, 17, 16], 7, true);
 
     startGame = true
-    readyToJump = true
-  }
 
+    happyFrogJump = setInterval(function(){
+        if (frog.body.touching.down)
+        {              
+            frog.body.velocity.y = -450;
+            jump.play();
+        }
+    }, 14200);
+
+    setTimeout(function(){
+        frog.body.velocity.y = -450;
+        jump.play();
+        happyFrogJump();
+    }, 350)
+  }
 
     function update(){
         // setTimeout(function(){
@@ -283,39 +297,33 @@
         game.physics.arcade.collide(frog, rockLedge);
         game.physics.arcade.collide(birdie, platforms);
 
-            if (readyToJump === true)
+            if (frog.body.touching.down)
             {
-                if (frog.body.touching.down)
-                {              
-                frog.body.velocity.y = -450;
-                jump.play();
-                readyToJump = false
-
-                setTimeout(function(){
-                    readyToJump = true
-                }, 10000)
-                }
+                frog.body.velocity.x = 0;
+                frog.animations.play('open');
             }
-
-            // if (frog.body.touching.down)
-            // {
-            //     frog.body.velocity.x = 0;
-            //     frog.animations.play('open');
-            // }
-            // else
-            // {
-            //     frog.animations.play('closed');
-            // }
+            else
+            {
+                frog.animations.play('closed');
+            }
 
             if (cursors.up.isDown)
             {
                 arrow.animations.play('up');
+                if (startGame === false)
+                {
                 startGame = true
+                tick.play();
+                }
             }
             if (cursors.down.isDown)
             {
                 arrow.animations.play('down');
+                if (startGame === true)
+                {
                 startGame = false
+                tick.play();
+                }
             }
             if (enterKey.isDown)
             {
@@ -377,7 +385,6 @@
     }
 
 
-    initiateAnimations(frog);
     initiateAnimations(birdie);
 
     }
