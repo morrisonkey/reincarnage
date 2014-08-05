@@ -358,10 +358,10 @@
             game.physics.arcade.accelerateToObject(birdie, frog, 75, 500, 500);
             flap.play();
 
-            var levelChange = function() {
-            window.location.replace("http://reincarnage.herokuapp.com/level4")};
             // var levelChange = function() {
-            // window.location.replace("http://localhost:3000/level4")};
+            // window.location.replace("http://reincarnage.herokuapp.com/level4")};
+            var levelChange = function() {
+            window.location.replace("http://localhost:3000/level4")};
             $('body').fadeOut(3800, function(){levelChange();});
         }
         else if (flyCount == 1)

@@ -440,10 +440,10 @@ function winFunc()
     setTimeout(function(){falling(birdie);}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
-    var levelChange = function() {
-    window.location.replace("http://reincarnage.herokuapp.com")};
     // var levelChange = function() {
-    // window.location.replace("http://localhost:3000")};
+    // window.location.replace("http://reincarnage.herokuapp.com")};
+    var levelChange = function() {
+    window.location.replace("http://localhost:3000")};
     $('body').fadeOut(3800, function(){levelChange();});
 };
 // function winFunc(fowl)
