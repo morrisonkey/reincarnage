@@ -24,7 +24,8 @@ body {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background-color: black;
+      background-color: RGBA(170, 201, 212, 1);
       margin-top: 10px;
+      text-align: center;
     }
 
