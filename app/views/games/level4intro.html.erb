@@ -457,8 +457,10 @@ function winFunc()
     console.log('WINNER!');
     // var levelChange = function() {
     // window.location.replace("http://reincarnage.herokuapp.com")};
+
     var levelChange = function() {
     window.location.replace("http://localhost:3000")};
+
     $('body').fadeOut(3800, function(){levelChange();});
 };
 // function winFunc(fowl)
@@ -552,7 +554,10 @@ function update(){
         if (enterKey.isDown)
     {
         var levelChange = function() {
-            window.location.replace("http://localhost:3000/level4")};
+            // window.location.replace("http://localhost:3000/level4")};
+
+            window.location.replace("http://reincarnage.herokuapp.com/level4")};
+
             levelChange();
     }
 
