@@ -5,13 +5,8 @@
 
   function preload(){
 
-    beginningTimeSeconds = game.time.time / 1000
-    beginningTimeMS = game.time.time
-    
-    var images = {
-        'tree': '/images/tree.png',
-        
-    }
+    game.load.image('logo', '/images/logo2.png');
+
     game.load.audio('gulp1', '/sounds/gulp 1.mp3');
     game.load.audio('yipee', '/sounds/yipee.mp3');
     game.load.audio('grunt', '/sounds/beetle grunt.mp3');
@@ -127,34 +122,9 @@
     platforms = game.add.group();
     platforms.enableBody = true;
 
-    frog = game.add.sprite(435, 3200 +7400, 'frog');
-    game.physics.arcade.enable(frog);
-    frog.scale.x = game.rnd.realInRange(3, 3);
-    frog.scale.y = game.rnd.realInRange(3, 3);
-    frog.body.velocity.y = -250;
-    frogMouth = game.add.sprite(-10, 3400 +7400, 'invisible_line');
-    game.physics.arcade.enable(frogMouth);
-    frogMouth.enableBody = true;
-    frogMouth.scale.x = game.rnd.realInRange(11 , 11);
-    frogMouth.body.immovable = true;
-    frogMouth.body.velocity.y = -250;
-
-    spider = game.add.sprite(180, game.world.height - 1000, 'spider')
-    spider.scale.x = game.rnd.realInRange(.6, .6);
-    spider.scale.y = game.rnd.realInRange(.6, .6);
-    game.physics.arcade.enable(spider);
-
-    spider.body.gravity.y = 100;
-    spider.body.collideWorldBounds = true;
-    
-    frog.animations.add('open', [0], 0, true);
-    frog.animations.add('closed', [1], 0, true);
-    frog.animations.play('open');
-
     // spider.animations.add('left', [0, 1, 2], 6, true);
     // spider.animations.add('right', [3, 4, 5], 6, true);
 
-    cursors = game.input.keyboard.createCursorKeys();
     enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
     // set interval
@@ -446,16 +416,46 @@
     spiderDead = false
     yipped = false
     weeTime = true
+
+    var logo = game.add.image(475, -20, 'logo');
+    logo.scale.x = game.rnd.realInRange(.26, .26);
+    logo.scale.y = game.rnd.realInRange(.26, .26);
+
+    game.add.text(50, 50, "LEVEL 2/4", { font: "75px Courier", fill: "RGBA(170, 201, 212, 1)"});
+    game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(35, 250, "Avoid the sticky branches and drop", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 300, "down to the mouth of the frog below.", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 410, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(255, 410, "Up, Down, Left, Right", { font: "48px OpenSans", fill: "blue"});
+    game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+
+    spider = game.add.sprite(800, 200, 'spider')
+    spider.scale.x = game.rnd.realInRange(.6, .6);
+    spider.scale.y = game.rnd.realInRange(.6, .6);
+    game.physics.arcade.enable(spider);
+    spider.body.collideWorldBounds = true;
+
+    frog = game.add.sprite(435, 500, 'frog');
+    game.physics.arcade.enable(frog);
+    frog.scale.x = game.rnd.realInRange(3, 3);
+    frog.scale.y = game.rnd.realInRange(3, 3);
+    
+    frog.animations.add('open', [0], 0, true);
+    frog.animations.add('closed', [1], 0, true);
+    frog.animations.play('open');
   }
 
 
   function update(){
 
     
-    game.physics.arcade.collide(spider, barriers);
-    game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
-    game.physics.arcade.overlap(spider, finishLine, yipeeFunc, null, this);
-    game.physics.arcade.overlap(spider, spiderScreen, upFunc, null, this);
+    // game.physics.arcade.collide(spider, barriers);
+    // game.physics.arcade.overlap(spider, frogMouth, winFunc, null, this);
+    // game.physics.arcade.overlap(spider, finishLine, yipeeFunc, null, this);
+    // game.physics.arcade.overlap(spider, spiderScreen, upFunc, null, this);
 
         function upFunc(spider, spiderScreen){
             spider.body.velocity.y = -250
@@ -487,7 +487,7 @@
         // var levelChange = function() {
         // window.location.replace("http://reincarnage.herokuapp.com/level3")};
         var levelChange = function() {
-        window.location.replace("http://localhost:3000/level3intro")};
+        window.location.replace("http://localhost:3000/level2")};
 
        $('body').fadeOut(3000, function(){levelChange();});
     }
@@ -555,11 +555,6 @@
             wee.play();
             weeTime = false
         }
-        if (spiderDead === false)
-        {
-        frog.body.velocity.y = -350;
-        frogMouth.body.velocity.y = -350;
-        }
         barrier1.body.velocity.y = -250;
         branch1.body.velocity.y = -250;
         barrier2.body.velocity.y = -250;
@@ -605,69 +600,19 @@
         // branch24.body.velocity.y = -450;  
     }
     
-
-
-
-    if (cursors.left.isDown)
+    if (enterKey.isDown)
     {
-      //  spider to left
-      if (spider.body.touching.down)
-      {
-      spider.body.velocity.x = -150
-      }
-      else
-      {
-      spider.body.velocity.x = -400
-      }
-    }
-    else if (cursors.right.isDown)
-    {
-      //  spider right
-      if (spider.body.touching.down)
-      {
-      spider.body.velocity.x = 150
-      }
-      else
-      {
-      spider.body.velocity.x = 400
-      }
-    }
-
-    if (cursors.up.isDown && !spider.body.touching.down)
-    {
-      spider.body.velocity.y = -200;
-    }
-    else if (cursors.down.isDown)
-    {
-      spider.body.velocity.y = 200;
-    }
+        var levelChange = function() {
+            window.location.replace("http://localhost:3000/level2")};
+            levelChange();
+        }
 
   }
 
 
-function updateCounter() {
-
-    total++;
-
-}
-
-function updateCounter2() {
-
-    total2++;
-
-}
-
-
-
     function render(){
         // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
-        game.debug.text('TIME: ' + ((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 850, 20);
     }
 
-  $(function(){
-    $('body').hide();
-    $('body').fadeIn(2000);
-
-  })
 
   </script>

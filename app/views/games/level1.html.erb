@@ -1,8 +1,8 @@
-<br>
-<h3>Make your way into the spider's web (Controls: Left, Right, Spacebar Jump)</h3>
 
 <div class="game_container">
     <script type="text/javascript">
+
+      var paused = true;
 
       var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', { preload: preload, create: create, update: update, render: render });
 
@@ -153,12 +153,6 @@
         createBranch(0, 746, 'branch2', 3);
         createObject(0, 755, 'invisible_line', 11);
 
-        // finish line
-        finishLine = game.add.sprite(250, 0, "invisible_line")
-        finishLine.scale.x = game.rnd.realInRange(.01, .01);
-        finishLine.scale.y = game.rnd.realInRange(120, 120);
-        game.physics.arcade.enable(finishLine);
-        
         acorns = game.add.group();
         acorns.enableBody = true;
         // game.physics.arcade.enable(acorns);
@@ -244,6 +238,7 @@
 
         cursors = game.input.keyboard.createCursorKeys();
         spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
         // //  Create our Timer
         // timer = game.time.create(false);
@@ -279,7 +274,6 @@
         grunt = game.add.audio(random_grunt);
 
         game.physics.arcade.collide(beetle, acorns, gruntFunc, null, this);
-        game.physics.arcade.overlap(beetle, finishLine, yipeeFunc, null, this);
 
         function gruntFunc(beetle, acorn){
             if (acornHit === false)
@@ -289,14 +283,6 @@
             setTimeout(function(){
                 acornHit = false
             }, 800);
-            }
-        }
-
-        function yipeeFunc(beetle, finishLine){
-            if (yipped === false)
-            {
-                yipee.play();
-                yipped = true
             }
         }
 
@@ -311,6 +297,7 @@
         function winFunc(beetle, spider){
             // add functionality for bug to seem to go behind spider and hit hidden div
             beetle.kill();
+            yipee.play();
             // timer.stop();
             // timer2.stop();
             finishTime = game.time.time - beginningTimeMS
@@ -323,7 +310,7 @@
             // var levelChange = function() {
             // window.location.replace("http://reincarnage.herokuapp.com/level2")};
             var levelChange = function() {
-            window.location.replace("http://localhost:3000/level2")};
+            window.location.replace("http://localhost:3000/level2intro")};
 
           $('body').fadeOut(3000, function(){levelChange();});
 
@@ -367,8 +354,17 @@
             jump.play();
         }
 
-
-
+        if (enterKey.isDown)
+        {
+            if (game.paused === false)
+            {
+                game.paused = true 
+            }
+            else if (game.paused === true)
+            {
+                game.paused = false
+            }
+        }
       }
 
     // function updateCounter() {

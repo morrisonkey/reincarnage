@@ -1,8 +1,5 @@
 <!-- <div id='scores'>
 </div> -->
-<br>
-<h3>Reincarnage: The game where your goal is to get eaten to work your spiritual way up the food chain. (please resize window if necessary)</h3>
-
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -66,7 +63,7 @@
   var arrow;
   var startGame;
   var beginPlaying;
-  var seeHighScores;
+  // var seeHighScores;
   var laugh;
   var laughed = false
 
@@ -164,9 +161,9 @@
     var start = game.add.sprite(555, 155, 'start');
     start.scale.x = game.rnd.realInRange(.402, .402);
     start.scale.y = game.rnd.realInRange(.402, .402);
-    var highScore = game.add.sprite(570, 235, 'highScore');
-    highScore.scale.x = game.rnd.realInRange(.4, .4);
-    highScore.scale.y = game.rnd.realInRange(.4, .4);
+    // var highScore = game.add.sprite(570, 235, 'highScore');
+    // highScore.scale.x = game.rnd.realInRange(.4, .4);
+    // highScore.scale.y = game.rnd.realInRange(.4, .4);
 
     // ledge = platforms.create(555, 90, 'invisible_line');
     // ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
@@ -200,8 +197,6 @@
     // beetle.enableBody = true
     // beetle.scale.x = game.rnd.realInRange(.45, .45);
     // beetle.scale.y = game.rnd.realInRange(.45, .45);
-
-    cursors = game.input.keyboard.createCursorKeys();
 
 // set interval
 
@@ -251,8 +246,9 @@
     birdieForcefield.body.immovable = true;    
 
 
-    cursors = game.input.keyboard.createCursorKeys();
+    // cursors = game.input.keyboard.createCursorKeys();
     enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     frog.animations.add('closed', [0], 0, true);
     frog.animations.add('open', [1], 0, true);
@@ -284,6 +280,8 @@
         jump.play();
         happyFrogJump();
     }, 350)
+
+    game.add.text(585, 250, '(Last Game Time: ' + sessionStorage.getItem("totalTime") + 's)', { font: "34px OpenSans", fill: "black"});
   }
 
     function update(){
@@ -307,29 +305,29 @@
                 frog.animations.play('closed');
             }
 
-            if (cursors.up.isDown || cursors.down.isDown)
-            {
-                if (cursorActive === true)
-                {
-                    cursorActive = false
-                if (startGame === false)
-                {
-                arrow.animations.play('up');
-                tick.play();
-                startGame = true
-                }
-                else
-                {
-                arrow.animations.play('down');
-                tick.play();
-                startGame = false
-                }
-                setTimeout(function(){
-                    cursorActive = true
-                }, 145);
-                }
-            }
-            if (enterKey.isDown)
+            // if (cursors.up.isDown || cursors.down.isDown)
+            // {
+            //     if (cursorActive === true)
+            //     {
+            //         cursorActive = false
+            //     if (startGame === false)
+            //     {
+            //     arrow.animations.play('up');
+            //     tick.play();
+            //     startGame = true
+            //     }
+            //     else
+            //     {
+            //     arrow.animations.play('down');
+            //     tick.play();
+            //     startGame = false
+            //     }
+            //     setTimeout(function(){
+            //         cursorActive = true
+            //     }, 145);
+            //     }
+            // }
+            if (enterKey.isDown || spaceKey.isDown)
             {
                 if (startGame === true)
                 {
@@ -341,15 +339,15 @@
                     // beginPlaying = function() {
                     //     window.location.replace("http://reincarnage.herokuapp.com/level1")};
                     beginPlaying = function() {
-                        window.location.replace("http://localhost:3000/level1")};
+                        window.location.replace("http://localhost:3000/level1intro")};
                         $('body').fadeOut(3800, function(){beginPlaying();});
                 }
-                else
-                {
-                    seeHighScores = function() {
-                        window.location.replace("http://reincarnage.herokuapp.com/scores")};
-                        $('body').fadeOut(3800, function(){seeHighScores();});
-                }
+                // else
+                // {
+                //     seeHighScores = function() {
+                //         window.location.replace("http://reincarnage.herokuapp.com/scores")};
+                //         $('body').fadeOut(3800, function(){seeHighScores();});
+                // }
             }
 
     initiateAnimations = function(fowl)
@@ -394,7 +392,6 @@
     }
 
     function render(){
-        game.debug.text('Last Game Time: ' + sessionStorage.getItem("totalTime") + 's', 750, 20);
     }
 
   </script>

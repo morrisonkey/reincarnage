@@ -11,6 +11,14 @@ Rails.application.routes.draw do
   get 'level3' => "games#level3"
 
   get 'level4' => "games#level4"
+
+  get 'level1intro' => "games#level1intro"
+
+  get 'level2intro' => "games#level2intro"
+
+  get 'level3intro' => "games#level3intro"
+
+  get 'level4intro' => "games#level4intro"
   
   get 'scores' => "games#scores"
 
