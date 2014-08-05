@@ -426,15 +426,16 @@
     game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
     game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
     game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(35, 250, "Avoid the sticky branches and drop", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 300, "down to the mouth of the frog below.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 410, "Controls:", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(255, 410, "Up, Down, Left, Right", { font: "48px OpenSans", fill: "blue"});
+    game.add.text(35, 200, "Drop down to the hungry frog's mouth.", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 250, "But avoid the branches.", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 300, "Your hairy feet will get stuck.", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 420, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(255, 420, "Up, Down, Left, Right", { font: "48px OpenSans", fill: "blue"});
     game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
 
     spider = game.add.sprite(800, 200, 'spider')
-    spider.scale.x = game.rnd.realInRange(.6, .6);
-    spider.scale.y = game.rnd.realInRange(.6, .6);
+    spider.scale.x = game.rnd.realInRange(.8, .8);
+    spider.scale.y = game.rnd.realInRange(.8, .8);
     game.physics.arcade.enable(spider);
     spider.body.collideWorldBounds = true;
 

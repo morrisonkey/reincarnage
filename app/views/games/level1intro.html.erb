@@ -185,20 +185,16 @@
             createFly(10, 20, 1.2, 'right')
             createFly(55, 50, .8, 'left')
 
-            beetle = game.add.sprite(800, 690, 'beetle')
-            beetle.scale.x = game.rnd.realInRange(.45, .45);
-            beetle.scale.y = game.rnd.realInRange(.45, .45);
-            game.physics.arcade.enable(beetle);
 
-            beetle.body.bounce.y = 0.1;
-            beetle.body.gravity.y = 700;
-            beetle.body.collideWorldBounds = true;
+            // beetle.body.bounce.y = 0.1;
+            // beetle.body.gravity.y = 700;
+            // beetle.body.collideWorldBounds = true;
 
-            beetle.animations.add('left', [0, 1], 5, true);
-            beetle.animations.add('right', [3, 4], 5, true);
+            // beetle.animations.add('left', [0, 1], 5, true);
+            // beetle.animations.add('right', [3, 4], 5, true);
 
 
-            beetle.body.collideWorldBounds = true;
+            // beetle.body.collideWorldBounds = true;
             acorn.body.collideWorldBounds = false;
 
             enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -220,6 +216,10 @@
             game.add.text(35, 550, "Controls:", { font: "48px OpenSans", fill: "#333333"});
             game.add.text(255, 550, "Left, Right, SPACEBAR for Jump", { font: "48px OpenSans", fill: "blue"});
             game.add.text(35, 650, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+            beetle = game.add.sprite(800, 665, 'beetle')
+            beetle.scale.x = game.rnd.realInRange(.75, .75);
+            beetle.scale.y = game.rnd.realInRange(.75, .75);
+            game.physics.arcade.enable(beetle);
     }
 
 
