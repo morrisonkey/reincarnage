@@ -494,7 +494,7 @@
 
 
 
-       $('body').fadeOut(3000, function(){levelChange();});
+       // $('body').fadeOut(3000, function(){levelChange();});
     }
 
     if (spider.body.touching.down)
@@ -607,13 +607,15 @@
     
     if (enterKey.isDown)
     {
-        // var levelChange = function() {
-        //     window.location.replace("http://localhost:3000/level2")};
 
         var levelChange = function() {
             window.location.replace("http://reincarnage.herokuapp.com/level2")};
             levelChange();
     }
+
+        //     var levelChange = function() {
+        // window.location.replace("http://reincarnage.herokuapp.com/level2")};
+
 
   }
 
@@ -624,3 +626,4 @@
 
 
   </script>
+        
