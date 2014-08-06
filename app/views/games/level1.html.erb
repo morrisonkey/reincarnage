@@ -238,7 +238,6 @@
 
         cursors = game.input.keyboard.createCursorKeys();
         spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
         // //  Create our Timer
         // timer = game.time.create(false);
@@ -355,17 +354,6 @@
             jump.play();
         }
 
-        if (enterKey.isDown)
-        {
-            if (game.paused === false)
-            {
-                game.paused = true 
-            }
-            else if (game.paused === true)
-            {
-                game.paused = false
-            }
-        }
       }
 
     // function updateCounter() {
