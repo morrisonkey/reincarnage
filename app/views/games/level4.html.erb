@@ -142,7 +142,7 @@ function create(){
     birdFriend3.body.immovable = true;
 
 
-    birdFriend4 = game.add.sprite(300, 300, 'bird2')
+    birdFriend4 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird2')
     birdFriend4.enableBody = true;
     game.physics.arcade.enable(birdFriend4);
     birdFriend4.body.collideWorldBounds = true;
@@ -186,14 +186,14 @@ function create(){
     sawmill.scale.x = game.rnd.realInRange(2, 2);
     sawmill.scale.y = game.rnd.realInRange(2, 2);
 
-    crosshair = game.add.sprite(birdFriend4.body.x -105, birdFriend4.body.y -105, 'crosshair');
+    crosshair = game.add.sprite(200, game.world.randomY, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.25, .25);
     crosshair.scale.y = game.rnd.realInRange(.25, .25);
     crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
     crosshair.body.velocity.x = 200;
-    crosshair.body.velocity.y = 200;
+    crosshair.body.velocity.y = -200;
     crosshair.body.bounce.setTo(1, 1);
 
 
@@ -440,12 +440,12 @@ function winFunc()
     setTimeout(function(){falling(birdie);}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
-    // var levelChange = function() {
-    // window.location.replace("http://reincarnage.herokuapp.com")};
+
+    var levelChange = function() {
+    window.location.replace("http://reincarnage.herokuapp.com")};
+
     // var levelChange = function() {
     // window.location.replace("http://localhost:3000")};
-
-    window.location.replace("http://reincarnage.herokuapp.com")};
 
     $('body').fadeOut(3800, function(){levelChange();});
 };
