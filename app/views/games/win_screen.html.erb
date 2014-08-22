@@ -5,8 +5,7 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, creat
 
 function preload(){
 
-    beginningTimeSeconds = game.time.time / 1000
-    beginningTimeMS = game.time.time
+    game.load.image('logo', '/images/logo2.png');
 
     // level 4 sounds
 
@@ -18,8 +17,6 @@ function preload(){
     game.load.audio('fallSound', '/sounds/whoosh5.mp3');
 
     // level 4 images
-
-    game.load.image('logo', '/images/logo2.png');
 
     // background
     game.load.image('background', '/images/background.png');
@@ -56,8 +53,8 @@ var hairsight;
 var total = 0;
 var total2 = 0;
 
-function create(){
 
+function create(){
 
     gunshot = game.add.audio('gunshot');
     flockSound = game.add.audio('flockSound');
@@ -69,14 +66,17 @@ function create(){
     flockSound.play();
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    cursors = game.input.keyboard.createCursorKeys();
-    space_key = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
     // background image and scaled
     background = game.add.image(0, 0, 'background');
     background.scale.x = game.rnd.realInRange(4, 4);
     background.scale.y = game.rnd.realInRange(4, 4);
+
+    game.add.text(50, 50, "YOU WIN", { font: "75px Courier", fill: "RGBA(96, 159, 61, 1)"});
+    var logo = game.add.image(475, -20, 'logo');
+    logo.scale.x = game.rnd.realInRange(.26, .26);
+    logo.scale.y = game.rnd.realInRange(.26, .26);
 
     createCloud = function(x, y, xVelocity, image)
     {
@@ -144,7 +144,7 @@ function create(){
     birdFriend3.body.immovable = true;
 
 
-    birdFriend4 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird2')
+    birdFriend4 = game.add.sprite(300, 300, 'bird2')
     birdFriend4.enableBody = true;
     game.physics.arcade.enable(birdFriend4);
     birdFriend4.body.collideWorldBounds = true;
@@ -177,27 +177,41 @@ function create(){
     birdFriend6.body.bounce.setTo(1, 1);
     birdFriend6.body.immovable = true;
 
-    birdie = game.add.sprite(15, 670, 'player_bird')
-    birdie.enableBody = true;
-    game.physics.arcade.enable(birdie);
-    birdie.body.collideWorldBounds = true;
-    birdie.body.bounce.setTo(1, 1);
 
 
     sawmill = game.add.image(730, 700, 'sawmill');
     sawmill.scale.x = game.rnd.realInRange(2, 2);
     sawmill.scale.y = game.rnd.realInRange(2, 2);
 
-    crosshair = game.add.sprite(200, game.world.randomY, 'crosshair');
+    crosshair = game.add.sprite(birdFriend4.body.x -105, birdFriend4.body.y -105, 'crosshair');
     crosshair.scale.x = game.rnd.realInRange(.25, .25);
     crosshair.scale.y = game.rnd.realInRange(.25, .25);
     crosshair.enableBody = false;
     game.physics.arcade.enable(crosshair);
     crosshair.body.collideWorldBounds = true;
     crosshair.body.velocity.x = 200;
-    crosshair.body.velocity.y = -200;
+    crosshair.body.velocity.y = 200;
     crosshair.body.bounce.setTo(1, 1);
 
+    game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    game.add.text(35, 200, "Your final time is "  + sessionStorage.getItem("totalTime"), { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 250, "Would you like to save your game?", { font: "48px OpenSans", fill: "#333333"});
+    game.add.text(35, 300, "Enter your name and hit save.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 410, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(255, 410, "Up, Down, Right, Left", { font: "48px OpenSans", fill: "blue"});
+    // game.add.text(255, 460, "Hold SPACEBAR for SPEED BOOST", { font: "48px OpenSans", fill: "blue"});
+    // game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+
+    birdie = game.add.sprite(820, 120, 'player_bird')
+    birdie.scale.x = game.rnd.realInRange(2, 2);
+    birdie.scale.y = game.rnd.realInRange(2, 2);
+    birdie.enableBody = true;
+    game.physics.arcade.enable(birdie);
+    birdie.body.collideWorldBounds = true;
+    birdie.body.bounce.setTo(1, 1);
 
     crosshair.animations.add('bang', [1], 0, true);
     crosshair.animations.add('regular', [0], 0, true);
@@ -282,20 +296,19 @@ function create(){
     birdFriend5.animations.add('fall', [18], 0, true);
     birdFriend6.animations.add('fall', [18], 0, true);
 
-    birdie.animations.play('right');
-
     boostReady = true;
     boosted = false;
-    gameOver = false;
+
+
 }
 
-var fowl;
+    var fowl;
 
 // bangBang = function(){
 //             crosshair.enableBody = true;
 //             game.physics.arcade.overlap(birdie, crosshair, winFunc, null, this);
 //             crosshair.animations.play('bang');
-
+                
 //             console.log('BANG!'); 
 //                 setTimeout(function()
 //                     {
@@ -342,14 +355,14 @@ fire = setInterval(function()
 
     console.log('FIRE');
 
-    reload = setTimeout(function()
-    {   
-        hairsight.kill();
-        crosshair.enableBody = false;
-        crosshair.animations.play('regular');
-        console.log('OFF');
-        fire();
-    }, 50);
+reload = setTimeout(function()
+{   
+    hairsight.kill();
+    crosshair.enableBody = false;
+    crosshair.animations.play('regular');
+    console.log('OFF');
+    fire();
+}, 50);
     reload(); 
 }, 5000);
 
@@ -442,19 +455,14 @@ function winFunc()
     setTimeout(function(){falling(birdie);}, 800);
     // setTimeout(function(){birdie.kill();}, 6000);
     console.log('WINNER!');
+    // var levelChange = function() {
+    // window.location.replace("http://reincarnage.herokuapp.com")};
 
-    setTimeout(function(){
-        gameOver = true
-        var logo = game.add.image(475, -20, 'logo');
-        logo.scale.x = game.rnd.realInRange(.26, .26);
-        logo.scale.y = game.rnd.realInRange(.26, .26);
-        game.add.text(100, 100, "GAME TIME: " + sessionStorage.getItem("totalTime"), { font: "75px Courier", fill: "RGBA(96, 159, 61, 1)"});
-        $("#dialog").dialog("open");
-    }, 2000)
+    var levelChange = function() {
+    window.location.replace("http://localhost:3000")};
 
+    $('body').fadeOut(3800, function(){levelChange();});
 };
-
-
 // function winFunc(fowl)
 // {
 //     shotUp = true
@@ -500,198 +508,68 @@ function winFunc()
 fire();
 function update(){
 
-    initiateControls = function(fowl)
+    initiateAnimations = function(fowl)
     {
-        if (shotUp === false)
+        if (fowl.body.velocity.x >= 180 && fowl.body.velocity.y >= 180)
         {
-            if (boosted === false)
+            fowl.animations.play('right_down')
+        }
+        else if (fowl.body.velocity.x <= -180 && fowl.body.velocity.y >= 180)
+        {
+            fowl.animations.play('left_down')
+        }
+        else if (fowl.body.velocity.x >= 180 && fowl.body.velocity.y <= -180)
+        {
+            fowl.animations.play('right_up')
+        }
+        else if (fowl.body.velocity.x <= -180 && fowl.body.velocity.y <= -180)
+        {
+            fowl.animations.play('left_up')
+        }
+        else if (fowl.body.velocity.x >= 140)
+        {
+            fowl.animations.play('right')
+        }
+        else if (fowl.body.velocity.x <= -140)
+        {
+            fowl.animations.play('left')
+        }
+        else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            if (fowl.body.velocity.y < 600)
             {
-                if (cursors.up.isDown)
-                {
-                    if (cursors.left.isDown)
-                    {
-                        fowl.body.velocity.y = -180;
-
-                        fowl.body.velocity.x = -180;
-
-                    }
-                    else if (cursors.right.isDown)
-                    {
-                        fowl.body.velocity.y = -180;
-
-                        fowl.body.velocity.x = 180;
-
-                    }
-                    else
-                    {
-                        fowl.body.velocity.y = -180;
-
-                        fowl.body.velocity.x *= .99;
-
-                    }
-                }
-                else if (cursors.down.isDown)
-                {
-                    if (cursors.left.isDown)
-                    {
-                        fowl.body.velocity.y = 180;
-
-                        fowl.body.velocity.x = -180;
-
-                    }
-                    else if (cursors.right.isDown)
-                    {
-                        fowl.body.velocity.y = 180;
-
-                        fowl.body.velocity.x = 180;
-
-                    }
-                    else
-                    {
-                        fowl.body.velocity.y = 180;
-
-                        fowl.body.velocity.x *= .99;
-
-                    }
-                }
-                else if (cursors.left.isDown)
-                {
-                    fowl.body.velocity.x = -180;
-
-                    fowl.body.velocity.y *= .5;
-
-                }
-                else if (cursors.right.isDown)
-                {
-                    fowl.body.velocity.x = 180;
-
-                    fowl.body.velocity.y *= .5;
-                }
+                fowl.animations.play('down')
             }
             else
             {
-               if (cursors.up.isDown)
-               {
-                if (cursors.left.isDown)
-                {
-                    fowl.body.velocity.y = -270;
-
-                    fowl.body.velocity.x = -270;
-
-                }
-                else if (cursors.right.isDown)
-                {
-                    fowl.body.velocity.y = -270;
-
-                    fowl.body.velocity.x = 270;
-
-                }
-                else
-                {
-                    fowl.body.velocity.y = -270;
-
-                }
+                fowl.animations.play('fall')
             }
-            else if (cursors.down.isDown)
-            {
-                if (cursors.left.isDown)
-                {
-                    fowl.body.velocity.y = 270;
-
-                    fowl.body.velocity.x = -270;
-
-                }
-                else if (cursors.right.isDown)
-                {
-                    fowl.body.velocity.y = 270;
-
-                    fowl.body.velocity.x = 270;
-
-                }
-                else
-                {
-                    fowl.body.velocity.y = 270;
-
-                }
-            }
-            else if (cursors.left.isDown)
-            {
-                fowl.body.velocity.x = -270;
-
-            }
-            else if (cursors.right.isDown)
-            {
-                fowl.body.velocity.x = 270;
-            }
-
         }
-
-        if (space_key.isDown)
+        else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
         {
-         boosted = true;
-     }
-     else
-     {
-        boosted = false;
-    }
-}
-}
-
-
-
-
-initiateAnimations = function(fowl)
-{
-    if (fowl.body.velocity.x >= 180 && fowl.body.velocity.y >= 180)
-    {
-        fowl.animations.play('right_down')
-    }
-    else if (fowl.body.velocity.x <= -180 && fowl.body.velocity.y >= 180)
-    {
-        fowl.animations.play('left_down')
-    }
-    else if (fowl.body.velocity.x >= 180 && fowl.body.velocity.y <= -180)
-    {
-        fowl.animations.play('right_up')
-    }
-    else if (fowl.body.velocity.x <= -180 && fowl.body.velocity.y <= -180)
-    {
-        fowl.animations.play('left_up')
-    }
-    else if (fowl.body.velocity.x >= 140)
-    {
-        fowl.animations.play('right')
-    }
-    else if (fowl.body.velocity.x <= -140)
-    {
-        fowl.animations.play('left')
-    }
-    else if (fowl.body.velocity.y > 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
-    {
-        if (fowl.body.velocity.y < 600)
-        {
-            fowl.animations.play('down')
-        }
-        else
-        {
-            fowl.animations.play('fall')
+            fowl.animations.play('up')
         }
     }
-    else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+
+        if (enterKey.isDown)
     {
-        fowl.animations.play('up')
+        
+        var levelChange = function() {
+            window.location.replace("http://reincarnage.herokuapp.com/level4")};
+
+        // var levelChange = function() {
+        //     window.location.replace("http://localhost:3000/level4")};
+            levelChange();
     }
-}
 
 
-initiateControls(birdie);
-initiateAnimations(birdie);
-initiateAnimations(birdFriend1);
-initiateAnimations(birdFriend2);
-initiateAnimations(birdFriend3);
-initiateAnimations(birdFriend4);
-initiateAnimations(birdFriend5);
-initiateAnimations(birdFriend6);
+    birdie.animations.play('left');
+    initiateAnimations(birdFriend1);
+    initiateAnimations(birdFriend2);
+    initiateAnimations(birdFriend3);
+    initiateAnimations(birdFriend4);
+    initiateAnimations(birdFriend5);
+    initiateAnimations(birdFriend6);
 
 
 }
@@ -708,20 +586,15 @@ initiateAnimations(birdFriend6);
 
 // }
 
-function render(){
+  function render(){
         // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
-
-        if (gameOver === false){
-            game.debug.text('TIME: ' + ((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 850, 40);
-        } else {
-            game.debug.text("", 850, 40);
-        }
-    }
+  }
 
 
-    $(function(){
-        $('body').hide();
-        $('body').fadeIn(2000);
-    })
+$(function(){
+    $('body').hide();
+    $('body').fadeIn(2000);
+})
 
-    </script>
+</script>
+

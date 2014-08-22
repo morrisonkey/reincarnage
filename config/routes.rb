@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   
   get 'scores' => "games#scores"
 
+  get 'win_screen' => "games#win_screen"
+
+  post 'save' => "games#save"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

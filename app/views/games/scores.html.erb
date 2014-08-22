@@ -1,0 +1,399 @@
+<!-- <div id='scores'>
+</div> -->
+<script type="text/javascript">
+
+  var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+  function preload(){
+    // audio
+    game.load.audio('jump', '/sounds/jump2.mp3');
+    game.load.audio('ribbit1', '/sounds/ribbit1.mp3');
+    game.load.audio('laugh', '/sounds/laugh.mp3');
+    game.load.audio('beHappy', '/sounds/beHappyLoop.mp3');
+    game.load.audio('tick', '/sounds/snap.mp3');
+    
+    // main images for world
+
+    //invisible platforms
+    game.load.image('invisible_line', '/images/blank_line.png');
+    game.load.image('purp_line', '/images/purp_line.png');
+
+    // text
+    game.load.image('logo', '/images/logo2.png');
+    game.load.spritesheet('arrow', '/images/ArrowSprite.png', 200, 400);
+    game.load.spritesheet('start', '/images/start courier.png', 708.5, 236);
+    game.load.spritesheet('highScore', '/images/high score courier copy.png', 1063, 236);
+
+    //background
+    game.load.image('background', '/images/background.png');
+    game.load.image('sawmill', '/images/house_with_window_curtains.png');
+    game.load.image('cloud1', '/images/cloud_1.png');
+    game.load.image('cloud2', '/images/cloud_2.png');
+    game.load.image('cloud3', '/images/cloud_3.png');
+    game.load.image('cloud4', '/images/cloud_4.png');
+    game.load.image('cloud5', '/images/cloud_5.png');
+    game.load.image('cloud6', '/images/cloud_6.png');
+    game.load.image('grass1', '/images/grass_1.png');
+    game.load.image('grass2', '/images/grass_2.png');
+    game.load.image('grass3', '/images/grass_3.png');
+    game.load.image('grass4', '/images/grass_4.png');
+    game.load.image('tree', '/images/tree.png');
+    game.load.image('wheel', '/images/wheel.png');
+
+    //water front
+    game.load.image('water', '/images/water.png');
+    game.load.image('log1', '/images/log_1.png');
+    game.load.image('log2', '/images/log_2.png');
+    game.load.image('log3', '/images/log_3.png');
+    game.load.image('log4', '/images/log_4.png');
+    game.load.image('rock1', '/images/rock_1.png');
+    game.load.image('rock2', '/images/rock_2.png');
+
+    // animals
+    game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
+    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124);
+    game.load.spritesheet('smilingfrog', '/images/frogsprite.png', 216, 218);
+    game.load.image('spider_with_web', '/images/spider_with_web.png');
+
+  }
+
+  var rock1;
+  var rock2;
+  var platforms;
+  var arrow;
+  var startGame;
+  var beginPlaying;
+  // var seeHighScores;
+  var laugh;
+  var laughed = false
+
+  function create(){
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    game.add.image(0, 0, 'background');
+
+    jump = game.add.audio('jump');
+    ribbit1 = game.add.audio('ribbit1');
+    laugh = game.add.audio('laugh');
+    beHappy = game.add.audio('beHappy');
+    tick = game.add.audio('tick');
+
+    playMusic = function(){
+    beHappy.play();
+    setInterval(function(){
+        setTimeout(function()
+        { 
+            beHappy.play();
+        }, 375);
+    }, 56407)
+    };
+
+    playMusic();
+
+
+    createCloud = function(x, y, xVelocity, image)
+    {
+        cloud = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(cloud);
+        cloud.enableBody = true;
+        cloud.body.immovable = true;
+        cloud.body.collideWorldBounds = true;
+        cloud.body.velocity.x = xVelocity;
+        cloud.body.bounce.setTo(1, 1);
+    }
+
+        createLog = function(x, y, xVelocity, image)
+    {
+        log = game.add.sprite(x, y, image);
+        game.physics.arcade.enable(log);
+        log.enableBody = true;
+        log.body.immovable = true;
+        log.body.velocity.x = xVelocity;
+    }
+
+    createCloud(0, 15, 5, 'cloud1')
+    createCloud(0, 380, 2, 'cloud2');
+    createCloud(335, 85, -3, 'cloud3');
+    createCloud(595, 270, -5, 'cloud4');
+    createCloud(650, 30, -4, 'cloud5');
+    createCloud(854, 258, 1, 'cloud6');
+
+
+    birdie = game.add.sprite(15, 340, 'player_bird');
+    birdie.enableBody = true;
+    game.physics.arcade.enable(birdie);
+    // birdie.body.collideWorldBounds = true;
+    birdie.minSpeed = -180;
+    birdie.maxSpeed = 180;
+    birdie.body.velocity.x = -180;
+    birdie.body.velocity.y = -180;
+    birdie.body.bounce.setTo(1, 1);
+
+    // game.add.image(235, 535, 'grass3');
+    game.add.image(50, 540, 'grass1');
+
+    game.add.image(455, 540, 'grass2');
+
+    game.add.image(655, 560, 'grass4');
+
+    game.add.image(25, 40, 'tree');
+
+    sawmill = game.add.image(760, 415, 'sawmill');
+    sawmill.scale.x = game.rnd.realInRange(1.04, 1.04);
+    sawmill.scale.y = game.rnd.realInRange(1.04, 1.04);
+
+
+    spinningWheel = game.add.image(1000, 620, 'wheel');
+    spinningWheel.anchor.setTo(0.5, 0.5);
+    
+    platforms = game.add.group();
+
+    platforms.enableBody = true;
+
+    // adding text to screen
+    var logo = game.add.image(415, 41, 'logo');
+    logo.scale.x = game.rnd.realInRange(.26, .26);
+    logo.scale.y = game.rnd.realInRange(.26, .26);
+    arrow = game.add.sprite(493, 190, 'arrow');
+    arrow.scale.x = game.rnd.realInRange(.3, .3);
+    arrow.scale.y = game.rnd.realInRange(.3, .3);
+    var start = game.add.sprite(555, 155, 'start');
+    start.scale.x = game.rnd.realInRange(.402, .402);
+    start.scale.y = game.rnd.realInRange(.402, .402);
+    // var highScore = game.add.sprite(570, 235, 'highScore');
+    // highScore.scale.x = game.rnd.realInRange(.4, .4);
+    // highScore.scale.y = game.rnd.realInRange(.4, .4);
+
+    // ledge = platforms.create(555, 90, 'invisible_line');
+    // ledge.scale.x = game.rnd.realInRange(3.85, 3.85);
+    // ledge.body.immovable = true;
+    // ledge = platforms.create(500, 80, 'invisible_line');
+    // ledge.scale.x = game.rnd.realInRange(.5, .5);
+    // ledge.body.immovable = true;
+   7
+    // rock ledge
+    rockLedge = platforms.create(321, 667, 'invisible_line');
+    rockLedge.scale.x = game.rnd.realInRange(.55, .55);
+    rockLedge.body.immovable = true;
+
+    var rock1 = game.add.image(300, 650, 'rock1');
+    rock1.scale.x = game.rnd.realInRange(.55, .55);
+    rock1.scale.y = game.rnd.realInRange(.55, .55);
+
+    var rock2 = platforms.create(485, 655, 'rock2');
+    rock2.scale.x = game.rnd.realInRange(.55, .55);
+    rock2.scale.y = game.rnd.realInRange(.55, .55);
+
+    rock2.body.immovable = true;
+
+
+    // spider = game.add.image(860, 150, 'spider_with_web');
+    // spider.scale.x = game.rnd.realInRange(.3, .3);
+    // spider.scale.y = game.rnd.realInRange(.3, .3);
+
+    // beetle = game.add.sprite(700, 30, 'beetle')
+    // game.physics.arcade.enable(beetle);
+    // beetle.enableBody = true
+    // beetle.scale.x = game.rnd.realInRange(.45, .45);
+    // beetle.scale.y = game.rnd.realInRange(.45, .45);
+
+// set interval
+
+    water = game.add.sprite(-5, 685, 'water');
+
+    game.time.events.loop(Phaser.Timer.SECOND * 17, logFloat, this);
+    logFloat();
+    function logFloat() {
+    log = createLog(1100, 675, -90, 'log1')
+    log = createLog(1500, 655, -92, 'log3');
+    log = createLog(1900, 670, -88, 'log4');
+    log = createLog(2250, 670, -91, 'log2');
+    water.kill();
+    water = game.add.sprite(-5, 685, 'water');
+    }
+
+    // add frog
+    frog = game.add.sprite(330, 550, 'smilingfrog')
+    frog.scale.x = game.rnd.realInRange(.17, .17);
+    frog.scale.y = game.rnd.realInRange(.17, .17);
+    game.physics.arcade.enable(frog);
+    frog.body.bounce.y = 0.1;
+    frog.body.gravity.y = 2000;
+    frog.checkWorldBounds = true;
+    ribbit1.play();
+
+    // box to contain bird (top)
+    birdieForcefield = platforms.create(-325, -400, 'invisible_line');
+    birdieForcefield.scale.x = game.rnd.realInRange(17, 17);
+    birdieForcefield.body.immovable = true;
+
+    // box to contain bird (bottom)
+    birdieForcefield = platforms.create(-325, 610, 'invisible_line');
+    birdieForcefield.scale.x = game.rnd.realInRange(17, 17);
+    birdieForcefield.body.immovable = true;
+
+    // box to contain bird (left)
+    birdieForcefield = platforms.create(-325, -400, 'invisible_line');
+    birdieForcefield.scale.x = game.rnd.realInRange(.01, .01);
+    birdieForcefield.scale.y = game.rnd.realInRange(1010, 1010);
+    birdieForcefield.body.immovable = true;
+
+    // // box to contain bird (right)
+    birdieForcefield = platforms.create(1355, -400, 'invisible_line');
+    birdieForcefield.scale.x = game.rnd.realInRange(.01, .01);
+    birdieForcefield.scale.y = game.rnd.realInRange(1010, 1010);
+    birdieForcefield.body.immovable = true;    
+
+
+    // cursors = game.input.keyboard.createCursorKeys();
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    frog.animations.add('closed', [0], 0, true);
+    frog.animations.add('open', [1], 0, true);
+    arrow.animations.add('up', [0, 1], 2.2, true);
+    arrow.animations.add('down', [2, 3], 2.2, true);
+    arrow.animations.play('up');
+    birdie.animations.add('left', [0, 1, 2, 1], 7, true);
+    birdie.animations.add('right', [9, 10, 11, 10], 7, true);
+    birdie.animations.add('up', [21, 22, 23, 22], 7, true);
+    birdie.animations.add('down', [18, 19, 20, 19], 7, true);
+    birdie.animations.add('left_up', [3, 4, 5, 4], 7, true);
+    birdie.animations.add('right_up', [12, 13, 14, 13], 7, true);
+    birdie.animations.add('left_down', [6, 7, 8, 7], 7, true);
+    birdie.animations.add('right_down', [15, 16, 17, 16], 7, true);
+
+    startGame = true
+    cursorActive = true
+
+    happyFrogJump = setInterval(function(){
+        if (frog.body.touching.down)
+        {              
+            frog.body.velocity.y = -450;
+            jump.play();
+        }
+    }, 14200);
+
+    setTimeout(function(){
+        frog.body.velocity.y = -450;
+        jump.play();
+        happyFrogJump();
+    }, 350)
+
+    game.add.text(585, 250, '(Last Game Time: ' + sessionStorage.getItem("totalTime") + 's)', { font: "34px OpenSans", fill: "black"});
+  }
+
+    function update(){
+        // setTimeout(function(){
+        //     var levelChange = function() {
+        //     window.location.replace("http://reincarnage.herokuapp.com/level1")};
+        //     $('body').fadeOut(3800, function(){levelChange();});}, 8000);
+
+        spinningWheel.angle += 1;
+
+        game.physics.arcade.collide(frog, rockLedge);
+        game.physics.arcade.collide(birdie, platforms);
+
+            if (frog.body.touching.down)
+            {
+                frog.body.velocity.x = 0;
+                frog.animations.play('open');
+            }
+            else
+            {
+                frog.animations.play('closed');
+            }
+
+            // if (cursors.up.isDown || cursors.down.isDown)
+            // {
+            //     if (cursorActive === true)
+            //     {
+            //         cursorActive = false
+            //     if (startGame === false)
+            //     {
+            //     arrow.animations.play('up');
+            //     tick.play();
+            //     startGame = true
+            //     }
+            //     else
+            //     {
+            //     arrow.animations.play('down');
+            //     tick.play();
+            //     startGame = false
+            //     }
+            //     setTimeout(function(){
+            //         cursorActive = true
+            //     }, 145);
+            //     }
+            // }
+            if (enterKey.isDown || spaceKey.isDown)
+            {
+                if (startGame === true)
+                {
+                    if (laughed === false)
+                    {
+                    laugh.play();
+                    laughed = true;
+                    }
+                    beginPlaying = function() {
+                        window.location.replace("http://reincarnage.herokuapp.com/level1intro")};
+
+                    // beginPlaying = function() {
+                    //     window.location.replace("http://localhost:3000/level1intro")};
+                        $('body').fadeOut(3800, function(){beginPlaying();});
+
+                }
+                // else
+                // {
+                //     seeHighScores = function() {
+                //         window.location.replace("http://reincarnage.herokuapp.com/scores")};
+                //         $('body').fadeOut(3800, function(){seeHighScores();});
+                // }
+            }
+
+    initiateAnimations = function(fowl)
+    {
+        if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == 180)
+        {
+            fowl.animations.play('right_down')
+        }
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == 180)
+        {
+            fowl.animations.play('left_down')
+        }
+        else if (fowl.body.velocity.x == 180 && fowl.body.velocity.y == -180)
+        {
+            fowl.animations.play('right_up')
+        }
+        else if (fowl.body.velocity.x == -180 && fowl.body.velocity.y == -180)
+        {
+            fowl.animations.play('left_up')
+        }
+        else if (fowl.body.velocity.x >= 140)
+        {
+            fowl.animations.play('right')
+        }
+        else if (fowl.body.velocity.x <= -140)
+        {
+            fowl.animations.play('left')
+        }
+        else if (fowl.body.velocity.y < 0 && (fowl.body.velocity.x < 140 && fowl.body.velocity.x > -140))
+        {
+            fowl.animations.play('up')
+        }
+        else
+        {
+            fowl.animations.play('right')
+        }
+    }
+
+
+    initiateAnimations(birdie);
+
+    }
+
+    function render(){
+    }
+
+  </script>
