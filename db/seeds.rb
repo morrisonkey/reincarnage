@@ -33,3 +33,14 @@ Score.create({
   total: 103790
   })
 
+Score.create({
+  player: "M.Miltner",
+  total: 125017
+  })
+
+Score.create({
+  player: "Chelsea",
+  total: 372190
+  })
+
+

@@ -294,8 +294,11 @@
         happyFrogJump();
     }, 350)
 
+    if (sessionStorage.getItem("totalTime") != null && sessionStorage.getItem("totalTime") != NaN)
+    {
     game.add.text(585, 279, 'Your Last Game Time:', { font: "19px OpenSans", fill: "black"});
     game.add.text(775, 272, sessionStorage.getItem("totalTime") + 's', { font: "30px OpenSans", fill: "black"});
+    }
   }
 
     function update(){
