@@ -27,3 +27,9 @@ Score.create({
   player: "CMK",
   total: 150071
   })
+
+Score.create({
+  player: "Kayleigh",
+  total: 103790
+  })
+
