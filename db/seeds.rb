@@ -9,36 +9,36 @@
 # Score.delete_all
 
 # Score.create({
-#   player: "Ewa K",
+#   player: "Ewa K 2",
 #   total: 151680
 #   })
 
 # Score.create({
-#   player: "Mason",
+#   player: "Mason 2",
 #   total: 87090
 #   })
 
 # Score.create({
-#   player: "Jenn W",
+#   player: "Jenn W 2",
 #   total: 153130
 #   })
 
 # Score.create({
-#   player: "CMK",
+#   player: "CMK 2",
 #   total: 150071
 #   })
 
 # Score.create({
-#   player: "Kayleigh",
+#   player: "Kayleigh 2",
 #   total: 103790
 #   })
 
 # Score.create({
-#   player: "M.Miltner",
+#   player: "M.Miltner 2",
 #   total: 125017
 #   })
 
 # Score.create({
-#   player: "Chelsea",
+#   player: "Chelsea 2",
 #   total: 372190
 #   })

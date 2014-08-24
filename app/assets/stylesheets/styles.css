@@ -84,13 +84,15 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
   position: absolute;
   background-color: RGBA(244, 244, 244, .5);
   width:250px;
+  max-height: 550px;
   margin:35px 0 0 20%;
   float:left;
   padding:0px 25px;
   background-color:rgba(204,204,191,0.51);
   border-radius:20px;
   font-size:13px;
-  text-align:center
+  text-align:center;
+  overflow: auto;
 }
 .best-times h1 {
   font-size: 30px;

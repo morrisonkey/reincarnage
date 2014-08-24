@@ -1,14 +1,11 @@
 <div class="best-times">
   <h1>BEST TIMES</h1>
 
-  <% num = 0 %>
-  <% loop do %>
-  <% if @scores[num] != nil %>
-  <h2 class="player-row"><span class="player-name"><%= @scores[num].player %></span><span class="player-time"><%= sprintf"%.3f", @scores[num].total / 1000 %>s</span><h2>
+  <% @scores.each do |score| %>
+  <% if score != nil %>
+  <h2 class="player-row"><span class="player-name"><%= score.player %></span><span class="player-time"><%= sprintf"%.3f", score.total / 1000 %>s</span><h2>
   <br>
   <% end %>
-  <% num+=1 %>
-  <% break if num==10 %>
   <% end %>
 </div>
 <!-- <div id='scores'>
