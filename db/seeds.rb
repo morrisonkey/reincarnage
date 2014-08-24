@@ -6,5 +6,24 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Score.delete_all
+# Score.delete_all
 
+Score.create({
+  player: "Ewa K",
+  total: 151680
+  })
+
+Score.create({
+  player: "Mase Willis",
+  total: 87090
+  })
+
+Score.create({
+  player: "Jenn W",
+  total: 153130
+  })
+
+Score.create({
+  player: "CMK",
+  total: 150071
+  })
