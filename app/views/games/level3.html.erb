@@ -293,17 +293,18 @@
     function killFrog(){
         frog.kill();
         water.kill();
+        water = game.add.image(-525, 625, 'water');
         if (splashed === false)
         {
             splash.play();
             splashed = true
             setTimeout(function(){
                 ribbit3.play();
-            }, 1000);
+            }, 2000);
             setTimeout(function(){
                 splashed = false
             }, 500);
-        }
+        setTimeout(function(){
         frog = game.add.sprite(150, 540, 'smilingfrog');
         frog.animations.add('open', [0], 0, true);
         frog.animations.add('closed', [1], 0, true);
@@ -327,11 +328,14 @@
         frog.scale.x = game.rnd.realInRange(.27, .27);
         frog.scale.y = game.rnd.realInRange(.27, .27);
         }
+        water.kill();
         water = game.add.image(-525, 625, 'water');
         game.physics.arcade.enable(frog);
         frog.body.bounce.y = 0.1;
         frog.body.gravity.y = 1000;
         frog.checkWorldBounds = true;
+        }, 2000);
+        }
     }
 
     function winFunc(){
@@ -374,9 +378,6 @@
             }
             frog.scale.setTo(.21,.21);
             gulp1.play();
-            setTimeout(function(){
-                ribbit2.play();
-            }, 1100);
             createFly(0, 490, 30, 0);
             flap2.play();
         }
@@ -384,9 +385,6 @@
         {
             frog.scale.setTo(.24,.24);
             gulp2.play();
-            setTimeout(function(){
-                ribbit1.play();
-            }, 900);
             createFly(750, 490, -30, 100);
             flap2.play();
         }
