@@ -35,8 +35,8 @@ function preload(){
     game.load.spritesheet('crosshair', '/images/crosshair_sprite.png', 400, 400);
     // animals
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
-    game.load.spritesheet('bird2', '/images/bird sprite8-1.png', 84, 80);
-    game.load.spritesheet('bird7', '/images/bird sprite2-1.png', 84, 80);
+    game.load.spritesheet('bird2', '/images/birdsprite5-1.png', 84, 80);
+    game.load.spritesheet('bird7', '/images/birdsprite3-1.png', 84, 80);
 }
 
 var birdie;
@@ -121,7 +121,7 @@ function create(){
     birdFriend1.body.bounce.setTo(1, 1);
     birdFriend1.body.immovable = true;
 
-    birdFriend2 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird2')
+    birdFriend2 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird7')
     birdFriend2.enableBody = true;
     game.physics.arcade.enable(birdFriend2);
     birdFriend2.body.collideWorldBounds = true;
@@ -144,7 +144,7 @@ function create(){
     birdFriend3.body.immovable = true;
 
 
-    birdFriend4 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird2')
+    birdFriend4 = game.add.sprite(game.world.randomX, game.world.randomY, 'bird7')
     birdFriend4.enableBody = true;
     game.physics.arcade.enable(birdFriend4);
     birdFriend4.body.collideWorldBounds = true;
@@ -166,7 +166,7 @@ function create(){
     birdFriend5.body.bounce.setTo(1, 1);
     birdFriend5.body.immovable = true;
 
-    birdFriend6 = game.add.sprite(game.world.randomX, 300, 'bird7')
+    birdFriend6 = game.add.sprite(game.world.randomX, 300, 'bird2')
     birdFriend6.enableBody = true;
     game.physics.arcade.enable(birdFriend6);
     birdFriend6.body.collideWorldBounds = true;
@@ -448,7 +448,8 @@ function winFunc()
         var logo = game.add.image(475, -20, 'logo');
         logo.scale.x = game.rnd.realInRange(.26, .26);
         logo.scale.y = game.rnd.realInRange(.26, .26);
-        game.add.text(100, 100, "GAME TIME: " + sessionStorage.getItem("totalTime"), { font: "75px Courier", fill: "RGBA(96, 159, 61, 1)"});
+        game.add.text(385, 280, 'Your Game Time:', { font: "19px OpenSans", fill: "black"});
+        game.add.text(540, 265, sessionStorage.getItem("totalTime") + 's', { font: "36px OpenSans", fill: "black"});
         $("#dialog").dialog("open");
     }, 2000)
 

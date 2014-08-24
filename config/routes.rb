@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   
   get 'scores' => "games#scores"
 
+  get 'best_times' => "games#best_times"
+
   get 'win_screen' => "games#win_screen"
 
   post 'save' => "games#save"

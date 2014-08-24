@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   def home
+    @scores = Score.all.sort_by { |h| h[:total] }
   end
 
   def level1
@@ -16,11 +17,7 @@ class GamesController < ApplicationController
   def level4
 
   end
-
-  def scores
-
-  end
-
+  
   def save
       Score.create({
         :player => params[:player],

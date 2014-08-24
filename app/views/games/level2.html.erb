@@ -44,7 +44,7 @@
     // game.load.image('acorn5', '/images/acorn_5.png');
 
     // animals
-    game.load.image('spider', '/images/spider_bigger_face.png');
+    game.load.spritesheet('spider', '/images/spider-with-flat.png', 180, 161);
     // game.load.image('frog', '/images/frog_mouth_closed.png');
     game.load.spritesheet('frog', '/images/frogsprite.png', 216, 218);
     //perhaps add flies as additional points for spider
@@ -143,6 +143,8 @@
     spider.scale.x = game.rnd.realInRange(.6, .6);
     spider.scale.y = game.rnd.realInRange(.6, .6);
     game.physics.arcade.enable(spider);
+    spider.animations.add('in_air', [1], 0, true);
+    spider.animations.add('on_branch', [0], 0, true);
 
     spider.body.gravity.y = 100;
     spider.body.collideWorldBounds = true;
@@ -611,6 +613,14 @@
     }
     
 
+    if (spider.body.touching.down)
+    {
+        spider.animations.play('on_branch')
+    }
+    else
+    {
+        spider.animations.play('in_air')
+    }
 
 
     if (cursors.left.isDown)

@@ -28,12 +28,12 @@ $("#submit").click(function(e) {
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: data
     });
-  $('body').fadeOut(3800, function(){window.location.replace("http://localhost:3000")});
+  $('body').fadeOut(3800, function(){window.location.replace("http://reincarnage.herokuapp.com")});
   }
 });
 $("#cancel").click(function(e) {
   e.preventDefault();
 
-  $('body').fadeOut(3800, function(){window.location.replace("http://localhost:3000")});
+  $('body').fadeOut(3800, function(){window.location.replace("http://reincarnage.herokuapp.com")});
 });
 });
