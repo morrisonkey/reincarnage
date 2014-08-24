@@ -54,8 +54,7 @@ input[type=submit]:hover {
   color:#fff
 }
 .ui-dialog .ui-dialog-content {
-  padding:2em
-  background-color: red;
+  padding:2em;
 }
 div.container {
   width:960px;
