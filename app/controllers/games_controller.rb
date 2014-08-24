@@ -25,15 +25,16 @@ class GamesController < ApplicationController
   end
   
   def save
-    Score.create({
-      :player => params[:player],
-      :level1 => params[:level1],
-      :level2 => params[:level2],
-      :level3 => params[:level3],
-      :level4 => params[:level4],
-      :total => params[:total]
-      })
-
+    if params[:total] != "NaN"
+      Score.create({
+        :player => params[:player],
+        :level1 => params[:level1],
+        :level2 => params[:level2],
+        :level3 => params[:level3],
+        :level4 => params[:level4],
+        :total => params[:total]
+        })
+    end
   end
   
 end

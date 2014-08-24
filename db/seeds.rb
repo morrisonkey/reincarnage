@@ -6,41 +6,39 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Score.delete_all
+# Score.delete_all
 
-Score.create({
-  player: "Ewa K",
-  total: 151680
-  })
+# Score.create({
+#   player: "Ewa K",
+#   total: 151680
+#   })
 
-Score.create({
-  player: "Mason",
-  total: 87090
-  })
+# Score.create({
+#   player: "Mason",
+#   total: 87090
+#   })
 
-Score.create({
-  player: "Jenn W",
-  total: 153130
-  })
+# Score.create({
+#   player: "Jenn W",
+#   total: 153130
+#   })
 
-Score.create({
-  player: "CMK",
-  total: 150071
-  })
+# Score.create({
+#   player: "CMK",
+#   total: 150071
+#   })
 
-Score.create({
-  player: "Kayleigh",
-  total: 103790
-  })
+# Score.create({
+#   player: "Kayleigh",
+#   total: 103790
+#   })
 
-Score.create({
-  player: "M.Miltner",
-  total: 125017
-  })
+# Score.create({
+#   player: "M.Miltner",
+#   total: 125017
+#   })
 
-Score.create({
-  player: "Chelsea",
-  total: 372190
-  })
-
-
+# Score.create({
+#   player: "Chelsea",
+#   total: 372190
+#   })
