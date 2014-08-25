@@ -1,11 +1,5 @@
 class GamesController < ApplicationController
   def home
-    scores = Score.all
-    scores.each do |score|
-      if score.total === 'NaN'
-        score.delete
-      end
-    end
     @scores = Score.all.sort_by { |h| h[:total] }
   end
 
