@@ -1,5 +1,6 @@
 <div class="best-times">
   <h1>BEST TIMES</h1>
+  <p>[scroll down for more]</p>
 
   <% @scores.each do |score| %>
   <% if score != nil %>
@@ -61,7 +62,7 @@
 
     // animals
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
-    game.load.spritesheet('beetle', '/images/bug_sprite_sheet1.png', 95.2, 124);
+    game.load.spritesheet('beetle', '/images/bug_sprite.png', 95.2, 124);
     game.load.spritesheet('smilingfrog', '/images/frogsprite.png', 216, 218);
     game.load.image('spider_with_web', '/images/spider_with_web.png');
 
@@ -165,10 +166,10 @@
     var logo = game.add.image(415, 41, 'logo');
     logo.scale.x = game.rnd.realInRange(.26, .26);
     logo.scale.y = game.rnd.realInRange(.26, .26);
-    arrow = game.add.sprite(493, 190, 'arrow');
+    arrow = game.add.sprite(493, 290, 'arrow');
     arrow.scale.x = game.rnd.realInRange(.3, .3);
     arrow.scale.y = game.rnd.realInRange(.3, .3);
-    var start = game.add.sprite(555, 155, 'start');
+    var start = game.add.sprite(555, 255, 'start');
     start.scale.x = game.rnd.realInRange(.402, .402);
     start.scale.y = game.rnd.realInRange(.402, .402);
     // var highScore = game.add.sprite(570, 235, 'highScore');
@@ -293,8 +294,12 @@
 
     if (sessionStorage.getItem("totalTime") != null && sessionStorage.getItem("totalTime") != "NaN")
     {
-    game.add.text(585, 279, 'Your Last Game Time:', { font: "19px OpenSans", fill: "black"});
-    game.add.text(775, 272, sessionStorage.getItem("totalTime") + 's', { font: "30px OpenSans", fill: "black"});
+    game.add.text(585, 189, 'Your Last Game Time:', { font: "19px OpenSans", fill: "RGBA(117, 81, 55, 1)"});
+    game.add.text(775, 182, sessionStorage.getItem("totalTime") + 's', { font: "30px OpenSans", fill: "RGBA(139, 94, 59, 1)"});
+    }
+    else
+    {
+    game.add.text(595, 172, '"get eaten"', { font: "40px Courier", fill: "RGBA(117, 81, 55, 1)"});
     }
   }
 

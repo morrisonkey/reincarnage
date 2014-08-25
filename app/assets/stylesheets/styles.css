@@ -97,6 +97,12 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
 .best-times h1 {
   font-size: 30px;
   letter-spacing: 1px;
+  line-height: 10px;
+}
+.best-times p {
+  letter-spacing: 1px;
+  line-height: 10px;
+  color: RGBA(185, 32, 37, 1);
 }
 .player-name {
   float: left;
