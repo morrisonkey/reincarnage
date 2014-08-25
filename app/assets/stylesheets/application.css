@@ -14,18 +14,89 @@
  *= require_self
  */
 
-canvas {
-   display : block;
-   margin : auto;
+ canvas {
+   display: block;
+   margin-top: 10px;
+   margin-left: 230px;
    overflow: hidden;
+   height: 600px;
+}
+
+.picture {
+   display: block;
+   position: absolute;
+}
+
+.logo {
+   margin-top: 575px;
+   margin-left: 320px;
+   width: 600px;
+}
+
+.web {
+   margin-top: -10px;
+   margin-left: -10px;
+   width: 400px;
+}
+
+.spider {
+   z-index: 2;
+   margin-top: -10px;
+   margin-left: 73px;
+   width: 100px;
+}
+
+.frog {
+   margin-top: 500px;
+   margin-left: -10px;
+   width: 275px;
+}
+
+.rock {
+   z-index: -1;
+   margin-top: 695px;
+   margin-left: -50px;
+   width: 350px;
+}
+
+.bird {
+   margin-top: 10px;
+   margin-left: 960px;
+   width: 300px;
+}
+
+.bird1 {
+   margin-top: 60px;
+   margin-left: 940px;
+   width: 350px;
+}
+
+.crosshair {
+   z-index: 2;
+   margin-top: 85px;
+   margin-left: 1000px;
+   width: 200px;
+}
+
+.beetle {
+   z-index: 2;
+   margin-top: 340px;
+   margin-left: 1100px;
+}
+
+.branch {
+   margin-top: 400px;
+   margin-left: 900px;
+   width: 500px;
 }
 
 body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: RGBA(170, 201, 212, 1);
-      margin-top: 10px;
-      text-align: center;
-    }
+   /*background-image: url('/images/background.png');*/
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: RGBA(170, 201, 212, 1);
+   margin-top: 10px;
+   text-align: center;
+}
 

@@ -81,36 +81,51 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
 
 /*best times page*/
 .best-times {
+  display: block;
   position: absolute;
   background-color: RGBA(244, 244, 244, .5);
-  width:250px;
-  max-height: 550px;
-  margin:35px 0 0 20%;
+  width:200px;
+  height: 365px;
+  margin-top: 35px;
+  margin-left: 310px;
   float:left;
   padding:0px 25px;
   background-color:rgba(204,204,191,0.51);
   border-radius:20px;
-  font-size:13px;
   text-align:center;
   overflow: auto;
+  line-height: 10px;
 }
+
+.best-times hr {
+  color: red;
+  margin: -5px;
+}
+
 .best-times h1 {
-  font-size: 30px;
+  font-size: 24px;
   letter-spacing: 1px;
   line-height: 10px;
+}
+.best-times h2 {
+  padding: 0;
+  margin: 20px auto;
 }
 .best-times p {
   letter-spacing: 1px;
   line-height: 10px;
   color: RGBA(185, 32, 37, 1);
+  font-size:13px;
 }
 .player-name {
+  font-size:18px;
   float: left;
   letter-spacing: 1px;
+  line-height: 10px;
 }
 .player-time {
   float: right;
-  font-size: 18px;
+  font-size: 16px;
 }
 .player-row {
   margin: 0 auto;

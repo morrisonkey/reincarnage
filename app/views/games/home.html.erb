@@ -1,6 +1,7 @@
 <div class="best-times">
   <h1>BEST TIMES</h1>
-  <p>[scroll down for more]</p>
+  <p>[scroll down for all]</p>
+  <hr>
 
   <% @scores.each do |score| %>
   <% if score != nil %>
@@ -299,7 +300,7 @@
     }
     else
     {
-    game.add.text(595, 172, '"get eaten"', { font: "40px Courier", fill: "RGBA(117, 81, 55, 1)"});
+    game.add.text(595, 172, 'get eaten!', { font: "40px Courier", fill: "RGBA(117, 81, 55, 1)"});
     }
   }
 
