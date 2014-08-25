@@ -28,7 +28,7 @@ $("#submit").click(function(e) {
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
       data: data
     });
-  $('body').fadeOut(3800, function(){window.location.replace("http://reincarnage.herokuapp.com")});
+    $('body').fadeOut(3800, function(){window.location.replace("http://reincarnage.herokuapp.com")});
   }
 });
 $("#cancel").click(function(e) {
@@ -36,4 +36,17 @@ $("#cancel").click(function(e) {
 
   $('body').fadeOut(3800, function(){window.location.replace("http://reincarnage.herokuapp.com")});
 });
+
+$("#mask").fadeOut(1);
+
+$("#best-times").hover(
+  function() {
+    console.log('on')
+    $("#mask").fadeIn(600);
+  },
+    function() {
+      console.log('off')
+      $("#mask").fadeOut(600);}
+      );
+
 });

@@ -80,38 +80,54 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
 }
 
 /*best times page*/
-.best-times {
+
+#mask {
+  z-index: 10;
+  background-color: #1F1F1F;
+  opacity: .8;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin-top: none;
+  display: block;
+  margin-left: 230px;
+  overflow: hidden;
+  height: 600px;
+  width: 800px;
+}
+
+#best-times {
+  z-index: 20;
   display: block;
   position: absolute;
-  background-color: RGBA(244, 244, 244, .5);
   width:200px;
   height: 365px;
   margin-top: 35px;
   margin-left: 310px;
   float:left;
   padding:0px 25px;
-  background-color:rgba(204,204,191,0.51);
+  background-color: rgba(204,204,191,0.8);
   border-radius:20px;
   text-align:center;
   overflow: auto;
   line-height: 10px;
 }
 
-.best-times hr {
+#best-times hr {
   color: red;
   margin: -5px;
 }
 
-.best-times h1 {
+#best-times h1 {
   font-size: 24px;
   letter-spacing: 1px;
   line-height: 10px;
 }
-.best-times h2 {
+#best-times h2 {
   padding: 0;
   margin: 20px auto;
 }
-.best-times p {
+#best-times p {
   letter-spacing: 1px;
   line-height: 10px;
   color: RGBA(185, 32, 37, 1);
