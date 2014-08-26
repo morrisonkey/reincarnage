@@ -49,6 +49,13 @@
    width: 600px;
 }
 
+.logo-home {
+   z-index: 20;
+   margin-top: 34px;
+   margin-left: 555px;
+   width: 480px;
+}
+
 .web {
    margin-top: -10px;
    margin-left: -10px;

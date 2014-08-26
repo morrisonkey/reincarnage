@@ -84,7 +84,7 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
 #mask {
   z-index: 10;
   background-color: #1F1F1F;
-  opacity: .8;
+  opacity: .7;
   height: 100%;
   width: 100%;
   position: absolute;
