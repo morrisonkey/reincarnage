@@ -1,7 +1,10 @@
   <img class="picture logo" src="/images/logo2.png" />
   <img class="picture rock" src="/images/rock_2.png" />
   <img class="picture frog" src="/images/frog_mouth_open.png" />
-  <img class="picture bird1" src="/images/bird_single1.png" />
+  <!-- <img class="picture bird1" src="/images/bird_single1.png" /> -->
+  <img class="picture fly" src="/images/fly.png" />
+  <img class="info" src="/images/level3info.png" />
+  <img class="blurb" src="/images/level3blurb.png" />
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -47,8 +50,8 @@
     game.load.image('water', '/images/water copy.png');
 
     //animals
-    game.load.spritesheet('smilingfrog', '/images/frogsprite.png', 216, 218);
-    game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
+    // game.load.spritesheet('smilingfrog', '/images/frogsprite.png', 216, 218);
+    // game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
     game.load.spritesheet('player_bird', '/images/bird sprite10-1.png', 84, 80);
   }
 
@@ -87,7 +90,7 @@
     splash = game.add.audio('splash');
     yipee = game.add.audio('yipee');
 
-    flyCount = 0
+    // flyCount = 0
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -121,9 +124,9 @@
     logs = game.add.group();
     logs.enableBody = true;
 
-    // create invisible fly fence group
-    flyContainers = game.add.group();
-    flyContainers.enableBody = true;
+    // // create invisible fly fence group
+    // flyContainers = game.add.group();
+    // flyContainers.enableBody = true;
 
     // place platforms behind rocks
     createLedge(140, 595, 1, 0);
@@ -170,33 +173,33 @@
         createLedge(2910, 620, 1.6, -91);
     }
 
-    // create function for container for flies
-    function createFlyForcefield(y, xScale) {
-        flyForcefield = flyContainers.create(0, y, 'invisible_line');
-        flyForcefield.scale.x = game.rnd.realInRange(xScale, xScale);
-        flyForcefield.body.immovable = true;
-    }
+    // // create function for container for flies
+    // function createFlyForcefield(y, xScale) {
+    //     flyForcefield = flyContainers.create(0, y, 'invisible_line');
+    //     flyForcefield.scale.x = game.rnd.realInRange(xScale, xScale);
+    //     flyForcefield.body.immovable = true;
+    // }
 
-    // add container for flies
-    createFlyForcefield(200, 50);
-    createFlyForcefield(650, 50);
+    // // add container for flies
+    // createFlyForcefield(200, 50);
+    // createFlyForcefield(650, 50);
 
-    // add frog
-    frog = game.add.sprite(150, 540, 'smilingfrog')
-    frog.scale.x = game.rnd.realInRange(.18, .18);
-    frog.scale.y = game.rnd.realInRange(.18, .18);
-    game.physics.arcade.enable(frog);
-    frog.body.bounce.y = 0.1;
-    frog.body.gravity.y = 1000;
-    frog.checkWorldBounds = true;
-    ribbit1.play();
+    // // add frog
+    // frog = game.add.sprite(150, 540, 'smilingfrog')
+    // frog.scale.x = game.rnd.realInRange(.18, .18);
+    // frog.scale.y = game.rnd.realInRange(.18, .18);
+    // game.physics.arcade.enable(frog);
+    // frog.body.bounce.y = 0.1;
+    // frog.body.gravity.y = 1000;
+    // frog.checkWorldBounds = true;
+    // ribbit1.play();
 
     // add water
     water = game.add.image(-525, 625, 'water');
 
-    var logo = game.add.image(475, -20, 'logo');
-    logo.scale.x = game.rnd.realInRange(.26, .26);
-    logo.scale.y = game.rnd.realInRange(.26, .26);
+    // var logo = game.add.image(475, -20, 'logo');
+    // logo.scale.x = game.rnd.realInRange(.26, .26);
+    // logo.scale.y = game.rnd.realInRange(.26, .26);
 
     // //adding bird of prey
     birdie = game.add.sprite(750, -30, 'player_bird');
@@ -220,160 +223,160 @@
     birdie.animations.add('left_up', [3, 4, 5, 4], 6, true);
     birdie.animations.add('right_up', [12, 13, 14, 13], 6, true);
 
-    frog.animations.add('open', [0], 0, true);
-    frog.animations.add('closed', [1], 0, true);
+    // frog.animations.add('open', [0], 0, true);
+    // frog.animations.add('closed', [1], 0, true);
 
     
 
-    // adding fly function
-    createFly = function(x, y, xVelocity, yVelocity)
-    {
-    fly = flies.create(x, y, 'fly')
-    game.physics.arcade.enable(fly);
-    fly.body.collideWorldBounds = true;
-    fly.scale.x = game.rnd.realInRange(.8, .8);
-    fly.scale.y = game.rnd.realInRange(.8, .8);
-    fly.minSpeed = -180;
-    fly.maxSpeed = 180;
-    fly.body.velocity.x = xVelocity;
-    fly.body.velocity.y = yVelocity;
-    fly.animations.add('right', [0, 1], 15, true);
-    fly.animations.add('left', [2, 3], 15, true);
-    fly.body.bounce.setTo(1, 1);
-    }
+    // // adding fly function
+    // createFly = function(x, y, xVelocity, yVelocity)
+    // {
+    // fly = flies.create(x, y, 'fly')
+    // game.physics.arcade.enable(fly);
+    // fly.body.collideWorldBounds = true;
+    // fly.scale.x = game.rnd.realInRange(.8, .8);
+    // fly.scale.y = game.rnd.realInRange(.8, .8);
+    // fly.minSpeed = -180;
+    // fly.maxSpeed = 180;
+    // fly.body.velocity.x = xVelocity;
+    // fly.body.velocity.y = yVelocity;
+    // fly.animations.add('right', [0, 1], 15, true);
+    // fly.animations.add('left', [2, 3], 15, true);
+    // fly.body.bounce.setTo(1, 1);
+    // }
 
-    game.add.text(50, 50, "LEVEL 3/4", { font: "75px Courier", fill: "RGBA(45, 169, 222, 1)"});
-    game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(35, 250, "Become an appetizing meal for the bird of prey.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 300, "Fatten yourself up by eating 3 flies.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 410, "Controls:", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(255, 410, "Right, Left, SPACEBAR for Jump", { font: "48px OpenSans", fill: "blue"});
-    game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+    // game.add.text(50, 50, "LEVEL 3/4", { font: "75px Courier", fill: "RGBA(45, 169, 222, 1)"});
+    // game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(35, 250, "Become an appetizing meal for the bird of prey.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 300, "Fatten yourself up by eating 3 flies.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 410, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(255, 410, "Right, Left, SPACEBAR for Jump", { font: "48px OpenSans", fill: "blue"});
+    // game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
  
-    flies = game.add.group();
-    flies.enableBody = true;
+  //   flies = game.add.group();
+  //   flies.enableBody = true;
 
-    createFly(650, 490, 30, 160);
+  //   createFly(650, 490, 30, 160);
   }
 
   function update(){
 
-    game.physics.arcade.collide(frog, platforms);
-    game.physics.arcade.collide(fly, flyContainers);
+    // game.physics.arcade.collide(frog, platforms);
+    // game.physics.arcade.collide(fly, flyContainers);
 
     // game.physics.arcade.overlap(frog, fly, winFunc, null, this);
-    frog.events.onOutOfBounds.add(killFrog, this);
+    // frog.events.onOutOfBounds.add(killFrog, this);
 
 
-    function killFrog(){
-        frog.kill();
-        water.kill();
-        if (splashed === false)
-        {
-            splash.play();
-            splashed = true
-            setTimeout(function(){
-                ribbit3.play();
-            }, 1000);
-            setTimeout(function(){
-                splashed = false
-            }, 500);
-        }
-        frog = game.add.sprite(150, 540, 'smilingfrog');
-        frog.animations.add('open', [0], 0, true);
-        frog.animations.add('closed', [1], 0, true);
-        if (flyCount < 1)
-        {
-        frog.scale.x = game.rnd.realInRange(.18, .18);
-        frog.scale.y = game.rnd.realInRange(.18, .18); 
-        }
-        else if (flyCount === 1)
-        {
-        frog.scale.x = game.rnd.realInRange(.21, .21);
-        frog.scale.y = game.rnd.realInRange(.21, .21);
-        }
-        else if (flyCount ===2)
-        {
-        frog.scale.x = game.rnd.realInRange(.24, .24);
-        frog.scale.y = game.rnd.realInRange(.24, .24);
-        }
-        else if (flyCount ===3)
-        {
-        frog.scale.x = game.rnd.realInRange(.27, .27);
-        frog.scale.y = game.rnd.realInRange(.27, .27);
-        }
-        water = game.add.image(-525, 625, 'water');
-        game.physics.arcade.enable(frog);
-        frog.body.bounce.y = 0.1;
-        frog.body.gravity.y = 1000;
-        frog.checkWorldBounds = true;
-    }
+    // function killFrog(){
+    //     frog.kill();
+    //     water.kill();
+    //     if (splashed === false)
+    //     {
+    //         splash.play();
+    //         splashed = true
+    //         setTimeout(function(){
+    //             ribbit3.play();
+    //         }, 1000);
+    //         setTimeout(function(){
+    //             splashed = false
+    //         }, 500);
+    //     }
+    //     frog = game.add.sprite(150, 540, 'smilingfrog');
+    //     frog.animations.add('open', [0], 0, true);
+    //     frog.animations.add('closed', [1], 0, true);
+    //     if (flyCount < 1)
+    //     {
+    //     frog.scale.x = game.rnd.realInRange(.18, .18);
+    //     frog.scale.y = game.rnd.realInRange(.18, .18); 
+    //     }
+    //     else if (flyCount === 1)
+    //     {
+    //     frog.scale.x = game.rnd.realInRange(.21, .21);
+    //     frog.scale.y = game.rnd.realInRange(.21, .21);
+    //     }
+    //     else if (flyCount ===2)
+    //     {
+    //     frog.scale.x = game.rnd.realInRange(.24, .24);
+    //     frog.scale.y = game.rnd.realInRange(.24, .24);
+    //     }
+    //     else if (flyCount ===3)
+    //     {
+    //     frog.scale.x = game.rnd.realInRange(.27, .27);
+    //     frog.scale.y = game.rnd.realInRange(.27, .27);
+    //     }
+    //     water = game.add.image(-525, 625, 'water');
+    //     game.physics.arcade.enable(frog);
+    //     frog.body.bounce.y = 0.1;
+    //     frog.body.gravity.y = 1000;
+    //     frog.checkWorldBounds = true;
+    // }
 
-    function winFunc(){
-        fly.kill();
-        flyCount++;
-        console.log(flyCount);
+    // function winFunc(){
+    //     fly.kill();
+    //     flyCount++;
+    //     console.log(flyCount);
 
-        if (flyCount == 3)
-        {
-            if (frog.body.touching.down)
-            {
-                frog.body.velocity.y = -100;
-            }
-            frog.scale.setTo(.27,.27);
-            gulp2.play();
-            // timer.stop();
-            // timer2.stop();
-            finishTime = game.time.time - beginningTimeMS
-            sessionStorage.setItem("thirdLevelTime", finishTime);
-            setTimeout(function(){
-                yipee.play();
-            }, 500);
-            birdie.body.velocity.x = 0;
-            game.physics.arcade.accelerateToObject(birdie, frog, 75, 500, 500);
-            flap.play();
+    //     if (flyCount == 3)
+    //     {
+    //         if (frog.body.touching.down)
+    //         {
+    //             frog.body.velocity.y = -100;
+    //         }
+    //         frog.scale.setTo(.27,.27);
+    //         gulp2.play();
+    //         // timer.stop();
+    //         // timer2.stop();
+    //         finishTime = game.time.time - beginningTimeMS
+    //         sessionStorage.setItem("thirdLevelTime", finishTime);
+    //         setTimeout(function(){
+    //             yipee.play();
+    //         }, 500);
+    //         birdie.body.velocity.x = 0;
+    //         game.physics.arcade.accelerateToObject(birdie, frog, 75, 500, 500);
+    //         flap.play();
 
-            // var levelChange = function() {
-            // window.location.replace("http://reincarnage.herokuapp.com/level4")};
+    //         // var levelChange = function() {
+    //         // window.location.replace("http://reincarnage.herokuapp.com/level4")};
             
-            // var levelChange = function() {
-            // window.location.replace("http://localhost:3000/level4intro")};
+    //         // var levelChange = function() {
+    //         // window.location.replace("http://localhost:3000/level4intro")};
             
-            // var levelChange = function() {
-            // window.location.replace("http://localhost:3000/level3")};
+    //         // var levelChange = function() {
+    //         // window.location.replace("http://localhost:3000/level3")};
 
 
-            $('body').fadeOut(3800, function(){levelChange();});
-        }
-        else if (flyCount == 1)
-        {
-            if (frog.body.touching.down)
-            {
-                frog.body.velocity.y = -80;
-            }
-            frog.scale.setTo(.21,.21);
-            gulp1.play();
-            setTimeout(function(){
-                ribbit2.play();
-            }, 1100);
-            createFly(0, 490, 30, 0);
-            flap2.play();
-        }
-        else if (flyCount == 2)
-        {
-            frog.scale.setTo(.24,.24);
-            gulp2.play();
-            setTimeout(function(){
-                ribbit1.play();
-            }, 900);
-            createFly(750, 490, -30, 100);
-            flap2.play();
-        }
+    //         $('body').fadeOut(3800, function(){levelChange();});
+    //     }
+    //     else if (flyCount == 1)
+    //     {
+    //         if (frog.body.touching.down)
+    //         {
+    //             frog.body.velocity.y = -80;
+    //         }
+    //         frog.scale.setTo(.21,.21);
+    //         gulp1.play();
+    //         setTimeout(function(){
+    //             ribbit2.play();
+    //         }, 1100);
+    //         createFly(0, 490, 30, 0);
+    //         flap2.play();
+    //     }
+    //     else if (flyCount == 2)
+    //     {
+    //         frog.scale.setTo(.24,.24);
+    //         gulp2.play();
+    //         setTimeout(function(){
+    //             ribbit1.play();
+    //         }, 900);
+    //         createFly(750, 490, -30, 100);
+    //         flap2.play();
+    //     }
 
-    }
+    // }
 
     initiateAnimations = function(fowl)
     {
@@ -412,7 +415,7 @@
     }
 
     initiateAnimations(birdie);
-    initiateAnimations(fly);
+    // initiateAnimations(fly);
 
     if (enterKey.isDown)
     {

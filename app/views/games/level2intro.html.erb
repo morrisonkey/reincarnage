@@ -1,8 +1,10 @@
   <img class="picture logo" src="/images/logo2.png" />
   <img class="picture web" src="/images/cobweb.png" />
-  <img class="picture spider" src="/images/spider_with_web.png" />
+  <img class="picture spider2" src="/images/spider_with_web.png" />
   <img class="picture rock" src="/images/rock_2.png" />
   <img class="picture frog" src="/images/frog_mouth_open.png" />
+  <img class="info" src="/images/level2info.png" />
+  <img class="blurb" src="/images/level2blurb.png" />
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -421,36 +423,36 @@
     yipped = false
     weeTime = true
 
-    var logo = game.add.image(475, -20, 'logo');
-    logo.scale.x = game.rnd.realInRange(.26, .26);
-    logo.scale.y = game.rnd.realInRange(.26, .26);
+    // var logo = game.add.image(475, -20, 'logo');
+    // logo.scale.x = game.rnd.realInRange(.26, .26);
+    // logo.scale.y = game.rnd.realInRange(.26, .26);
 
-    game.add.text(50, 50, "LEVEL 2/4", { font: "75px Courier", fill: "RGBA(170, 201, 212, 1)"});
-    game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-    game.add.text(35, 200, "Drop down to the hungry frog's mouth.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 250, "But avoid the branches.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 300, "Your hairy feet will get stuck.", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(35, 420, "Controls:", { font: "48px OpenSans", fill: "#333333"});
-    game.add.text(255, 420, "Up, Down, Left, Right", { font: "48px OpenSans", fill: "blue"});
-    game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+    // game.add.text(50, 50, "LEVEL 2/4", { font: "75px Courier", fill: "RGBA(170, 201, 212, 1)"});
+    // game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+    // game.add.text(35, 200, "Drop down to the hungry frog's mouth.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 250, "But avoid the branches.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 300, "Your hairy feet will get stuck.", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(35, 420, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+    // game.add.text(255, 420, "Up, Down, Left, Right", { font: "48px OpenSans", fill: "blue"});
+    // game.add.text(35, 550, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
 
-    spider = game.add.sprite(800, 200, 'spider')
-    spider.scale.x = game.rnd.realInRange(.8, .8);
-    spider.scale.y = game.rnd.realInRange(.8, .8);
-    game.physics.arcade.enable(spider);
-    spider.body.collideWorldBounds = true;
+    // spider = game.add.sprite(800, 200, 'spider')
+    // spider.scale.x = game.rnd.realInRange(.8, .8);
+    // spider.scale.y = game.rnd.realInRange(.8, .8);
+    // game.physics.arcade.enable(spider);
+    // spider.body.collideWorldBounds = true;
 
-    frog = game.add.sprite(435, 500, 'frog');
-    game.physics.arcade.enable(frog);
-    frog.scale.x = game.rnd.realInRange(3, 3);
-    frog.scale.y = game.rnd.realInRange(3, 3);
+    // frog = game.add.sprite(435, 500, 'frog');
+    // game.physics.arcade.enable(frog);
+    // frog.scale.x = game.rnd.realInRange(3, 3);
+    // frog.scale.y = game.rnd.realInRange(3, 3);
     
-    frog.animations.add('open', [0], 0, true);
-    frog.animations.add('closed', [1], 0, true);
-    frog.animations.play('open');
+    // frog.animations.add('open', [0], 0, true);
+    // frog.animations.add('closed', [1], 0, true);
+    // frog.animations.play('open');
   }
 
 
@@ -501,69 +503,6 @@
        // $('body').fadeOut(3000, function(){levelChange();});
     }
 
-    if (spider.body.touching.down)
-    {
-        weeTime = true
-        if (touching === false)
-        {
-            grunt.play();
-            touching = true
-        }
-    spider.body.velocity.x = 0;
-    spider.body.velocity.y = 0;
-    frog.body.velocity.y = 0;
-    frogMouth.body.velocity.y = 0;
-    barrier1.body.velocity.y = 0;
-    branch1.body.velocity.y = 0;
-    barrier2.body.velocity.y = 0;
-    branch2.body.velocity.y = 0;
-    barrier3.body.velocity.y = 0;
-    branch3.body.velocity.y = 0;
-    barrier4.body.velocity.y = 0;
-    branch4.body.velocity.y = 0;
-    barrier5.body.velocity.y = 0;
-    branch5.body.velocity.y = 0;
-    barrier6.body.velocity.y = 0;
-    branch6.body.velocity.y = 0;
-    barrier7.body.velocity.y = 0;
-    branch7.body.velocity.y = 0;
-    barrier8.body.velocity.y = 0;
-    branch8.body.velocity.y = 0;
-    barrier9.body.velocity.y = 0;
-    branch9.body.velocity.y = 0;
-    barrier10.body.velocity.y = 0;
-    branch10.body.velocity.y = 0;
-    barrier11.body.velocity.y = 0;
-    branch11.body.velocity.y = 0;
-    barrier12.body.velocity.y = 0;
-    branch12.body.velocity.y = 0;
-    barrier13.body.velocity.y = 0;
-    branch13.body.velocity.y = 0;
-    barrier14.body.velocity.y = 0;
-    branch14.body.velocity.y = 0;
-    barrier15.body.velocity.y = 0;
-    branch15.body.velocity.y = 0;
-    barrier16.body.velocity.y = 0;
-    branch16.body.velocity.y = 0;
-    barrier17.body.velocity.y = 0;
-    branch17.body.velocity.y = 0;
-    barrier18.body.velocity.y = 0;
-    branch18.body.velocity.y = 0;
-    finishLine.body.velocity.y = 0;
-    // branch19.body.velocity.y = 0;
-    // branch20.body.velocity.y = 0;
-    // branch21.body.velocity.y = 0;
-    // branch22.body.velocity.y = 0;
-    // branch23.body.velocity.y = 0;
-    // branch24.body.velocity.y = 0;
-    }
-    else {
-        touching = false
-        if (weeTime === true)
-        {
-            wee.play();
-            weeTime = false
-        }
         barrier1.body.velocity.y = -250;
         branch1.body.velocity.y = -250;
         barrier2.body.velocity.y = -250;
@@ -600,15 +539,7 @@
         branch17.body.velocity.y = -350;
         barrier18.body.velocity.y = -350;
         branch18.body.velocity.y = -350;
-        finishLine.body.velocity.y = -350;
-        // branch19.body.velocity.y = -450;
-        // branch20.body.velocity.y = -450;
-        // branch21.body.velocity.y = -450;
-        // branch22.body.velocity.y = -450;
-        // branch23.body.velocity.y = -450;
-        // branch24.body.velocity.y = -450;  
-    }
-    
+
     if (enterKey.isDown)
     {
 

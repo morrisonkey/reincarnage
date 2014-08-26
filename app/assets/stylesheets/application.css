@@ -22,7 +22,23 @@
    height: 600px;
 }
 
+.info {
+   display: block;
+   position: absolute;
+   margin-top: 100px;
+   margin-left: 230px;
+}
+
+.blurb {
+   z-index: 1;
+   display: block;
+   position: absolute;
+   margin-top: 25px;
+   margin-left: 650px;
+}
+
 .picture {
+   z-index: 1;
    display: block;
    position: absolute;
 }
@@ -36,10 +52,17 @@
 .web {
    margin-top: -10px;
    margin-left: -10px;
-   width: 400px;
+   width: 270px;
 }
 
 .spider {
+   z-index: 2;
+   margin-top: -90px;
+   margin-left: 130px;
+   width: 150px;
+}
+
+.spider2 {
    z-index: 2;
    margin-top: -10px;
    margin-left: 73px;
@@ -59,6 +82,12 @@
    width: 350px;
 }
 
+.fly {
+   z-index: -1;
+   margin-top: 355px;
+   margin-left: 110px;
+}
+
 .bird {
    margin-top: 10px;
    margin-left: 960px;
@@ -66,9 +95,9 @@
 }
 
 .bird1 {
-   margin-top: 60px;
-   margin-left: 940px;
-   width: 350px;
+   margin-top: -15px;
+   margin-left: 945px;
+   width: 250px;
 }
 
 .crosshair {

@@ -1,8 +1,9 @@
   <img class="picture logo" src="/images/logo2.png" />
-  <img class="picture web" src="/images/cobweb.png" />
   <img class="picture spider" src="/images/spider_with_web.png" />
   <img class="picture beetle" src="/images/bug_single.png" />
   <img class="picture branch" src="/images/branch_1.png" />
+  <img class="info" src="/images/level1info.png" />
+  <img class="blurb" src="/images/level1blurb.png" />
 <div class="game_container">
     <script type="text/javascript">
 
@@ -62,15 +63,15 @@
         game.load.image('acorn5', '/images/acorn_5.png');
         game.load.image('acorn6', '/images/acorn_6.png');
         // animals
-        game.load.image('spider', '/images/spider_bigger_face.png');
+        // game.load.image('spider', '/images/spider_bigger_face.png');
         game.load.spritesheet('fly', '/images/Tiny_flies_sheet.png', 19, 18);
-        game.load.spritesheet('beetle', '/images/bug_sprite.png', 95.2, 124);
+        // game.load.spritesheet('beetle', '/images/bug_sprite.png', 95.2, 124);
     }
 
     var platforms;
     var acorns;
     var acorn2;
-    var spider;
+    // var spider;
     var jump;
     var yipee;
     var yipped;
@@ -111,12 +112,12 @@
         platforms = game.add.group();
         platforms.enableBody = true;
 
-        spider = game.add.sprite(90, -30, 'spider');
-        game.physics.arcade.enable(spider);
-        spider.enableBody = true;
-        spider.scale.x = game.rnd.realInRange(.55, .55);
-        spider.scale.y = game.rnd.realInRange(.55, .55);
-        spider.body.immovable = true;
+        // spider = game.add.sprite(90, -30, 'spider');
+        // game.physics.arcade.enable(spider);
+        // spider.enableBody = true;
+        // spider.scale.x = game.rnd.realInRange(.55, .55);
+        // spider.scale.y = game.rnd.realInRange(.55, .55);
+        // spider.body.immovable = true;
         
         function createBranch(x, y, image, size) {
             branch = game.add.image(x, y, image);
@@ -203,27 +204,27 @@
 
             enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
-            var logo = game.add.image(475, -20, 'logo');
-            logo.scale.x = game.rnd.realInRange(.26, .26);
-            logo.scale.y = game.rnd.realInRange(.26, .26);
+            // var logo = game.add.image(475, -20, 'logo');
+            // logo.scale.x = game.rnd.realInRange(.26, .26);
+            // logo.scale.y = game.rnd.realInRange(.26, .26);
 
-            game.add.text(50, 50, "LEVEL 1/4", { font: "75px Courier", fill: "RGBA(170, 201, 212, 1)"});
-            game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-            game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-            game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-            game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-            game.add.text(0, -1340, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
-            game.add.text(35, 185, "Get eaten by higher lifeforms and work your way up", { font: "35px OpenSans", fill: "#333333"});
-            game.add.text(35, 230, "the food chain through instant reincarnation.", { font: "35px OpenSans", fill: "#333333"});
-            game.add.text(35, 350, "Dodge the acorns and happily make your way", { font: "48px OpenSans", fill: "#333333"});
-            game.add.text(35, 400, "up the branches and into the spider's mouth.", { font: "48px OpenSans", fill: "#333333"});
-            game.add.text(35, 550, "Controls:", { font: "48px OpenSans", fill: "#333333"});
-            game.add.text(255, 550, "Left, Right, SPACEBAR for Jump", { font: "48px OpenSans", fill: "blue"});
-            game.add.text(35, 650, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
-            beetle = game.add.sprite(800, 665, 'beetle')
-            beetle.scale.x = game.rnd.realInRange(.75, .75);
-            beetle.scale.y = game.rnd.realInRange(.75, .75);
-            game.physics.arcade.enable(beetle);
+            // game.add.text(50, 50, "LEVEL 1/4", { font: "75px Courier", fill: "RGBA(170, 201, 212, 1)"});
+            // game.add.text(0, -1820, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+            // game.add.text(0, -1700, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+            // game.add.text(0, -1580, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+            // game.add.text(0, -1460, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+            // game.add.text(0, -1340, "_", { font: "1900px Arial", fill: "RGBA(170, 201, 212, .8)"});
+            // game.add.text(35, 185, "Get eaten by higher lifeforms and work your way up", { font: "35px OpenSans", fill: "#333333"});
+            // game.add.text(35, 230, "the food chain through instant reincarnation.", { font: "35px OpenSans", fill: "#333333"});
+            // game.add.text(35, 350, "Dodge the acorns and happily make your way", { font: "48px OpenSans", fill: "#333333"});
+            // game.add.text(35, 400, "up the branches and into the spider's mouth.", { font: "48px OpenSans", fill: "#333333"});
+            // game.add.text(35, 550, "Controls:", { font: "48px OpenSans", fill: "#333333"});
+            // game.add.text(255, 550, "Left, Right, SPACEBAR for Jump", { font: "48px OpenSans", fill: "blue"});
+            // game.add.text(35, 650, "Press [Enter] to begin.", { font: "32px OpenSans", fill: "purple"});
+            // beetle = game.add.sprite(800, 665, 'beetle')
+            // beetle.scale.x = game.rnd.realInRange(.75, .75);
+            // beetle.scale.y = game.rnd.realInRange(.75, .75);
+            // game.physics.arcade.enable(beetle);
     }
 
 
@@ -232,7 +233,7 @@
 
 
 
-        game.physics.arcade.collide(beetle, platforms);
+        // game.physics.arcade.collide(beetle, platforms);
         game.physics.arcade.collide(acorn, platforms);
 
         if (enterKey.isDown)
