@@ -13,7 +13,7 @@ function preload(){
 
     // level 4 sounds
 
-    game.load.audio('gunshot', '/sounds/gunshot.mp3');
+    // game.load.audio('gunshot', '/sounds/gunshot.mp3');
     game.load.audio('flockSound', '/sounds/geese loop.mp3');
     game.load.audio('splash', '/sounds/surfbort_short.mp3');
     game.load.audio('yipee', '/sounds/yipee.mp3');
@@ -50,7 +50,7 @@ var birdFriend3;
 var birdFriend4;
 var birdFriend5;
 var birdFriend6;
-var gunshot;
+// var gunshot;
 var hairsight;
 // var timer;
 // var timer2;
@@ -60,7 +60,7 @@ var total2 = 0;
 
 function create(){
 
-    gunshot = game.add.audio('gunshot');
+    // gunshot = game.add.audio('gunshot');
     flockSound = game.add.audio('flockSound');
     splash = game.add.audio('splash');
     yipee = game.add.audio('yipee');
@@ -347,7 +347,7 @@ fire = setInterval(function()
     hairsight.enableBody = false;
     game.physics.arcade.enable(hairsight);
     // crosshair.enableBody = true;
-    gunshot.play();
+    // gunshot.play();
     game.physics.arcade.overlap(birdFriend1, hairsight, birdFriend1Dead, null, this);
     game.physics.arcade.overlap(birdFriend2, hairsight, birdFriend2Dead, null, this);
     game.physics.arcade.overlap(birdFriend3, hairsight, birdFriend3Dead, null, this);

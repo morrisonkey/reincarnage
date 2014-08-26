@@ -445,11 +445,8 @@ function winFunc()
 
     setTimeout(function(){
         gameOver = true
-        var logo = game.add.image(475, -20, 'logo');
-        logo.scale.x = game.rnd.realInRange(.26, .26);
-        logo.scale.y = game.rnd.realInRange(.26, .26);
-        game.add.text(385, 280, 'Your Game Time:', { font: "19px OpenSans", fill: "black"});
-        game.add.text(540, 265, sessionStorage.getItem("totalTime") + 's', { font: "36px OpenSans", fill: "black"});
+        game.add.text(385, 350, 'Your Game Time:', { font: "19px OpenSans", fill: "RGBA(170, 201, 212, 1)"});
+        game.add.text(540, 335, sessionStorage.getItem("totalTime") + 's', { font: "36px OpenSans", fill: "RGBA(170, 201, 212, 1)"});
         $("#dialog").dialog("open");
     }, 2000)
 

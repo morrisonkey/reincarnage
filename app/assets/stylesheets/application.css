@@ -44,7 +44,7 @@
 }
 
 .logo {
-   margin-top: 575px;
+   margin-top: 555px;
    margin-left: 320px;
    width: 600px;
 }
@@ -102,8 +102,8 @@
 }
 
 .bird1 {
-   margin-top: -15px;
-   margin-left: 945px;
+   margin-top: 300px;
+   margin-left: 620px;
    width: 250px;
 }
 
@@ -111,6 +111,19 @@
    z-index: 2;
    margin-top: 85px;
    margin-left: 1000px;
+   width: 200px;
+}
+
+.bird-home {
+   margin-top: 100px;
+   margin-left: 910px;
+   width: 300px;
+}
+
+.crosshair-home {
+   z-index: 2;
+   margin-top: 175px;
+   margin-left: 950px;
    width: 200px;
 }
 
@@ -123,6 +136,18 @@
 .branch {
    margin-top: 400px;
    margin-left: 900px;
+   width: 500px;
+}
+
+.beetle1 {
+   z-index: 2;
+   margin-top: 545px;
+   margin-left: 820px;
+}
+
+.branch1 {
+   margin-top: 560px;
+   margin-left: 800px;
    width: 500px;
 }
 

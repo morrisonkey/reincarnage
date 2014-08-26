@@ -513,8 +513,12 @@
 
   function render(){
         // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
-        game.debug.text('TIME: ' + ((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 850, 20);
-        game.debug.text('FLIES: ' + flyCount + ' of 3', 850, 40);
+        game.debug.text(((game.time.time / 1000) - beginningTimeSeconds).toFixed(1) + 's', 900, 30);
+        var timeDisplay = game.add.text(830, 10, "Time:", { font: "20px Monaco", fill: "RGBA(255, 255, 254, 1)"});
+        timeDisplay.setShadow(1.5,1.5, 'rgba(0,0,0,1)', 0);
+        game.debug.text(flyCount + ' of 3', 900, 55);
+        var timeDisplay = game.add.text(820, 35, "Flies:", { font: "20px Monaco", fill: "RGBA(255, 255, 254, 1)"});
+        timeDisplay.setShadow(1.5,1.5, 'rgba(0,0,0,1)', 0);
   }
 
 $(function(){
