@@ -11,7 +11,7 @@
 <div id="mask-div" class="mask">
 </div>
 <div id="best-times">
-  <h1>BEST TIMES</h1>
+  <h1 style="font-family: courier">BEST TIMES</h1>
   <p>[scroll down for all]</p>
   <hr>
 
@@ -22,8 +22,10 @@
   <% end %>
   <% end %>
 </div>
-<!-- <div id='scores'>
-</div> -->
+<div id='start'>
+  <h1>Press Enter</h1>
+  <h1>to Begin</h1>
+</div>
 <script type="text/javascript">
 
   var game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
@@ -45,7 +47,6 @@
     // text
     // game.load.image('logo', '/images/logo2.png');
     game.load.spritesheet('arrow', '/images/ArrowSprite.png', 200, 400);
-    game.load.spritesheet('start', '/images/start courier.png', 708.5, 236);
     game.load.spritesheet('highScore', '/images/high score courier copy.png', 1063, 236);
 
     //background
@@ -102,6 +103,7 @@
     laugh = game.add.audio('laugh');
     beHappy = game.add.audio('beHappy');
     tick = game.add.audio('tick');
+    enter = new Text(game, 100, 100, "Press Enter to Start", "font-style: courier")
 
     playMusic = function(){
     beHappy.play();
@@ -182,9 +184,6 @@
     arrow = game.add.sprite(493, 290, 'arrow');
     arrow.scale.x = game.rnd.realInRange(.3, .3);
     arrow.scale.y = game.rnd.realInRange(.3, .3);
-    var start = game.add.sprite(555, 255, 'start');
-    start.scale.x = game.rnd.realInRange(.402, .402);
-    start.scale.y = game.rnd.realInRange(.402, .402);
     // var highScore = game.add.sprite(570, 235, 'highScore');
     // highScore.scale.x = game.rnd.realInRange(.4, .4);
     // highScore.scale.y = game.rnd.realInRange(.4, .4);

@@ -147,6 +147,11 @@ div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
   margin: 0 auto;
 }
 
-/*.player-s {
-  float: right;
-}*/
+#start {
+  font-family: courier;
+  position: absolute;
+  z-index: 1000;
+  margin-left: 685px;
+  margin-top: 202px;
+  line-height: 1em;
+}
